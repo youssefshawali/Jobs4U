@@ -24,12 +24,12 @@ public class UniversityController {
 	
 	@GetMapping("/")
 	public List<University> getAllUniversitys(){
-		return universityService.getAllUniversitys();
+		return universityService.getAllUniversities();
 	}
 	
 	@GetMapping("/{id}")
 	public University getUniversity(@PathVariable int id) {
-		return universityService.findUniversityById(id);
+		return universityService.getUniversityById(id);
 	}
 	
 	@PostMapping("/")

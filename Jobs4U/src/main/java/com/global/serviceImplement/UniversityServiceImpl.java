@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.global.Entity.Qualification;
 import com.global.Entity.University;
-import com.global.Services.UniversityServise;
+import com.global.Services.UniversityService;
 import com.global.Repository.UniversityRepo;
 @Service
-public class UniversityServiceImpl implements UniversityServise {
+public class UniversityServiceImpl implements UniversityService {
 
 	@Autowired
 	private UniversityRepo UniversityRepo;
 	@Override
-	public List<University> getAllUniversitys() {
+	public List<University> getAllUniversities() {
 		// TODO Auto-generated method stub
 		return UniversityRepo.findAll();
 	}

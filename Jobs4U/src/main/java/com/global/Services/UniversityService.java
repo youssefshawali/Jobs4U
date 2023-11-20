@@ -6,7 +6,7 @@ import com.global.Entity.University;
 
 public interface UniversityService {
 	
-List<University> getAllUniversitys();
+List<University> getAllUniversities();
 	
 University insertUniversity(University University);
 	
