@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.University;
+import com.global.Services.UniversityService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/university")
+public class UniversityController {
 
 	@Autowired
-	private UserService userService;
+	private UniversityService universityService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<University> getAllUniversitys(){
+		return universityService.getAllUniversitys();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public University getUniversity(@PathVariable int id) {
+		return universityService.findUniversityById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public University saveUniversity (@RequestBody University university) {
+		return universityService.insertUniversity(university);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public University updateUniversity (@RequestBody University university) {
+		return universityService.updateUniversity(university);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteUniversity(@PathVariable int id) {
+		universityService.deleteUniversity(id);
 	}
 }

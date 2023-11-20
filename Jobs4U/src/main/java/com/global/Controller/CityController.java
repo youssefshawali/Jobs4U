@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.City;
+import com.global.Services.CityService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/city")
+public class CityController {
 
 	@Autowired
-	private UserService userService;
+	private CityService cityService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<City> getAllCities(){
+		return cityService.getAllCities();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public City getCity(@PathVariable int id) {
+		return cityService.getCityById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public City saveCity (@RequestBody City city) {
+		return cityService.insertCity(city);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public City updateCity (@RequestBody City city) {
+		return cityService.updateCity(city);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteCity(@PathVariable int id) {
+		cityService.deleteCity(id);
 	}
 }
