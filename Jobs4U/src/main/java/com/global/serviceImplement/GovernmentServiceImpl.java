@@ -18,7 +18,7 @@ public class GovernmentServiceImpl implements GovernmentService {
 	private GovernmentRepo governmentRepo;
 
 	@Override
-	public List<Government> getAllGovernment() {
+	public List<Government> getAllGovernments() {
 		// TODO Auto-generated method stub
 		return governmentRepo.findAll();
 	}

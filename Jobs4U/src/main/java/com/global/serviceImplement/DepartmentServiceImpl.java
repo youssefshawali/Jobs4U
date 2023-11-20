@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department InsertDepartment(Department Department) {
+	public Department insertDepartment(Department Department) {
 		// TODO Auto-generated method stub
 		return departmentRepo.save(Department);
 	}
@@ -47,7 +47,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department getDepartment(int id) {
+	public Department getDepartmentById(int id) {
 		// TODO Auto-generated method stub
 		Optional<Department> Department = departmentRepo.findById(id);
 		if(Department.isPresent()) {

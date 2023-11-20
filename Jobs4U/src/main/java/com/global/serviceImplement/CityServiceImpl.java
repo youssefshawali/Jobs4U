@@ -16,7 +16,7 @@ public class CityServiceImpl implements CityService{
 	@Autowired
 	private CityRepo cityRepo;
 	@Override
-	public List<City> getAllCitys() {
+	public List<City> getAllCities() {
 		// TODO Auto-generated method stub
 		return cityRepo.findAll();
 	}

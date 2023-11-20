@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public User findUserById(int id) {
+	public User getUserById(int id) {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepo.findById(id);
 		if(user.isPresent()) {

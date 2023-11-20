@@ -18,7 +18,7 @@ public class IndustryServiceImpl implements IndustryService {
 	private IndustryRepo industryRepo;
 
 	@Override
-	public List<Industry> getAllIndustrys() {
+	public List<Industry> getAllIndustries() {
 		// TODO Auto-generated method stub
 		return industryRepo.findAll();
 	}

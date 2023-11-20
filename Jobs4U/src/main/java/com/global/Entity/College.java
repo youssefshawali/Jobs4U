@@ -27,7 +27,7 @@ public class College {
 	}
 	public College(int id, String name) {
 		super();
-		Id = id;
+		id = id;
 		this.name = name;
 	}
 	public College() {

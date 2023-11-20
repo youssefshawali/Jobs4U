@@ -16,7 +16,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CompanyRepo companyRepo;
 	@Override
-	public List<Company> getAllCompanys() {
+	public List<Company> getAllCompanies() {
 		// TODO Auto-generated method stub
 		return companyRepo.findAll();
 	}
@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Company findCompanyById(int id) {
+	public Company getCompanyById(int id) {
 		// TODO Auto-generated method stub
 		Optional<Company> Company = companyRepo.findById(id);
 		if(Company.isPresent()) {

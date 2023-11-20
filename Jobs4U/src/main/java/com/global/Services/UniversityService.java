@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.global.Entity.University;
 
-public interface UniversityServise {
+public interface UniversityService {
 	
 List<University> getAllUniversitys();
 	

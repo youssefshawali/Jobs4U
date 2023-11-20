@@ -17,7 +17,7 @@ public class QualificationServiceImpl implements QualificationService{
 	private QualificationRepo QualificationRepo;
 
 	@Override
-	public List<com.global.Entity.Qualification> getAllQualification() {
+	public List<com.global.Entity.Qualification> getAllQualifications() {
 		// TODO Auto-generated method stub
 		return QualificationRepo.findAll();
 	}
@@ -45,7 +45,7 @@ public class QualificationServiceImpl implements QualificationService{
 	}
 
 	@Override
-	public Qualification findQualificationById(int id) {
+	public Qualification getQualificationById(int id) {
 		// TODO Auto-generated method stub
 		Optional<Qualification> Qualification = QualificationRepo.findById(id);
 		if(Qualification.isPresent()) {

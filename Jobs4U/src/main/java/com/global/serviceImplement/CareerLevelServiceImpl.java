@@ -17,7 +17,7 @@ public class CareerLevelServiceImpl implements CareerLevelService{
 	@Autowired
 	private CareerLevelRepo careerLevelRepo;
 	@Override
-	public List<CareerLevel> getCareerLevels() {
+	public List<CareerLevel> getAllCareerLevels() {
 		// TODO Auto-generated method stub
 		return careerLevelRepo.findAll();
 	}
@@ -29,7 +29,7 @@ public class CareerLevelServiceImpl implements CareerLevelService{
 	}
 
 	@Override
-	public CareerLevel updateJob(CareerLevel CareerLevel) {
+	public CareerLevel updateCareerLevel(CareerLevel CareerLevel) {
 		// TODO Auto-generated method stub
 		CareerLevel current = careerLevelRepo.findById(CareerLevel.getId()).orElseThrow();
 
