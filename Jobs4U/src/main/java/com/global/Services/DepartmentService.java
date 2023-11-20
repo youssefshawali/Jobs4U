@@ -13,7 +13,7 @@ public interface DepartmentService {
 	
 	Department updateDepartment (Department Department);
 	
-	void deleteDepartment(Long id);
+	void deleteDepartment(int id);
 	
-	Department getDepartment(Long id);
+	Department getDepartment(int id);
 }
