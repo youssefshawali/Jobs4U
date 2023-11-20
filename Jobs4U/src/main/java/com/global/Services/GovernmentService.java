@@ -2,17 +2,18 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.Government;
+
 
 public interface GovernmentService {
 
-	List<User> getAllUsers();
+List<Government> getAllGovernment();
 	
-	User saveUser(User user);
+Government insertGovernment(Government Government);
 	
-	User updateUser (Long id,User user);
+Government updateGovernment(Government Government);
 	
-	void deleteUser(Long id);
+	void deleteGovernment(int id);
 	
-	User getUser(Long id);
+	Government getGovernmentById(int id);
 }

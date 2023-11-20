@@ -2,17 +2,18 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.Industry;
+
 
 public interface IndustryService {
-
-	List<User> getAllUsers();
 	
-	User saveUser(User user);
+List<Industry> getAllIndustrys();
 	
-	User updateUser (Long id,User user);
+Industry insertIndustry(Industry Industry);
 	
-	void deleteUser(Long id);
+Industry updateIndustry (Industry Industry);
 	
-	User getUser(Long id);
+	void deleteIndustry(int id);
+	
+	Industry getIndustryById(int id);
 }

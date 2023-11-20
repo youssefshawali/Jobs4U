@@ -2,17 +2,18 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.Department;
+
 
 public interface DepartmentService {
 
-	List<User> getAllUsers();
+	List<Department> getAllDepartments();
 	
-	User saveUser(User user);
+	Department InsertDepartment(Department Department);
 	
-	User updateUser (Long id,User user);
+	Department updateDepartment (Department Department);
 	
-	void deleteUser(Long id);
+	void deleteDepartment(Long id);
 	
-	User getUser(Long id);
+	Department getDepartment(Long id);
 }

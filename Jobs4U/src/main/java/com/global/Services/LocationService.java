@@ -2,17 +2,18 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.Location;
+
 
 public interface LocationService {
 
-	List<User> getAllUsers();
+	List<Location> getAllLocations();
 	
-	User saveUser(User user);
+	Location insertLocation(Location Location);
 	
-	User updateUser (Long id,User user);
+	Location updateLocation (Location Location);
 	
-	void deleteUser(Long id);
+	void deleteLocation(int id);
 	
-	User getUser(Long id);
+	Location getLocationById(int id);
 }

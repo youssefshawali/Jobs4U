@@ -2,17 +2,18 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.Company;
+
 
 public interface CompanyService {
 
-	List<User> getAllUsers();
+	List<Company> getAllCompanys();
 	
-	User saveUser(User user);
+	Company insertCompany(Company Company);
 	
-	User updateUser (Long id,User user);
+	Company updateCompany (Company Company);
 	
-	void deleteUser(Long id);
+	void deleteCompany(int id);
 	
-	User getUser(Long id);
+	Company findCompanyById(int id);
 }

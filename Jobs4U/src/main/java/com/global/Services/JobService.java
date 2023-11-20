@@ -2,17 +2,18 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.Job;
+
 
 public interface JobService {
 
-	List<User> getAllUsers();
-	
-	User saveUser(User user);
-	
-	User updateUser (Long id,User user);
-	
-	void deleteUser(Long id);
-	
-	User getUser(Long id);
+	List<Job> getAllJobs();
+		
+	Job insertJob(Job Job);
+		
+	Job updateJob (Job Job);
+		
+	void deleteJob(int id);
+		
+	Job getJobById(int id);
 }

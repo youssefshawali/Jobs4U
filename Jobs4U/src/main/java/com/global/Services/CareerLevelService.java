@@ -2,18 +2,19 @@ package com.global.Services;
 
 import java.util.List;
 
-import com.global.Entity.User;
+import com.global.Entity.CareerLevel;
+
 
 public interface CareerLevelService {
-
-	List<User> getAllUsers();
 	
-	User saveUser(User user);
+	List<CareerLevel> getCareerLevels();
 	
-	User updateUser (Long id,User user);
-	
-	void deleteUser(Long id);
-	
-	User getUser(Long id);
+	CareerLevel insertCareerLevel(CareerLevel CareerLevel);
+		
+	CareerLevel updateJob (CareerLevel CareerLevel);
+		
+	void deleteCareerLevel(int id);
+		
+	CareerLevel getCareerLevelById(int id);
 
 }

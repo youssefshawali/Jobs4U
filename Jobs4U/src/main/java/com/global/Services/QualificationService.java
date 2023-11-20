@@ -2,16 +2,20 @@ package com.global.Services;
 
 import java.util.List;
 
+import com.global.Entity.Qualification;
+
+
 
 public interface QualificationService {
 
-	List<Qualif> getAllUsers();
 	
-	User saveUser(User user);
+	List<Qualification> getAllQualification();
 	
-	User updateUser (Long id,User user);
+	Qualification insertQualification(Qualification Qualification);
 	
-	void deleteUser(Long id);
+	Qualification updateQualification (Qualification Qualification);
 	
-	User getUser(Long id);
+	void deleteQualification(int id);
+	
+	Qualification findQualificationById(int id);
 }
