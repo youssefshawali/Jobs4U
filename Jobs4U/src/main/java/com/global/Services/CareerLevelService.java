@@ -11,7 +11,7 @@ public interface CareerLevelService {
 	
 	CareerLevel insertCareerLevel(CareerLevel CareerLevel);
 		
-	CareerLevel updateJob (CareerLevel CareerLevel);
+	CareerLevel updateCareerLevel (CareerLevel CareerLevel);
 		
 	void deleteCareerLevel(int id);
 		

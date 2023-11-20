@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.global.Entity.User;
 import com.global.Repository.UserRepo;
 import com.global.Services.UserService;
-
+@Service
 public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepo userRepo;
