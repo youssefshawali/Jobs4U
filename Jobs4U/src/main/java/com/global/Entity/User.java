@@ -58,7 +58,7 @@ public class User {
 	
 	public User(int id, String fname, String lname, String email, String password, int age, BufferedImage profilePic) {
 		super();
-		Id = id;
+		id = id;
 		fname = fname;
 		lname = lname;
 		email = email;
