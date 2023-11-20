@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.global.Entity.User;
 import com.global.Repository.UserRepo;
 import com.global.Services.UserService;
+
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired
@@ -57,7 +58,9 @@ public class UserServiceImpl implements UserService{
 		if(user.isPresent()) {
 			return user.get();
 		}
-		throw new RuntimeException("User Not Fond");	}
+		throw new RuntimeException("User Not Fond");
+		
+	}
 
 
 	
