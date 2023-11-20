@@ -1,13 +1,16 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.global.Entity.User;
 import com.global.Repository.UserRepo;
 import com.global.Services.UserService;
 
 public class UserServiceImpl implements UserService{
-	
+	@Autowired
 	private UserRepo userRepo;
 	
 	@Override
@@ -16,28 +19,46 @@ public class UserServiceImpl implements UserService{
 		return userRepo.findAll();
 	}
 
+	
 	@Override
-	public User saveUser(User user) {
+	public void deleteUser(int id) {
+		// TODO Auto-generated method stub
+		userRepo.deleteById(id);
+	}
+
+
+	@Override
+	public User insertUser(User user) {
 		// TODO Auto-generated method stub
 		return userRepo.save(user);
 	}
 
 	@Override
-	public User updateUser(Long id, User user) {
+	public User updateUser(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		User current = userRepo.findById(user.getId()).orElseThrow();
+
+		current.setFname(user.getFname());
+		current.setLname(user.getLname());
+		current.setEmail(user.getEmail());
+		current.setPassword(user.getPassword());
+		current.setAge(user.getAge());
+
+		return userRepo.save(current);
 	}
 
-	@Override
-	public void deleteUser(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
-	public User getUser(Long id) {
+	public User findUserById(int id) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		Optional<User> user = userRepo.findById(id);
+		if(user.isPresent()) {
+			return user.get();
+		}
+		throw new RuntimeException("User Not Fond");	}
+
+
+	
 
 }
