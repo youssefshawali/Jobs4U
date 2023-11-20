@@ -18,6 +18,12 @@ public class Location {
 	public double getLatitude() {
 		return Latitude;
 	}
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
 	public void setLatitude(double latitude) {
 		Latitude = latitude;
 	}
