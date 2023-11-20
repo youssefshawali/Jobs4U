@@ -9,7 +9,7 @@ import com.global.Entity.Qualification;
 public interface QualificationService {
 
 	
-	List<Qualification> getAllQualification();
+	List<Qualification> getAllQualifications();
 	
 	Qualification insertQualification(Qualification Qualification);
 	
@@ -17,5 +17,5 @@ public interface QualificationService {
 	
 	void deleteQualification(int id);
 	
-	Qualification findQualificationById(int id);
+	Qualification getQualificationById(int id);
 }

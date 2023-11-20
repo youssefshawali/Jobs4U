@@ -7,7 +7,7 @@ import com.global.Entity.Company;
 
 public interface CompanyService {
 
-	List<Company> getAllCompanys();
+	List<Company> getAllCompanies();
 	
 	Company insertCompany(Company Company);
 	
