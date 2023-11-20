@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.Location;
+import com.global.Services.LocationService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/location")
+public class LocationController {
 
 	@Autowired
-	private UserService userService;
+	private LocationService locationService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<Location> getAllLocations(){
+		return locationService.getAllLocations();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Location getLocation(@PathVariable int id) {
+		return locationService.getLocationById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public Location saveLocation (@RequestBody Location location) {
+		return locationService.insertLocation(location);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Location updateLocation (@RequestBody Location location) {
+		return locationService.updateLocation(location);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteLocation(@PathVariable int id) {
+		locationService.deleteLocation(id);
 	}
 }

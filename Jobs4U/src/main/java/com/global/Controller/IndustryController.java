@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.Industry;
+import com.global.Services.IndustryService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/industry")
+public class IndustryController {
 
 	@Autowired
-	private UserService userService;
+	private IndustryService industryService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<Industry> getAllIndustries(){
+		return industryService.getAllIndustries();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Industry getIndustry(@PathVariable int id) {
+		return industryService.getIndustryById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public Industry saveIndustry (@RequestBody Industry industry) {
+		return industryService.insertIndustry(industry);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Industry updateIndustry (@RequestBody Industry industry) {
+		return industryService.updateIndustry(industry);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteIndustry(@PathVariable int id) {
+		industryService.deleteIndustry(id);
 	}
 }

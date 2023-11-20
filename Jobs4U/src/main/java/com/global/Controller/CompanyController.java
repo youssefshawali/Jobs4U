@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.Company;
+import com.global.Services.CompanyService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/company")
+public class CompanyController {
 
 	@Autowired
-	private UserService userService;
+	private CompanyService companyService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<Company> getAllCompanies(){
+		return companyService.getAllCompanies();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Company getCompany(@PathVariable int id) {
+		return companyService.getCompanyById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public Company saveCompany (@RequestBody Company company) {
+		return companyService.insertCompany(company);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Company updateCompany (@RequestBody Company company) {
+		return companyService.updateCompany(company);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteCompany(@PathVariable int id) {
+		companyService.deleteCompany(id);
 	}
 }

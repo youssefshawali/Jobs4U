@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.Government;
+import com.global.Services.GovernmentService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/government")
+public class GovernmentController {
 
 	@Autowired
-	private UserService userService;
+	private GovernmentService governmentService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<Government> getAllGovernments(){
+		return governmentService.getAllGovernments();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Government getGovernment(@PathVariable int id) {
+		return governmentService.getGovernmentById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public Government saveGovernment (@RequestBody Government government) {
+		return governmentService.insertGovernment(government);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Government updateGovernment (@RequestBody Government government) {
+		return governmentService.updateGovernment(government);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteGovernment(@PathVariable int id) {
+		governmentService.deleteGovernment(id);
 	}
 }

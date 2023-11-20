@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.Job;
+import com.global.Services.JobService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/job")
+public class JobController {
 
 	@Autowired
-	private UserService userService;
+	private JobService jobService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<Job> getAllJobs(){
+		return jobService.getAllJobs();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Job getJob(@PathVariable int id) {
+		return jobService.getJobById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public Job saveJob (@RequestBody Job job) {
+		return jobService.insertJob(job);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Job updateJob (@RequestBody Job job) {
+		return jobService.updateJob(job);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteJob(@PathVariable int id) {
+		jobService.deleteJob(id);
 	}
 }

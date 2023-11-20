@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.Entity.User;
-import com.global.Services.UserService;
+import com.global.Entity.Skill;
+import com.global.Services.SkillService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/skill")
+public class SkillController {
 
 	@Autowired
-	private UserService userService;
+	private SkillService skillService;
 	
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public List<Skill> getAllSkills(){
+		return skillService.getAllSkills();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Skill getSkill(@PathVariable int id) {
+		return skillService.getSkillById(id);
 	}
 	
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public Skill saveSkill (@RequestBody Skill skill) {
+		return skillService.insertSkill(skill);
 	}
 	
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Skill updateSkill (@RequestBody Skill skill) {
+		return skillService.updateSkill(skill);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public void deleteSkill(@PathVariable int id) {
+		skillService.deleteSkill(id);
 	}
 }
