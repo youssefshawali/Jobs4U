@@ -12,24 +12,24 @@ public class Skill {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	private String Name;
+	private int id;
+	private String name;
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		name = name;
 	}
 	public Skill(int id, String name) {
 		super();
-		Id = id;
-		Name = name;
+		id = id;
+		name = name;
 	}
 	public Skill() {
 		super();

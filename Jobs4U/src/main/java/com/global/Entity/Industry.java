@@ -12,24 +12,24 @@ public class Industry {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	private String Type;
+	private int id;
+	private String type;
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getType() {
-		return Type;
+		return type;
 	}
 	public void setType(String type) {
-		Type = type;
+		type = type;
 	}
 	public Industry(int id, String type) {
 		super();
-		Id = id;
-		Type = type;
+		id = id;
+		type = type;
 	}
 	public Industry() {
 		super();

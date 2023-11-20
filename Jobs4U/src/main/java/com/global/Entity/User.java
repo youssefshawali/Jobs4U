@@ -12,58 +12,58 @@ import jakarta.persistence.Table;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int Id;
-	private String Fname;
-	private String Lname;
-	private String Email;
-	private String Password;
-	private int Age;
+	private int id;
+	private String fname;
+	private String lname;
+	private String email;
+	private String password;
+	private int age;
 	//private BufferedImage ProfilePic;
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getFname() {
-		return Fname;
+		return fname;
 	}
 	public void setFname(String fname) {
-		Fname = fname;
+		fname = fname;
 	}
 	public String getLname() {
-		return Lname;
+		return lname;
 	}
 	public void setLname(String lname) {
-		Lname = lname;
+		lname = lname;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		email = email;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		password = password;
 	}
 	public int getAge() {
-		return Age;
+		return age;
 	}
 	public void setAge(int age) {
-		Age = age;
+		age = age;
 	}
 	
 	public User(int id, String fname, String lname, String email, String password, int age, BufferedImage profilePic) {
 		super();
 		Id = id;
-		Fname = fname;
-		Lname = lname;
-		Email = email;
-		Password = password;
-		Age = age;
+		fname = fname;
+		lname = lname;
+		email = email;
+		password = password;
+		age = age;
 		
 	}
 	public User() {

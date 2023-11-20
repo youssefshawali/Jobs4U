@@ -15,5 +15,5 @@ public interface CompanyService {
 	
 	void deleteCompany(int id);
 	
-	Company findCompanyById(int id);
+	Company getCompanyById(int id);
 }

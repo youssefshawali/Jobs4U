@@ -12,13 +12,13 @@ public class Department {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int Id;
+	private int id;
 	private String field;
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getField() {
 		return field;
@@ -28,7 +28,7 @@ public class Department {
 	}
 	public Department(int id, String field) {
 		super();
-		Id = id;
+		id = id;
 		this.field = field;
 	}
 	public Department() {

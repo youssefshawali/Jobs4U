@@ -12,31 +12,25 @@ public class Location {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int Id;
-	private double Latitude;
-	private double Longitude;
+	private int id;
+	private double latitude;
+	private double longitude;
 	public double getLatitude() {
-		return Latitude;
-	}
-	public int getId() {
-		return Id;
-	}
-	public void setId(int id) {
-		Id = id;
+		return latitude;
 	}
 	public void setLatitude(double latitude) {
-		Latitude = latitude;
+		latitude = latitude;
 	}
 	public double getLongitude() {
-		return Longitude;
+		return longitude;
 	}
 	public void setLongitude(double longitude) {
-		Longitude = longitude;
+		longitude = longitude;
 	}
 	public Location(double latitude, double longitude) {
 		super();
-		Latitude = latitude;
-		Longitude = longitude;
+		latitude = latitude;
+		longitude = longitude;
 	}
 	public Location() {
 		super();

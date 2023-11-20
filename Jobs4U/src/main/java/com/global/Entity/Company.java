@@ -12,81 +12,81 @@ public class Company {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int Id;
-	private String Name;
-	private String Email;
-	private String WebSite;
-	private String MainLocation;
-	private int Size;
-	private int FoundedYear;
-	private String About;
-	private String Specialists;
+	private int id;
+	private String name;
+	private String email;
+	private String webSite;
+	private String mainLocation;
+	private int size;
+	private int foundedYear;
+	private String about;
+	private String specialists;
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		name = name;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		email = email;
 	}
 	public String getWebSite() {
-		return WebSite;
+		return webSite;
 	}
 	public void setWebSite(String webSite) {
-		WebSite = webSite;
+		webSite = webSite;
 	}
 	public String getMainLocation() {
-		return MainLocation;
+		return mainLocation;
 	}
 	public void setMainLocation(String mainLocation) {
-		MainLocation = mainLocation;
+		mainLocation = mainLocation;
 	}
 	public int getSize() {
-		return Size;
+		return size;
 	}
 	public void setSize(int size) {
-		Size = size;
+		size = size;
 	}
 	public int getFoundedYear() {
-		return FoundedYear;
+		return foundedYear;
 	}
 	public void setFoundedYear(int foundedYear) {
-		FoundedYear = foundedYear;
+		foundedYear = foundedYear;
 	}
 	public String getAbout() {
-		return About;
+		return about;
 	}
 	public void setAbout(String about) {
-		About = about;
+		about = about;
 	}
 	public String getSpecialists() {
-		return Specialists;
+		return specialists;
 	}
 	public void setSpecialists(String specialists) {
-		Specialists = specialists;
+		specialists = specialists;
 	}
 	public Company(int id, String name, String email, String webSite, String mainLocation, int size, int foundedYear,
 			String about, String specialists) {
 		super();
-		Id = id;
-		Name = name;
-		Email = email;
-		WebSite = webSite;
-		MainLocation = mainLocation;
-		Size = size;
-		FoundedYear = foundedYear;
-		About = about;
-		Specialists = specialists;
+		id = id;
+		name = name;
+		email = email;
+		webSite = webSite;
+		mainLocation = mainLocation;
+		size = size;
+		foundedYear = foundedYear;
+		about = about;
+		specialists = specialists;
 	}
 	public Company() {
 		super();

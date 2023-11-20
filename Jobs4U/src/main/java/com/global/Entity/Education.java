@@ -10,33 +10,33 @@ public class Education {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	private int StartYear;
-	private int EndYear;
+	private int id;
+	private int startYear;
+	private int endYear;
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public int getStartYear() {
-		return StartYear;
+		return startYear;
 	}
 	public void setStartYear(int startYear) {
-		StartYear = startYear;
+		startYear = startYear;
 	}
 	public int getEndYear() {
-		return EndYear;
+		return endYear;
 	}
 	public void setEndYear(int endYear) {
-		EndYear = endYear;
+		endYear = endYear;
 	}
 	public Education(int id, int startYear, int endYear) {
 		super();
-		Id = id;
-		StartYear = startYear;
-		EndYear = endYear;
+		id = id;
+		startYear = startYear;
+		endYear = endYear;
 	}
 	public Education() {
 		super();

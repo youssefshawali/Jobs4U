@@ -6,13 +6,13 @@ import com.global.Entity.College;
 
 public interface CollageService {
 	
-List<Collage> getAllCollages();
+List<College> getAllCollages();
 	
 College insertCollage(College Collage);
 	
-Collage updateCollage (Collage Collage);
+College updateCollage (College Collage);
 	
 	void deleteCollage(int id);
 	
-	Collage getCollageById(int id);
+	College getCollageById(int id);
 }

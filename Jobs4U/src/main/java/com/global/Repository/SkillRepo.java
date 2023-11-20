@@ -1,5 +1,9 @@
 package com.global.Repository;
 
-public interface SkillRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.global.Entity.Skill;
+
+public interface SkillRepo extends JpaRepository <Skill,Integer> {
 
 }

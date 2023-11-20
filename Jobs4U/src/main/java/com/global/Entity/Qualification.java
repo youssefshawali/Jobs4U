@@ -13,24 +13,24 @@ public class Qualification {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	private String Degree;//phd etc. 
+	private int id;
+	private String degree;//phd etc. 
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getDegree() {
-		return Degree;
+		return degree;
 	}
 	public void setDegree(String degree) {
-		Degree = degree;
+		degree = degree;
 	}
 	public Qualification(int id, String degree) {
 		super();
-		Id = id;
-		Degree = degree;
+		id = id;
+		degree = degree;
 	}
 	public Qualification() {
 		super();

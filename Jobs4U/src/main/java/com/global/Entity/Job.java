@@ -14,106 +14,106 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	private String JobTitle;
-	private String Description;
-	private String Requirments;
-	private String Experience;
-	private String WorkHours;//partime or full time
-	private String WorkPlaceType;//remote or onsite
-	private String Category;//
-	private String Status;//grad or student
-	private int ApplicantsCount;
-	private LocalTime DateTime;
-	private String Location;
+	private int id;
+	private String jobTitle;
+	private String description;
+	private String requirments;
+	private String experience;
+	private String workHours;//partime or full time
+	private String workPlaceType;//remote or onsite
+	private String category;//
+	private String status;//grad or student
+	private int applicantsCount;
+	private LocalTime dateTime;
+	private String location;
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getJobTitle() {
-		return JobTitle;
+		return jobTitle;
 	}
 	public void setJobTitle(String jobTitle) {
-		JobTitle = jobTitle;
+		jobTitle = jobTitle;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		description = description;
 	}
 	public String getRequirments() {
-		return Requirments;
+		return requirments;
 	}
 	public void setRequirments(String requirments) {
-		Requirments = requirments;
+		requirments = requirments;
 	}
 	public String getExperience() {
-		return Experience;
+		return experience;
 	}
 	public void setExperience(String experience) {
-		Experience = experience;
+		experience = experience;
 	}
 	public String getWorkHours() {
-		return WorkHours;
+		return status;
 	}
 	public void setWorkHours(String workHours) {
-		WorkHours = workHours;
+		status = workHours;
 	}
 	public String getWorkPlaceType() {
-		return WorkPlaceType;
+		return workPlaceType;
 	}
 	public void setWorkPlaceType(String workPlaceType) {
-		WorkPlaceType = workPlaceType;
+		workPlaceType = workPlaceType;
 	}
 	public String getCategory() {
-		return Category;
+		return category;
 	}
 	public void setCategory(String category) {
-		Category = category;
+		category = category;
 	}
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	public void setStatus(String status) {
-		Status = status;
+		status = status;
 	}
 	public int getApplicantsCount() {
-		return ApplicantsCount;
+		return applicantsCount;
 	}
 	public void setApplicantsCount(int applicantsCount) {
-		ApplicantsCount = applicantsCount;
+		applicantsCount = applicantsCount;
 	}
 	public LocalTime getDateTime() {
-		return DateTime;
+		return dateTime;
 	}
 	public void setDateTime(LocalTime dateTime) {
-		DateTime = dateTime;
+		dateTime = dateTime;
 	}
 	public String getLocation() {
-		return Location;
+		return location;
 	}
 	public void setLocation(String location) {
-		Location = location;
+		location = location;
 	}
 	public Job(int id, String jobTitle, String description, String requirments, String experience, String workHours,
 			String workPlaceType, String category, String status, int applicantsCount, LocalTime dateTime,
 			String location) {
 		super();
-		Id = id;
-		JobTitle = jobTitle;
-		Description = description;
-		Requirments = requirments;
-		Experience = experience;
-		WorkHours = workHours;
-		WorkPlaceType = workPlaceType;
-		Category = category;
-		Status = status;
-		ApplicantsCount = applicantsCount;
-		DateTime = dateTime;
-		Location = location;
+		id = id;
+		jobTitle = jobTitle;
+		description = description;
+		requirments = requirments;
+		experience = experience;
+		status = workHours;
+		workPlaceType = workPlaceType;
+		category = category;
+		status = status;
+		applicantsCount = applicantsCount;
+		dateTime = dateTime;
+		location = location;
 	}
 	public Job() {
 		super();

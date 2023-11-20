@@ -12,13 +12,13 @@ public class CareerLevel {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int Id;
+	private int id;
 	private String level;//senior,junior
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public void setId(int id) {
-		Id = id;
+		id = id;
 	}
 	public String getLevel() {
 		return level;
@@ -28,7 +28,7 @@ public class CareerLevel {
 	}
 	public CareerLevel(int id, String level) {
 		super();
-		Id = id;
+		id = id;
 		this.level = level;
 	}
 	public CareerLevel() {
