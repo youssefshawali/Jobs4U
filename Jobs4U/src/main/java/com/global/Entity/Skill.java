@@ -1,13 +1,13 @@
 package com.global.Entity;
 
-import java.util.List;
 import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
+@Table(name = "Skill")
 public class Skill {
 
 	@Id

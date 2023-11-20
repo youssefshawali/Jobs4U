@@ -1,16 +1,15 @@
 package com.global.Entity;
 
 import java.time.LocalTime;
-import java.util.List;
-
-import org.hibernate.annotations.ValueGenerationType;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
+@Table(name = "Job")
 public class Job {
 
 	@Id

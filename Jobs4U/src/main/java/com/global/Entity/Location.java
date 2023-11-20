@@ -1,8 +1,10 @@
 package com.global.Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Location")
 public class Location {
 
 	private double Latitude;
