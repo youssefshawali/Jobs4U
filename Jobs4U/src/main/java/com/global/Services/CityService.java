@@ -7,7 +7,7 @@ import com.global.Entity.City;
 
 public interface CityService {
 	
-	List<City> getAllCitys();
+	List<City> getAllCities();
 	
 	City insertCity(City City);
 		

@@ -7,7 +7,7 @@ import com.global.Entity.CareerLevel;
 
 public interface CareerLevelService {
 	
-	List<CareerLevel> getCareerLevels();
+	List<CareerLevel> getAllCareerLevels();
 	
 	CareerLevel insertCareerLevel(CareerLevel CareerLevel);
 		

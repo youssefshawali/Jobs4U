@@ -7,7 +7,7 @@ import com.global.Entity.Industry;
 
 public interface IndustryService {
 	
-List<Industry> getAllIndustrys();
+List<Industry> getAllIndustries();
 	
 Industry insertIndustry(Industry Industry);
 	

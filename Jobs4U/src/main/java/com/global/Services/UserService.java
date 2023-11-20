@@ -16,6 +16,6 @@ public interface UserService {
 	
 	void deleteUser(int id);
 	
-	User findUserById(int id);
+	User getUserById(int id);
 
 }

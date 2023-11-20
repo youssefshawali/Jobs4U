@@ -7,7 +7,7 @@ import com.global.Entity.Government;
 
 public interface GovernmentService {
 
-List<Government> getAllGovernment();
+List<Government> getAllGovernments();
 	
 Government insertGovernment(Government Government);
 	
