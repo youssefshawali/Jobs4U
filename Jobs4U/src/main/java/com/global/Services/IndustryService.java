@@ -4,18 +4,15 @@ import java.util.List;
 
 import com.global.Entity.User;
 
+public interface IndustryService {
 
-public interface UserService {
-	
-	
 	List<User> getAllUsers();
 	
-	User insertUser(User user);
+	User saveUser(User user);
 	
-	User updateUser (User user);
+	User updateUser (Long id,User user);
 	
 	void deleteUser(Long id);
 	
-	User findUserById(Long id);
-
+	User getUser(Long id);
 }
