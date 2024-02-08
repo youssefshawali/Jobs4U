@@ -19,56 +19,57 @@ public class User {
 	private String password;
 	private int age;
 	//private BufferedImage ProfilePic;
+	
+
+	public User() {
+		super();
+	}
+	public User(int id, String fname, String lname, String email, String password, int age) {
+		super();
+		this.id = id;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.password = password;
+		this.age = age;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
-		id = id;
+		this.id = id;
 	}
 	public String getFname() {
 		return fname;
 	}
 	public void setFname(String fname) {
-		fname = fname;
+		this.fname = fname;
 	}
 	public String getLname() {
 		return lname;
 	}
 	public void setLname(String lname) {
-		lname = lname;
+		this.lname = lname;
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
-		email = email;
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
-		password = password;
+		this.password = password;
 	}
 	public int getAge() {
 		return age;
 	}
 	public void setAge(int age) {
-		age = age;
+		this.age = age;
 	}
 	
-	public User(int id, String fname, String lname, String email, String password, int age, BufferedImage profilePic) {
-		super();
-		id = id;
-		fname = fname;
-		lname = lname;
-		email = email;
-		password = password;
-		age = age;
-		
-	}
-	public User() {
-		super();
-	}
 	
 	
 }

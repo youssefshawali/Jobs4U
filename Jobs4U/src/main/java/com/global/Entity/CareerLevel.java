@@ -1,7 +1,11 @@
 package com.global.Entity;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +18,10 @@ public class CareerLevel {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String level;//senior,junior
+	
+	 @ManyToMany(mappedBy = "careerLevels")
+	    private List<Job> jobs;
+	 
 	public int getId() {
 		return id;
 	}

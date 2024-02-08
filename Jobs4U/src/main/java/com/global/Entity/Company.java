@@ -21,6 +21,7 @@ public class Company {
 	private int foundedYear;
 	private String about;
 	private String specialists;
+	
 	public int getId() {
 		return id;
 	}
