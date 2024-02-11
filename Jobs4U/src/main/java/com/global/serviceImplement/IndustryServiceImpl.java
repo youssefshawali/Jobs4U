@@ -24,18 +24,19 @@ public class IndustryServiceImpl implements IndustryService {
 	}
 
 	@Override
-	public Industry insertIndustry(Industry Industry) {
+	public Industry insertIndustry(Industry industry) {
 		// TODO Auto-generated method stub
-		return industryRepo.save(Industry);
+		return industryRepo.save(industry);
 	}
 
 	@Override
-	public Industry updateIndustry(Industry Industry) {
+	public Industry updateIndustry(Industry industry) {
 		// TODO Auto-generated method stub
-		Industry current = industryRepo.findById(Industry.getId()).orElseThrow();
+		Industry current = industryRepo.findById(industry.getId()).orElseThrow();
 
-		current.setType(Industry.getType());
-		
+		current.setType(industry.getType());
+		current.setCompanies(industry.getCompanies());
+
 		return industryRepo.save(current);
 	}
 
@@ -48,11 +49,11 @@ public class IndustryServiceImpl implements IndustryService {
 	@Override
 	public Industry getIndustryById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Industry> Industry = industryRepo.findById(id);
-		if(Industry.isPresent()) {
-			return Industry.get();
+		Optional<Industry> industry = industryRepo.findById(id);
+		if (industry.isPresent()) {
+			return industry.get();
 		}
-		throw new RuntimeException("User Not Fond");	
+		throw new RuntimeException("User Not Fond");
 
 	}
 }

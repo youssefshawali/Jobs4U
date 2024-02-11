@@ -25,18 +25,18 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department insertDepartment(Department Department) {
+	public Department insertDepartment(Department department) {
 		// TODO Auto-generated method stub
-		return departmentRepo.save(Department);
+		return departmentRepo.save(department);
 	}
 
 	@Override
-	public Department updateDepartment(Department Department) {
+	public Department updateDepartment(Department department) {
 		// TODO Auto-generated method stub
-		Department current = departmentRepo.findById(Department.getId()).orElseThrow();
+		Department current = departmentRepo.findById(department.getId()).orElseThrow();
+		current.setField(department.getField());
+		current.setJobs(department.getJobs());
 
-		current.setField(Department.getField());
-		
 		return departmentRepo.save(current);
 	}
 
@@ -49,9 +49,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public Department getDepartmentById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Department> Department = departmentRepo.findById(id);
-		if(Department.isPresent()) {
-			return Department.get();
+		Optional<Department> department = departmentRepo.findById(id);
+		if (department.isPresent()) {
+			return department.get();
 		}
 		throw new RuntimeException("User Not Fond");
 	}

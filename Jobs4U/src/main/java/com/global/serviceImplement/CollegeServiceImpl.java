@@ -1,49 +1,62 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.global.Entity.City;
 import com.global.Entity.College;
 import com.global.Services.CollegeService;
 import com.global.Repository.CollegeRepo;
+
 @Service
-public class CollegeServiceImpl implements CollegeService{
+public class CollegeServiceImpl implements CollegeService {
 
 	@Autowired
-	private CollegeRepo CollegeRepo;
-	
-	
+	private CollegeRepo collegeRepo;
+
 	@Override
-	
+
 	public List<College> getAllColleges() {
 		// TODO Auto-generated method stub
-		return null;
+		return collegeRepo.findAll();
 	}
 
 	@Override
-	public College insertCollege(College Collage) {
+	public College insertCollege(College college) {
 		// TODO Auto-generated method stub
-		return null;
+		return collegeRepo.save(college);
 	}
 
 	@Override
-	public College updateCollege(College Collage) {
+	public College updateCollege(College college) {
 		// TODO Auto-generated method stub
-		return null;
+		College current = collegeRepo.findById(college.getId()).orElseThrow();
+
+		current.setName(college.getName());
+		current.setUniversity(college.getUniversity());
+		current.setEducations(college.getEducations());
+
+		return collegeRepo.save(current);
 	}
 
 	@Override
 	public void deleteCollege(int id) {
 		// TODO Auto-generated method stub
-		
+		collegeRepo.deleteById(id);
 	}
 
 	@Override
 	public College getCollegeById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		Optional<College> college = collegeRepo.findById(id);
+		if (college.isPresent()) {
+			return college.get();
+		}
+		throw new RuntimeException("College Not Fond");
+
 	}
 
 }

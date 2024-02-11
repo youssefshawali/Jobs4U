@@ -11,23 +11,21 @@ import com.global.Repository.UserRepo;
 import com.global.Services.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Override
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
 		return userRepo.findAll();
 	}
 
-	
 	@Override
 	public void deleteUser(int id) {
 		// TODO Auto-generated method stub
 		userRepo.deleteById(id);
 	}
-
 
 	@Override
 	public User insertUser(User user) {
@@ -42,27 +40,26 @@ public class UserServiceImpl implements UserService{
 
 		current.setFname(user.getFname());
 		current.setLname(user.getLname());
+		current.setPhoneNumber(user.getPhoneNumber());
 		current.setEmail(user.getEmail());
 		current.setPassword(user.getPassword());
 		current.setAge(user.getAge());
+		current.setProfilePicture(user.getProfilePicture());
+		current.setUserProfile(user.getUserProfile());
+		current.setAppliedJobs(user.getAppliedJobs());
 
 		return userRepo.save(current);
 	}
-
-
 
 	@Override
 	public User getUserById(int id) {
 		// TODO Auto-generated method stub
 		Optional<User> user = userRepo.findById(id);
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			return user.get();
 		}
 		throw new RuntimeException("User Not Fond");
-		
+
 	}
-
-
-	
 
 }

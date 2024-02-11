@@ -35,11 +35,16 @@ public class CompanyServiceImpl implements CompanyService {
 		current.setName(Company.getName());
 		current.setEmail(Company.getEmail());
 		current.setWebSite(Company.getWebSite());		
+		current.setPassword(Company.getPassword());		
 		current.setAbout(Company.getAbout());
 		current.setFoundedYear(Company.getFoundedYear());
 		current.setMainLocation(Company.getMainLocation());
 		current.setSpecialists(Company.getSpecialists());
 		current.setSize(Company.getSize());
+		current.setProfilePicture(Company.getProfilePicture());
+		current.setCoverPicture(Company.getCoverPicture());
+		current.setBranchLocations(Company.getBranchLocations());
+		current.setIndustry(Company.getIndustry());
 		
 		return companyRepo.save(current);
 	}

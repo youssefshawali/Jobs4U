@@ -15,31 +15,50 @@ import jakarta.persistence.GenerationType;
 public class CareerLevel {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String level;//senior,junior
-	
-	 @ManyToMany(mappedBy = "careerLevels")
-	    private List<Job> jobs;
-	 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		id = id;
-	}
-	public String getLevel() {
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
-	public CareerLevel(int id, String level) {
+	private String level;// senior,junior
+
+	@ManyToMany(mappedBy = "careerLevels")
+	private List<Job> jobs;
+
+	public CareerLevel(int id, String level, List<Job> jobs) {
 		super();
-		id = id;
+		this.id = id;
 		this.level = level;
+		this.jobs = jobs;
 	}
+
+	
+	
 	public CareerLevel() {
 		super();
 	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public List<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
+
 }

@@ -22,12 +22,29 @@ public class Skill {
 	@ManyToMany(mappedBy = "skills")
 	private List<Job> jobs;
 
+	@ManyToMany(mappedBy = "skills")
+	private List<UserProfile> userProfiles;
+
+	public Skill(int id, String name, List<Job> jobs, List<UserProfile> userProfiles) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.jobs = jobs;
+		this.userProfiles = userProfiles;
+	}
+	
+
+	public Skill() {
+		super();
+	}
+
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
-		id = id;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -35,17 +52,23 @@ public class Skill {
 	}
 
 	public void setName(String name) {
-		name = name;
+		this.name = name;
 	}
 
-	public Skill(int id, String name) {
-		super();
-		id = id;
-		name = name;
+	public List<Job> getJobs() {
+		return jobs;
 	}
 
-	public Skill() {
-		super();
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
+
+	public List<UserProfile> getUserProfiles() {
+		return userProfiles;
+	}
+
+	public void setUserProfiles(List<UserProfile> userProfiles) {
+		this.userProfiles = userProfiles;
 	}
 
 }

@@ -25,19 +25,19 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public Location insertLocation(Location Location) {
+	public Location insertLocation(Location location) {
 		// TODO Auto-generated method stub
-		return locationRepo.save(Location);
+		return locationRepo.save(location);
 	}
 
 	@Override
-	public Location updateLocation(Location Location) {
+	public Location updateLocation(Location location) {
 		// TODO Auto-generated method stub
-		Location current = locationRepo.findById(Location.getId()).orElseThrow();
+		Location current = locationRepo.findById(location.getId()).orElseThrow();
 
-		current.setLatitude(Location.getLatitude());
-		current.setLongitude(Location.getLongitude());
-		
+		current.setLatitude(location.getLatitude());
+		current.setLongitude(location.getLongitude());
+
 		return locationRepo.save(current);
 	}
 
@@ -50,11 +50,11 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public Location getLocationById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Location> Location = locationRepo.findById(id);
-		if(Location.isPresent()) {
-			return Location.get();
+		Optional<Location> location = locationRepo.findById(id);
+		if (location.isPresent()) {
+			return location.get();
 		}
 		throw new RuntimeException("User Not Fond");
 	}
-	
+
 }

@@ -33,6 +33,8 @@ public class CityServiceImpl implements CityService{
 		City current = cityRepo.findById(City.getId()).orElseThrow();
 
 		current.setName(City.getName());
+		current.setGovernment(City.getGovernment());
+		current.setLocation(City.getLocation());
 		
 		return cityRepo.save(current);
 	}

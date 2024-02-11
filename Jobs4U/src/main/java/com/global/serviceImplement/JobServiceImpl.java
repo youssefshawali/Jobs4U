@@ -11,56 +11,62 @@ import com.global.Entity.User;
 import com.global.Entity.Job;
 import com.global.Services.JobService;
 import com.global.Repository.JobRepo;
+
 @Service
 public class JobServiceImpl implements JobService {
 
 	@Autowired
-	private JobRepo JobRepo;
-	
+	private JobRepo jobRepo;
+
 	@Override
 	public List<Job> getAllJobs() {
 		// TODO Auto-generated method stub
-		return JobRepo.findAll();
+		return jobRepo.findAll();
 	}
 
 	@Override
-	public Job insertJob(Job Job) {
+	public Job insertJob(Job job) {
 		// TODO Auto-generated method stub
-		return JobRepo.save(Job);
+		return jobRepo.save(job);
 	}
 
 	@Override
-	public Job updateJob(Job Job) {
+	public Job updateJob(Job job) {
 		// TODO Auto-generated method stub
-		Job current = JobRepo.findById(Job.getId()).orElseThrow();
+		Job current = jobRepo.findById(job.getId()).orElseThrow();
 
-		current.setJobTitle(Job.getJobTitle());
-		current.setApplicantsCount(Job.getApplicantsCount());
-		current.setCategory(Job.getCategory());		
-		current.setDateTime(Job.getDateTime());
-		current.setDescription(Job.getDescription());
-		current.setExperience(Job.getExperience());
-		current.setLocation(Job.getLocation());
-		current.setRequirments(Job.getRequirments());
-		current.setStatus(Job.getStatus());
-		current.setWorkHours(Job.getWorkHours());
-		current.setWorkPlaceType(Job.getWorkPlaceType());
-		
-		return JobRepo.save(current);
-	
+		current.setJobTitle(job.getJobTitle());
+		current.setDescription(job.getDescription());
+		current.setRequirments(job.getRequirments());
+		current.setExperience(job.getExperience());
+		current.setWorkHours(job.getWorkHours());
+		current.setWorkPlaceType(job.getWorkPlaceType());
+		current.setCategory(job.getCategory());
+		current.setStatus(job.getStatus());
+		current.setApplicantsCount(job.getApplicantsCount());
+		current.setDateTime(job.getDateTime());
+		current.setLocation(job.getLocation());
+		current.setCompanyId(job.getCompanyId());
+		current.setQualification(job.getQualification());
+		current.setDepartment(job.getDepartment());
+		current.setCareerLevels(job.getCareerLevels());
+		current.setSkills(job.getSkills());
+
+		return jobRepo.save(current);
+
 	}
 
 	@Override
 	public void deleteJob(int id) {
 		// TODO Auto-generated method stub
-		JobRepo.deleteById(id);
+		jobRepo.deleteById(id);
 	}
 
 	@Override
 	public Job getJobById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Job> job = JobRepo.findById(id);
-		if(job.isPresent()) {
+		Optional<Job> job = jobRepo.findById(id);
+		if (job.isPresent()) {
 			return job.get();
 		}
 		throw new RuntimeException("User Not Fond");

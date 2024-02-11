@@ -24,17 +24,17 @@ public class GovernmentServiceImpl implements GovernmentService {
 	}
 
 	@Override
-	public Government insertGovernment(Government Government) {
+	public Government insertGovernment(Government government) {
 		// TODO Auto-generated method stub
-		return governmentRepo.save(Government);
+		return governmentRepo.save(government);
 	}
 
 	@Override
-	public Government updateGovernment(Government Government) {
+	public Government updateGovernment(Government government) {
 		// TODO Auto-generated method stub
-		Government current = governmentRepo.findById(Government.getId()).orElseThrow();
+		Government current = governmentRepo.findById(government.getId()).orElseThrow();
 
-		current.setName(Government.getName());
+		current.setName(government.getName());
 		
 		return governmentRepo.save(current);
 	}
@@ -49,9 +49,9 @@ public class GovernmentServiceImpl implements GovernmentService {
 	public Government getGovernmentById(int id) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-				Optional<Government> Government = governmentRepo.findById(id);
-				if(Government.isPresent()) {
-					return Government.get();
+				Optional<Government> government = governmentRepo.findById(id);
+				if(government.isPresent()) {
+					return government.get();
 				}
 				throw new RuntimeException("User Not Fond");	
 	}

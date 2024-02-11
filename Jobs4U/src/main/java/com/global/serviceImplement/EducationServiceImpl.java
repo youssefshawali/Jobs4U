@@ -10,50 +10,51 @@ import com.global.Entity.Education;
 import com.global.Entity.Skill;
 import com.global.Repository.EducationRepo;
 import com.global.Services.EducationService;
+
 @Service
-public class EducationServiceImpl implements EducationService{
+public class EducationServiceImpl implements EducationService {
 
 	@Autowired
-	private EducationRepo EducationRepo;
+	private EducationRepo educationRepo;
 
 	@Override
 	public List<Education> getAllEducations() {
 		// TODO Auto-generated method stub
-		return EducationRepo.findAll();
+		return educationRepo.findAll();
 	}
 
 	@Override
-	public Education insertEducation(Education Education) {
+	public Education insertEducation(Education education) {
 		// TODO Auto-generated method stub
-		return EducationRepo.save(Education);
+		return educationRepo.save(education);
 	}
 
 	@Override
-	public Education updateEducation(Education Education) {
+	public Education updateEducation(Education education) {
 		// TODO Auto-generated method stub
-		Education current = EducationRepo.findById(Education.getId()).orElseThrow();
+		Education current = educationRepo.findById(education.getId()).orElseThrow();
+		current.setStartYear(education.getStartYear());
+		current.setEndYear(education.getEndYear());
+		current.setUserProfile(education.getUserProfile());
+		current.setCollege(education.getCollege());
 
-		current.setStartYear(Education.getStartYear());
-		current.setEndYear(Education.getEndYear());
-		
-		return EducationRepo.save(current);
+		return educationRepo.save(current);
 	}
 
 	@Override
 	public void deleteEducation(int id) {
 		// TODO Auto-generated method stub
-		EducationRepo.deleteById(id);
+		educationRepo.deleteById(id);
 	}
 
 	@Override
 	public Education getEducationById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Education> Education = EducationRepo.findById(id);
-		if(Education.isPresent()) {
-			return Education.get();
+		Optional<Education> education = educationRepo.findById(id);
+		if (education.isPresent()) {
+			return education.get();
 		}
 		throw new RuntimeException("User Not Fond");
 	}
-	
-	
+
 }

@@ -9,7 +9,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -53,9 +52,20 @@ public class Job {
 	private List<CareerLevel> careerLevels;
 
 	@ManyToMany
-	@JoinTable(name = "job_skill", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+	@JoinTable(name = "Job_required_skills", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
 	private List<Skill> skills;
 
+	
+	@ManyToMany
+    @JoinTable(
+        name = "job_applicants",
+        joinColumns = @JoinColumn(name = "job_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> applicants;
+
+	
+	
 	public Job(int id, String jobTitle, String description, String requirments, int experience, String workHours,
 			String workPlaceType, String category, String status, int applicantsCount, LocalTime dateTime,
 			Location location, Company company, List<Qualification> qualification, Department department,
@@ -172,11 +182,11 @@ public class Job {
 		this.dateTime = dateTime;
 	}
 
-	public Location getLocationId() {
+	public Location getLocation() {
 		return location;
 	}
 
-	public void setLocationId(Location location) {
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 
@@ -196,11 +206,11 @@ public class Job {
 		this.qualification = qualification;
 	}
 
-	public Department getDepartmentId() {
+	public Department getDepartment() {
 		return department;
 	}
 
-	public void setDepartmentId(Department department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 

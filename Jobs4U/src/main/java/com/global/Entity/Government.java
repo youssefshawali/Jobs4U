@@ -10,28 +10,36 @@ import jakarta.persistence.Table;
 @Table(name = "Government")
 public class Government {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		name = name;
-	}
+
 	public Government(int id, String name) {
 		super();
-		id = id;
-		name = name;
+		this.id = id;
+		this.name = name;
 	}
+
+	
 	public Government() {
 		super();
 	}
-	
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

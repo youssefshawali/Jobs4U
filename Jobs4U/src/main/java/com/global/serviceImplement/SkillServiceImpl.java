@@ -11,48 +11,50 @@ import com.global.Entity.Location;
 import com.global.Entity.Skill;
 import com.global.Repository.SkillRepo;
 import com.global.Services.SkillService;
+
 @Service
 public class SkillServiceImpl implements SkillService {
 	@Autowired
-	private SkillRepo SkillRepo;
+	private SkillRepo skillRepo;
 
 	@Override
 	public List<Skill> getAllSkills() {
 		// TODO Auto-generated method stub
-		return SkillRepo.findAll();
+		return skillRepo.findAll();
 	}
 
 	@Override
-	public Skill insertSkill(Skill Skill) {
+	public Skill insertSkill(Skill skill) {
 		// TODO Auto-generated method stub
-		return SkillRepo.save(Skill);
+		return skillRepo.save(skill);
 	}
 
 	@Override
-	public Skill updateSkill(Skill Skill) {
+	public Skill updateSkill(Skill skill) {
 		// TODO Auto-generated method stub
-		Skill current = SkillRepo.findById(Skill.getId()).orElseThrow();
+		Skill current = skillRepo.findById(skill.getId()).orElseThrow();
 
-		current.setName(Skill.getName());
-		
-		return SkillRepo.save(current);
+		current.setName(skill.getName());
+		current.setJobs(skill.getJobs());
+		current.setUserProfiles(skill.getUserProfiles());
+
+		return skillRepo.save(current);
 	}
 
 	@Override
 	public void deleteSkill(int id) {
 		// TODO Auto-generated method stub
-		SkillRepo.deleteById(id);
+		skillRepo.deleteById(id);
 	}
 
 	@Override
 	public Skill getSkillById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Skill> Skill = SkillRepo.findById(id);
-		if(Skill.isPresent()) {
-			return Skill.get();
+		Optional<Skill> skill = skillRepo.findById(id);
+		if (skill.isPresent()) {
+			return skill.get();
 		}
 		throw new RuntimeException("User Not Fond");
 	}
-	
 
 }
