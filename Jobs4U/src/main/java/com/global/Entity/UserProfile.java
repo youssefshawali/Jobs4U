@@ -2,6 +2,7 @@ package com.global.Entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -25,7 +26,7 @@ public class UserProfile {
 	private int id;
 	private String currentJobTitle;
 	private String bio;
-	private String experience;
+	private int experience;
 	@Lob
 	private byte[] cvFile;
 
@@ -38,7 +39,7 @@ public class UserProfile {
 	@OneToOne(mappedBy = "userProfile", fetch = FetchType.LAZY)
 	private Education education;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -46,7 +47,7 @@ public class UserProfile {
 	@JoinTable(name = "profile_skills", joinColumns = @JoinColumn(name = "profile_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
 	private List<Skill> skills;
 
-	public UserProfile(int id, String currentJobTitle, String bio, String experience, byte[] cvFile,
+	public UserProfile(int id, String currentJobTitle, String bio, int experience, byte[] cvFile,
 			Education education, User user) {
 		super();
 		this.id = id;
@@ -88,11 +89,11 @@ public class UserProfile {
 		this.bio = bio;
 	}
 
-	public String getExperience() {
+	public int getExperience() {
 		return experience;
 	}
 
-	public void setExperience(String experience) {
+	public void setExperience(int experience) {
 		this.experience = experience;
 	}
 
