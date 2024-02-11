@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,6 +38,7 @@ public class User {
 
 	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private UserProfile userProfile;
 
 	@ManyToMany(mappedBy = "applicants")
