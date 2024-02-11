@@ -1,5 +1,8 @@
 package com.global.Entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -22,21 +26,27 @@ public class City {
 	@JoinColumn(name = "government_id")
 	private Government government;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "location_id")
-	private Location location;
+	//@OneToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "location_id")
+	
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Location> locations;
+	//private Location location;
 
-	public City(int id, String name, Government government, Location location) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.government = government;
-		this.location = location;
-	}
+	
 
 	
 	public City() {
 		super();
+	}
+
+
+	public City(int id, String name, Government government, List<Location> locations) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.government = government;
+		this.locations = locations;
 	}
 
 
@@ -64,12 +74,16 @@ public class City {
 		this.government = government;
 	}
 
-	public Location getLocation() {
-		return location;
+
+	public List<Location> getLocations() {
+		return locations;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
+
+
 
 }
