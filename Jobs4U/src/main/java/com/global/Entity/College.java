@@ -8,6 +8,8 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +27,7 @@ public class College {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "university_id")
 	private University university;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "college", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Education> educations;
 
@@ -37,11 +39,9 @@ public class College {
 		this.educations = educations;
 	}
 
-	
 	public College() {
 		super();
 	}
-
 
 	public int getId() {
 		return id;
