@@ -21,6 +21,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "User_Profile")
@@ -30,7 +31,8 @@ public class UserProfile {
 	private int id;
 	private String currentJobTitle;
 	private String bio;
-	private String experience;
+	@Transient
+	private Experience experience;
 	@Lob
 	private byte[] cvFile;
 
@@ -52,7 +54,7 @@ public class UserProfile {
 	private List<Skill> skills;
 
 
-	public UserProfile(int id, String currentJobTitle, String bio, String experience, byte[] cvFile,
+	public UserProfile(int id, String currentJobTitle, String bio, Experience experience, byte[] cvFile,
 			List<String> languages, List<Education> education, User user, List<Skill> skills) {
 		super();
 		this.id = id;
@@ -96,13 +98,17 @@ public class UserProfile {
 		this.bio = bio;
 	}
 
-	public String getExperience() {
+	
+
+	public Experience getExperience() {
 		return experience;
 	}
 
-	public void setExperience(String experience) {
+
+	public void setExperience(Experience experience) {
 		this.experience = experience;
 	}
+
 
 	public byte[] getCvFile() {
 		return cvFile;

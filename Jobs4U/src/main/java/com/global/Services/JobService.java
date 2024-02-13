@@ -6,6 +6,8 @@ import com.global.Entity.Job;
 
 
 public interface JobService {
+	
+    List<Job> findByCompanyId(int companyId);
 
 	List<Job> getAllJobs();
 		

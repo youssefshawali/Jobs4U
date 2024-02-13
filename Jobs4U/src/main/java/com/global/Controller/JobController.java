@@ -46,4 +46,11 @@ public class JobController {
 	public void deleteJob(@PathVariable int id) {
 		jobService.deleteJob(id);
 	}
+	
+	  @GetMapping("/company/{companyId}")
+	    public List<Job> getAllJobsByCompanyId(@PathVariable int companyId) {
+	        return jobService.findByCompanyId(companyId);
+	    }
+	
+	
 }
