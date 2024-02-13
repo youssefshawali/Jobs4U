@@ -22,7 +22,7 @@ public class Industry {
 	private int id;
 	private String type;
 	@JsonIgnore
-	@OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Company> companies;
 
 	public Industry(int id, String type, List<Company> companies) {

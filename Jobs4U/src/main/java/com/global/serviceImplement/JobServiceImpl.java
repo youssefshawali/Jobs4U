@@ -72,4 +72,10 @@ public class JobServiceImpl implements JobService {
 		throw new RuntimeException("User Not Fond");
 	}
 
+	@Override
+	   public List<Job> findByCompanyId(int companyId) {
+        return jobRepo.findByCompany_Id(companyId);
+    
+	}
+
 }

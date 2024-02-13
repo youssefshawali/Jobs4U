@@ -3,6 +3,8 @@ package com.global.Entity;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -34,7 +36,6 @@ public class Job {
 	@ManyToOne
 	@JoinColumn(name = "location_id") // Name of the foreign key column in the Job table
 	private Location location;
-
 	@ManyToOne
 	@JoinColumn(name = "company_id") // Name of the foreign key column in the Job table
 	private Company company;

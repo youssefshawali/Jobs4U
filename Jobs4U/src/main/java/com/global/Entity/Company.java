@@ -48,7 +48,7 @@ public class Company {
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CompanyBranchLocation> branchLocations;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "industry_id")
 	private Industry industry;
 

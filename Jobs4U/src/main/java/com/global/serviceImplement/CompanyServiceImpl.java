@@ -7,14 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.global.Entity.Company;
+import com.global.Entity.Job;
 import com.global.Entity.User;
 import com.global.Repository.CompanyRepo;
 import com.global.Services.CompanyService;
+import com.global.Services.JobService;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyRepo companyRepo;
+	@Autowired
+	JobService jobservice;
 	@Override
 	public List<Company> getAllCompanies() {
 		// TODO Auto-generated method stub
@@ -63,6 +67,13 @@ public class CompanyServiceImpl implements CompanyService {
 			return Company.get();
 		}
 		throw new RuntimeException("User Not Fond");
+	}
+
+	@Override
+	public Job createjob(int companyId, Job job) {
+    Company company = getCompanyById(companyId);
+    job.setCompanyId(company);
+	return jobservice.insertJob(job) ;
 	}
 
 }
