@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.Entity.College;
 import com.global.Entity.University;
+import com.global.Entity.UserProfile;
 import com.global.Services.UniversityService;
 
 @RestController
@@ -46,4 +48,11 @@ public class UniversityController {
 	public void deleteUniversity(@PathVariable int id) {
 		universityService.deleteUniversity(id);
 	}
+	
+	@PostMapping("/{universityId}/college")
+	public College createcollege(@PathVariable int universityId, @RequestBody College college)
+	{
+		return universityService.createCollege(universityId, college);
+	}
+	
 }

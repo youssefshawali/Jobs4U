@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.Entity.College;
+import com.global.Entity.Company;
 import com.global.Entity.Industry;
 import com.global.Services.IndustryService;
 
@@ -45,5 +47,11 @@ public class IndustryController {
 	@DeleteMapping("/{id}")
 	public void deleteIndustry(@PathVariable int id) {
 		industryService.deleteIndustry(id);
+	}
+	
+	@PostMapping("/{industryId}/company")
+	public Company createCompany(@PathVariable int industryId, @RequestBody Company company)
+	{
+		return industryService.createCompany(industryId, company);
 	}
 }
