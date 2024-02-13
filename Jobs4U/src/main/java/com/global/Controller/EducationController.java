@@ -46,4 +46,5 @@ public class EducationController {
 	public void deleteEducation(@PathVariable int id) {
 		educationService.deleteEducation(id);
 	}
+   
 }
