@@ -22,6 +22,7 @@ public class Government {
 	private int id;
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "government", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<City> cities;
 

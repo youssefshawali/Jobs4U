@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.global.Entity.City;
 import com.global.Entity.College;
+import com.global.Entity.Education;
 import com.global.Services.CollegeService;
+import com.global.Services.EducationService;
 import com.global.Repository.CollegeRepo;
 
 @Service
@@ -16,6 +18,8 @@ public class CollegeServiceImpl implements CollegeService {
 
 	@Autowired
 	private CollegeRepo collegeRepo;
+	@Autowired
+	EducationService educationService;
 
 	@Override
 
@@ -57,6 +61,13 @@ public class CollegeServiceImpl implements CollegeService {
 		}
 		throw new RuntimeException("College Not Fond");
 
+	}
+
+	@Override
+	public Education createEducation(int collegeId, Education education) {
+		College college = getCollegeById(collegeId);
+		education.setCollege(college);
+		return educationService.insertEducation(education);
 	}
 
 }

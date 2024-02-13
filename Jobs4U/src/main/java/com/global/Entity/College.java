@@ -24,11 +24,12 @@ public class College {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "university_id")
 	private University university;
+	
 	@JsonIgnore
-	@OneToMany(mappedBy = "college", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "college", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Education> educations;
 
 	public College(int id, String name, University university, List<Education> educations) {

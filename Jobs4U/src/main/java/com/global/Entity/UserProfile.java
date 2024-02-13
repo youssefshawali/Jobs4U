@@ -40,7 +40,7 @@ public class UserProfile {
 	private List<String> languages;
 
 	
-	 @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	 @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	    private List<Education> education= new ArrayList<>();
 
 	@OneToOne(fetch = FetchType.EAGER)

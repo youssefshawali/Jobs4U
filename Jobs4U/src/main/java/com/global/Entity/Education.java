@@ -24,11 +24,11 @@ public class Education {
 	private int startYear;
 	private int endYear;
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "college_id")
 	private College college;
 

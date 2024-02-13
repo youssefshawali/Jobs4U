@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.global.Entity.College;
+import com.global.Entity.Education;
 import com.global.Services.CollegeService;
 
 @RestController
@@ -46,4 +47,6 @@ public class CollegeController {
 	public void deleteCollege(@PathVariable int id) {
 		collegeService.deleteCollege(id);
 	}
+	
+
 }
