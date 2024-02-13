@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.Entity.College;
 import com.global.Entity.Company;
+import com.global.Entity.CompanyBranchLocation;
 import com.global.Services.CompanyService;
 
 @RestController
@@ -35,6 +37,11 @@ public class CompanyController {
 	@PostMapping("/")
 	public Company saveCompany (@RequestBody Company company) {
 		return companyService.insertCompany(company);
+	}
+	@PostMapping("/{companyId}/companyBranchLocation")
+	public CompanyBranchLocation createBranchLocation(@PathVariable int companyId, @RequestBody CompanyBranchLocation companyBranchLocation)
+	{
+		return companyService.createBranchLocation(companyId, companyBranchLocation);
 	}
 	
 	@PutMapping("/")
