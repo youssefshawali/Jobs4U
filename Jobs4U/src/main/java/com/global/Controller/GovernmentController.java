@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.Entity.City;
 import com.global.Entity.Government;
+import com.global.Entity.UserProfile;
 import com.global.Services.GovernmentService;
 
 @RestController
@@ -35,6 +37,10 @@ public class GovernmentController {
 	@PostMapping("/")
 	public Government saveGovernment (@RequestBody Government government) {
 		return governmentService.insertGovernment(government);
+	}
+	@PostMapping("/{governmentId}/city")
+	public City createCity(@PathVariable int governmentId, @RequestBody City city) {
+		return governmentService.createCity(governmentId, city);
 	}
 	
 	@PutMapping("/")
