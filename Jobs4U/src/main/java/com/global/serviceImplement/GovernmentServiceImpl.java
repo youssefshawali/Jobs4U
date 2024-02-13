@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.global.Entity.City;
+import com.global.Entity.Education;
 import com.global.Entity.Government;
+import com.global.Entity.User;
+import com.global.Entity.UserProfile;
 import com.global.Repository.GovernmentRepo;
+import com.global.Services.CityService;
 import com.global.Services.GovernmentService;
 
 @Service
@@ -16,6 +20,9 @@ public class GovernmentServiceImpl implements GovernmentService {
 	
 	@Autowired
 	private GovernmentRepo governmentRepo;
+	@Autowired
+	private CityService cityService;
+	
 
 	@Override
 	public List<Government> getAllGovernments() {
@@ -54,6 +61,20 @@ public class GovernmentServiceImpl implements GovernmentService {
 					return government.get();
 				}
 				throw new RuntimeException("User Not Fond");	
+	}
+	public City createCity(int governmentId, City city) {
+	    Government government = getGovernmentById(governmentId);
+	    city.setGovernment(government);
+	    
+		/*
+		 * List<Education> educations = userProfile.getEducation(); if (educations !=
+		 * null) { for (Education education : educations) { // Set the UserProfile for
+		 * each Education education.setUserProfile(userProfile); // Optionally, you can
+		 * save each Education here // educationRepo.save(education); } }
+		 */
+
+	    // Save the UserProfile with its associated Education entries
+	    return cityService.insertCity(city);
 	}
 
 }
