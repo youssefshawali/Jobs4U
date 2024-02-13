@@ -1,6 +1,9 @@
 package com.global.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -15,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -26,7 +30,7 @@ public class UserProfile {
 	private int id;
 	private String currentJobTitle;
 	private String bio;
-	private int experience;
+	private String experience;
 	@Lob
 	private byte[] cvFile;
 
@@ -35,11 +39,11 @@ public class UserProfile {
 	@Column(name = "language")
 	private List<String> languages;
 
-	// Add this property to map to the user_profile_id column
-	@OneToOne(mappedBy = "userProfile", fetch = FetchType.LAZY)
-	private Education education;
+	
+	 @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	    private List<Education> education= new ArrayList<>();
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -47,18 +51,21 @@ public class UserProfile {
 	@JoinTable(name = "profile_skills", joinColumns = @JoinColumn(name = "profile_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
 	private List<Skill> skills;
 
-	public UserProfile(int id, String currentJobTitle, String bio, int experience, byte[] cvFile,
-			Education education, User user) {
+
+	public UserProfile(int id, String currentJobTitle, String bio, String experience, byte[] cvFile,
+			List<String> languages, List<Education> education, User user, List<Skill> skills) {
 		super();
 		this.id = id;
 		this.currentJobTitle = currentJobTitle;
 		this.bio = bio;
 		this.experience = experience;
 		this.cvFile = cvFile;
+		this.languages = languages;
 		this.education = education;
 		this.user = user;
+		this.skills = skills;
 	}
-	
+
 
 	public UserProfile() {
 		super();
@@ -89,11 +96,11 @@ public class UserProfile {
 		this.bio = bio;
 	}
 
-	public int getExperience() {
+	public String getExperience() {
 		return experience;
 	}
 
-	public void setExperience(int experience) {
+	public void setExperience(String experience) {
 		this.experience = experience;
 	}
 
@@ -105,13 +112,36 @@ public class UserProfile {
 		this.cvFile = cvFile;
 	}
 
-	public Education getEducation() {
+
+	public List<String> getLanguages() {
+		return languages;
+	}
+
+
+	public void setLanguages(List<String> languages) {
+		this.languages = languages;
+	}
+
+
+	public List<Education> getEducation() {
 		return education;
 	}
 
-	public void setEducation(Education education) {
+
+	public void setEducation(List<Education> education) {
 		this.education = education;
 	}
+
+
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
 
 	public User getUser() {
 		return user;

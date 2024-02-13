@@ -5,6 +5,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,16 +20,18 @@ public class Education {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id; 
 	private int startYear;
 	private int endYear;
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_profile_id", referencedColumnName = "id", unique = true)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "college_id")
 	private College college;
+
 
 	public Education(int id, int startYear, int endYear, UserProfile userProfile, College college) {
 		super();
@@ -35,14 +41,10 @@ public class Education {
 		this.userProfile = userProfile;
 		this.college = college;
 	}
-	
-	
 
 	public Education() {
 		super();
 	}
-
-
 
 	public int getId() {
 		return id;

@@ -39,6 +39,7 @@ public class UserProfileController {
 	
 	@PutMapping("/")
 	public UserProfile updateUserProfile (@RequestBody UserProfile userProfile) {
+		System.out.println("ID qqqqqqqqqqqqqqqqq "+userProfile.getId());
 		return userProfileService.updateUserProfile(userProfile);
 	}
 	

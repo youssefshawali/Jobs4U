@@ -1,13 +1,16 @@
 package com.global.serviceImplement;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.global.Entity.Education;
 import com.global.Entity.User;
 import com.global.Entity.UserProfile;
+import com.global.Repository.EducationRepo;
 import com.global.Repository.UserProfileRepo;
 import com.global.Repository.UserRepo;
 import com.global.Services.UserProfileService;
@@ -20,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserProfileService userProfileService;
+	@Autowired
+	private EducationRepo reducationRepo;
 	@Override
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
@@ -27,10 +32,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public UserProfile createUserProfile(int userId, UserProfile userProfile) {
-        User user = getUserById(userId);
-        userProfile.setUser(user);
-        return userProfileService.insertUserProfile(userProfile);
-    }
+	    User user = getUserById(userId);
+	    userProfile.setUser(user);
+	    
+	    List<Education> educations = userProfile.getEducation();
+	    if (educations != null) {
+	        for (Education education : educations) {
+	            // Set the UserProfile for each Education
+	            education.setUserProfile(userProfile);
+	            // Optionally, you can save each Education here
+	            // educationRepo.save(education);
+	        }
+	    }
+
+	    // Save the UserProfile with its associated Education entries
+	    return userProfileService.insertUserProfile(userProfile);
+	}
+
 	
 	@Override
 	public void deleteUser(int id) {

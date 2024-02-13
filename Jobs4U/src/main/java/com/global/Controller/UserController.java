@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.Entity.Education;
 import com.global.Entity.User;
 import com.global.Entity.UserProfile;
 import com.global.Services.UserService;
@@ -37,10 +38,11 @@ public class UserController {
 	public User saveUser (@RequestBody User user) {
 		return userService.insertUser(user);
 	}
-	 @PostMapping("/{userId}/profile")
-	    public UserProfile createUserProfile(@PathVariable int userId, @RequestBody UserProfile userProfile) {
-	        return userService.createUserProfile(userId, userProfile);
-	    }
+
+	@PostMapping("/{userId}/profile")
+	public UserProfile createUserProfile(@PathVariable int userId, @RequestBody UserProfile userProfile) {
+		return userService.createUserProfile(userId, userProfile);
+	}
 	
 	@PutMapping("/")
 	public User updateUser (@RequestBody User user) {

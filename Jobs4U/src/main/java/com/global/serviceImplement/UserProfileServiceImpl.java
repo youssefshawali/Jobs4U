@@ -43,7 +43,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 		current.setExperience(userProfile.getExperience());
 		current.setCvFile(userProfile.getCvFile());
 		current.setEducation(userProfile.getEducation());
-		current.setUser(userProfile.getUser());
+//		current.setUser(userProfile.getUser());
 
 		return userProfileRepo.save(current);
 	}
