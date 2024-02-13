@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.global.Entity.Company;
 import com.global.Entity.Government;
 import com.global.Entity.Industry;
 import com.global.Repository.IndustryRepo;
+import com.global.Services.CompanyService;
 import com.global.Services.IndustryService;
 
 @Service
@@ -17,6 +19,8 @@ public class IndustryServiceImpl implements IndustryService {
 	@Autowired
 	private IndustryRepo industryRepo;
 
+	 @Autowired
+	 CompanyService companyservice;
 	@Override
 	public List<Industry> getAllIndustries() {
 		// TODO Auto-generated method stub
@@ -55,5 +59,13 @@ public class IndustryServiceImpl implements IndustryService {
 		}
 		throw new RuntimeException("User Not Fond");
 
+	}
+
+	@Override
+	public Company createCompany(int industryId, Company company) {
+		// TODO Auto-generated method stub
+		Industry industry = getIndustryById(industryId);
+		company.setIndustry(industry);
+		return companyservice.insertCompany(company);
 	}
 }

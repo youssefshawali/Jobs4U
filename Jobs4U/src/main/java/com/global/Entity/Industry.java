@@ -2,6 +2,8 @@ package com.global.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,7 +21,7 @@ public class Industry {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Company> companies;
 

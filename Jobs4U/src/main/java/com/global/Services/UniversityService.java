@@ -2,9 +2,12 @@ package com.global.Services;
 
 import java.util.List;
 
+import com.global.Entity.College;
 import com.global.Entity.University;
 
 public interface UniversityService {
+	
+College createCollege(int universityId, College college);
 	
 List<University> getAllUniversities();
 	

@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.global.Entity.College;
 import com.global.Entity.Qualification;
 import com.global.Entity.University;
+import com.global.Services.CollegeService;
 import com.global.Services.UniversityService;
 import com.global.Repository.UniversityRepo;
 
@@ -16,6 +18,8 @@ public class UniversityServiceImpl implements UniversityService {
 
 	@Autowired
 	private UniversityRepo universityRepo;
+	@Autowired
+	CollegeService collegeService;
 
 	@Override
 	public List<University> getAllUniversities() {
@@ -53,6 +57,13 @@ public class UniversityServiceImpl implements UniversityService {
 			return university.get();
 		}
 		throw new RuntimeException("User Not Fond");
+	}
+
+	@Override
+	public College createCollege(int universityId, College college) {
+		University university = getUniversityById(universityId);
+		college.setUniversity(university);
+		return collegeService.insertCollege(college);
 	}
 
 }
