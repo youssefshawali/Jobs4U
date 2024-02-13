@@ -34,7 +34,7 @@ public class CityServiceImpl implements CityService{
 
 		current.setName(City.getName());
 		current.setGovernment(City.getGovernment());
-		current.setLocation(City.getLocation());
+		current.setLocations(City.getLocations());
 		
 		return cityRepo.save(current);
 	}

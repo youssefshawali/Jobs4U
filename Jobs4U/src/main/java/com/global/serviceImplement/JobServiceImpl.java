@@ -51,7 +51,7 @@ public class JobServiceImpl implements JobService {
 		current.setDepartment(job.getDepartment());
 		current.setCareerLevels(job.getCareerLevels());
 		current.setSkills(job.getSkills());
-
+		current.setApplicants(job.getApplicants());
 		return jobRepo.save(current);
 
 	}

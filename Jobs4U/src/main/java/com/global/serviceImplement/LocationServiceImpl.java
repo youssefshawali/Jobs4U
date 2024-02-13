@@ -35,8 +35,11 @@ public class LocationServiceImpl implements LocationService {
 		// TODO Auto-generated method stub
 		Location current = locationRepo.findById(location.getId()).orElseThrow();
 
-		current.setLatitude(location.getLatitude());
-		current.setLongitude(location.getLongitude());
+		current.setStreetName(location.getStreetName());
+		current.setFloornumber(location.getFloornumber());
+		current.setApartmentnumber(location.getApartmentnumber());
+		current.setBuildingnumber(location.getBuildingnumber());
+		current.setZipcode(location.getZipcode());
 
 		return locationRepo.save(current);
 	}

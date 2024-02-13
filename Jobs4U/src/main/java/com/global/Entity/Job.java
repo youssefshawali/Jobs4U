@@ -66,10 +66,11 @@ public class Job {
 
 	
 	
+
 	public Job(int id, String jobTitle, String description, String requirments, int experience, String workHours,
 			String workPlaceType, String category, String status, int applicantsCount, LocalTime dateTime,
 			Location location, Company company, List<Qualification> qualification, Department department,
-			List<CareerLevel> careerLevels, List<Skill> skills) {
+			List<CareerLevel> careerLevels, List<Skill> skills, List<User> applicants) {
 		super();
 		this.id = id;
 		this.jobTitle = jobTitle;
@@ -88,6 +89,7 @@ public class Job {
 		this.department = department;
 		this.careerLevels = careerLevels;
 		this.skills = skills;
+		this.applicants = applicants;
 	}
 
 	public Job() {
@@ -228,6 +230,13 @@ public class Job {
 
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
+	}
+	public List<User> getApplicants() {
+		return applicants;
+	}
+
+	public void setApplicants(List<User> applicants) {
+		this.applicants = applicants;
 	}
 
 }
