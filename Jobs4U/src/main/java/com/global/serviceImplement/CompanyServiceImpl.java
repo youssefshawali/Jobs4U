@@ -1,17 +1,24 @@
 package com.global.serviceImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.global.Entity.CareerLevel;
 import com.global.Entity.Company;
+import com.global.Entity.Education;
 import com.global.Entity.Job;
+import com.global.Entity.Skill;
 import com.global.Entity.User;
 import com.global.Repository.CompanyRepo;
+import com.global.Services.CareerLevelService;
 import com.global.Services.CompanyService;
 import com.global.Services.JobService;
+import com.global.Services.SkillService;
+
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
@@ -19,6 +26,7 @@ public class CompanyServiceImpl implements CompanyService {
 	private CompanyRepo companyRepo;
 	@Autowired
 	JobService jobservice;
+
 	@Override
 	public List<Company> getAllCompanies() {
 		// TODO Auto-generated method stub
@@ -38,8 +46,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 		current.setName(Company.getName());
 		current.setEmail(Company.getEmail());
-		current.setWebSite(Company.getWebSite());		
-		current.setPassword(Company.getPassword());		
+		current.setWebSite(Company.getWebSite());
+		current.setPassword(Company.getPassword());
 		current.setAbout(Company.getAbout());
 		current.setFoundedYear(Company.getFoundedYear());
 		current.setMainLocation(Company.getMainLocation());
@@ -49,7 +57,7 @@ public class CompanyServiceImpl implements CompanyService {
 		current.setCoverPicture(Company.getCoverPicture());
 		current.setBranchLocations(Company.getBranchLocations());
 		current.setIndustry(Company.getIndustry());
-		
+
 		return companyRepo.save(current);
 	}
 
@@ -63,17 +71,44 @@ public class CompanyServiceImpl implements CompanyService {
 	public Company getCompanyById(int id) {
 		// TODO Auto-generated method stub
 		Optional<Company> Company = companyRepo.findById(id);
-		if(Company.isPresent()) {
+		if (Company.isPresent()) {
 			return Company.get();
 		}
 		throw new RuntimeException("User Not Fond");
 	}
 
+	@Autowired
+	CareerLevelService careerLevelService;
+	@Autowired
+	SkillService skillService;
+
 	@Override
 	public Job createjob(int companyId, Job job) {
-    Company company = getCompanyById(companyId);
-    job.setCompanyId(company);
-	return jobservice.insertJob(job) ;
+		Company company = getCompanyById(companyId);
+		job.setCompanyId(company);
+		List<CareerLevel> savedCareerLevels = new ArrayList<>();
+		CareerLevel cl = new CareerLevel();
+		if (job.getCareerLevels() != null) {
+			for (CareerLevel careerLevel : job.getCareerLevels()) {
+				cl = careerLevelService.getCareerLevelById(careerLevel.getId());
+				savedCareerLevels.add(cl);
+			}
+			job.setCareerLevels(savedCareerLevels);
+
+		}
+		List<Skill> savedSkillList = new ArrayList<>();
+		Skill skill = new Skill();
+		if(job.getSkills()!=null) {
+			for(Skill s : job.getSkills()) {
+				skill = skillService.getSkillById(s.getId());
+				savedSkillList.add(skill);
+			}
+			job.setSkills(savedSkillList);
+		}
+		
+		
+		
+		return jobservice.insertJob(job);
 	}
 
 }

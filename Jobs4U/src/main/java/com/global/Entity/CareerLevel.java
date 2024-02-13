@@ -6,6 +6,8 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,7 @@ public class CareerLevel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String level;// senior,junior
-
+	@JsonIgnore
 	@ManyToMany(mappedBy = "careerLevels")
 	private List<Job> jobs;
 
@@ -29,13 +31,9 @@ public class CareerLevel {
 		this.jobs = jobs;
 	}
 
-	
-	
 	public CareerLevel() {
 		super();
 	}
-
-
 
 	public int getId() {
 		return id;

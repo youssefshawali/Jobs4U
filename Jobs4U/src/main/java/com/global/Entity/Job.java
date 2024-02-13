@@ -1,6 +1,7 @@
 package com.global.Entity;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -50,7 +51,7 @@ public class Job {
 	
 	@ManyToMany
 	@JoinTable(name = "job_career_level", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "career_level_id"))
-	private List<CareerLevel> careerLevels;
+	private List<CareerLevel> careerLevels = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "Job_required_skills", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
@@ -239,5 +240,7 @@ public class Job {
 	public void setApplicants(List<User> applicants) {
 		this.applicants = applicants;
 	}
-
+public void setCareerLevelOneByOne(CareerLevel careerLevel) {
+	this.careerLevels.add(careerLevel);
+}
 }
