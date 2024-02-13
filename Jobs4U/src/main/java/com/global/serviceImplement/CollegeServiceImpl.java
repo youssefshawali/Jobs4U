@@ -18,8 +18,6 @@ public class CollegeServiceImpl implements CollegeService {
 
 	@Autowired
 	private CollegeRepo collegeRepo;
-	@Autowired
-	EducationService educationService;
 
 	@Override
 
@@ -63,11 +61,5 @@ public class CollegeServiceImpl implements CollegeService {
 
 	}
 
-	@Override
-	public Education createEducation(int collegeId, Education education) {
-		College college = getCollegeById(collegeId);
-		education.setCollege(college);
-		return educationService.insertEducation(education);
-	}
 
 }

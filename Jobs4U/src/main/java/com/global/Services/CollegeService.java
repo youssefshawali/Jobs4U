@@ -9,8 +9,6 @@ public interface CollegeService {
 
 	List<College> getAllColleges();
 
-	Education createEducation(int collegeId, Education education);
-
 	College insertCollege(College Collage);
 
 	College updateCollege(College Collage);
