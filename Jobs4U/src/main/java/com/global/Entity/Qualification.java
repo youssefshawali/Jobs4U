@@ -2,6 +2,8 @@ package com.global.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +19,7 @@ public class Qualification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String degree;// phd etc.
-
+	@JsonIgnore
 	@ManyToMany(mappedBy = "qualification")
 	private List<Job> jobs;
 
@@ -27,12 +29,10 @@ public class Qualification {
 		this.degree = degree;
 		this.jobs = jobs;
 	}
-	
 
 	public Qualification() {
 		super();
 	}
-
 
 	public int getId() {
 		return id;

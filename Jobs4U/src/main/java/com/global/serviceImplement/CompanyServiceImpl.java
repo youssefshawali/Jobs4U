@@ -11,12 +11,14 @@ import com.global.Entity.CareerLevel;
 import com.global.Entity.Company;
 import com.global.Entity.Education;
 import com.global.Entity.Job;
+import com.global.Entity.Qualification;
 import com.global.Entity.Skill;
 import com.global.Entity.User;
 import com.global.Repository.CompanyRepo;
 import com.global.Services.CareerLevelService;
 import com.global.Services.CompanyService;
 import com.global.Services.JobService;
+import com.global.Services.QualificationService;
 import com.global.Services.SkillService;
 
 @Service
@@ -81,6 +83,8 @@ public class CompanyServiceImpl implements CompanyService {
 	CareerLevelService careerLevelService;
 	@Autowired
 	SkillService skillService;
+	@Autowired
+	QualificationService qualificationservice;
 
 	@Override
 	public Job createjob(int companyId, Job job) {
@@ -105,7 +109,15 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 			job.setSkills(savedSkillList);
 		}
-		
+		List<Qualification> savedQualificationList = new ArrayList<>();
+		Qualification qualification = new Qualification();
+		if(job.getQualification()!=null) {
+			for(Qualification s : job.getQualification()) {
+				qualification = qualificationservice.getQualificationById(s.getId());
+				savedQualificationList.add(qualification);
+			}
+			job.setQualification(savedQualificationList);
+		}
 		
 		
 		return jobservice.insertJob(job);
