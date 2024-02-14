@@ -34,12 +34,24 @@ public class ExperienceServiceImpl implements ExperienceService{
 	public Experience updateExperience(Experience experience) {
 		// TODO Auto-generated method stub
 		Experience current=experienceRepo.findById(experience.getId()).orElseThrow(); 
+		if(experience.getJobTitle()!= null) {
 		current.setJobTitle(experience.getJobTitle());
+		}
+		if(experience.getCompanyName()!= null) {
 		current.setCompanyName(experience.getCompanyName());
+		}
+		if(experience.getCompanyLocation()!= null) {
 		current.setCompanyLocation(experience.getCompanyLocation());
+		}
+		if(experience.getStartDate()!= null) {
 		current.setStartDate(experience.getStartDate());
+		}
+		if(experience.getEndDate()!= null) {
 		current.setEndDate(experience.getEndDate());
+		}
+		if(experience.getUser()!= null) {
 		current.setUser(experience.getUser());
+		}
 		return experienceRepo.save(current);
 	}
 

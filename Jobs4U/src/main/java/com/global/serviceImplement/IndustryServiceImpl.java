@@ -37,10 +37,12 @@ public class IndustryServiceImpl implements IndustryService {
 	public Industry updateIndustry(Industry industry) {
 		// TODO Auto-generated method stub
 		Industry current = industryRepo.findById(industry.getId()).orElseThrow();
-
+		if(industry.getType()!=null) {
 		current.setType(industry.getType());
+		}
+		if(industry.getCompanies()!=null) {
 		current.setCompanies(industry.getCompanies());
-
+		}
 		return industryRepo.save(current);
 	}
 

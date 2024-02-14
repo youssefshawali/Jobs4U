@@ -40,9 +40,10 @@ public class GovernmentServiceImpl implements GovernmentService {
 	public Government updateGovernment(Government government) {
 		// TODO Auto-generated method stub
 		Government current = governmentRepo.findById(government.getId()).orElseThrow();
-
+		if(government.getName()!= null)
+		{
 		current.setName(government.getName());
-		
+		}
 		return governmentRepo.save(current);
 	}
 

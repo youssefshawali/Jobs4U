@@ -32,9 +32,13 @@ public class CareerLevelServiceImpl implements CareerLevelService{
 	public CareerLevel updateCareerLevel(CareerLevel CareerLevel) {
 		// TODO Auto-generated method stub
 		CareerLevel current = careerLevelRepo.findById(CareerLevel.getId()).orElseThrow();
+		if(CareerLevel.getLevel()!= null) {
 		current.setLevel(CareerLevel.getLevel());
+		}
+		if(CareerLevel.getJobs()!= null)
+		{
 		current.setJobs(CareerLevel.getJobs());
-		
+		}
 
 		return careerLevelRepo.save(current);
 	}
