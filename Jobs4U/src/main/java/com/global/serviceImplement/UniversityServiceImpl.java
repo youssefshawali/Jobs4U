@@ -37,9 +37,9 @@ public class UniversityServiceImpl implements UniversityService {
 	public University updateUniversity(University university) {
 		// TODO Auto-generated method stub
 		University current = universityRepo.findById(university.getId()).orElseThrow();
-
+		if(university.getName()!=null) {
 		current.setName(university.getName());
-
+		}
 		return universityRepo.save(current);
 	}
 
