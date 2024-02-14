@@ -73,17 +73,33 @@ public class UserServiceImpl implements UserService {
 	public User updateUser(User user) {
 		// TODO Auto-generated method stub
 		User current = userRepo.findById(user.getId()).orElseThrow();
-
+		if(user.getFname()!=null) {
 		current.setFname(user.getFname());
+		}
+		if(user.getLname()!=null) {
 		current.setLname(user.getLname());
+		}
+		if(user.getPhoneNumber()!=null) {
 		current.setPhoneNumber(user.getPhoneNumber());
+		}
+		if(user.getEmail()!=null) {
 		current.setEmail(user.getEmail());
+		}
+		if(user.getPassword()!=null) {
 		current.setPassword(user.getPassword());
+		}
+		if(user.getAge()!=0) {
 		current.setAge(user.getAge());
+		}
+		if(user.getProfilePicture()!=null) {
 		current.setProfilePicture(user.getProfilePicture());
+		}
+		if(user.getUserProfile()!=null) {
 		current.setUserProfile(user.getUserProfile());
+		}
+		if(user.getAppliedJobs()!=null) {
 		current.setAppliedJobs(user.getAppliedJobs());
-
+		}
 		return userRepo.save(current);
 	}
 
