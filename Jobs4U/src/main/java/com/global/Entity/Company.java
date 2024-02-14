@@ -14,6 +14,7 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.global.Repository.LocationRepo;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -43,9 +44,12 @@ public class Company {
 
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "main_location_id")
 	private Location mainLocation;
+	
+	
+
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

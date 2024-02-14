@@ -30,9 +30,12 @@ public class CompanyServiceImpl implements CompanyService {
 	JobService jobservice;
 
 	@Override
-	public List<Company> getAllCompanies() {
-		// TODO Auto-generated method stub
-		return companyRepo.findAll();
+	public List<Company> getAllCompanies(String name) {
+		if (name != null) {
+			return companyRepo.findAll(name);
+		} else {
+			return companyRepo.findAll();
+		}
 	}
 
 	@Override
@@ -102,8 +105,8 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 		List<Skill> savedSkillList = new ArrayList<>();
 		Skill skill = new Skill();
-		if(job.getSkills()!=null) {
-			for(Skill s : job.getSkills()) {
+		if (job.getSkills() != null) {
+			for (Skill s : job.getSkills()) {
 				skill = skillService.getSkillById(s.getId());
 				savedSkillList.add(skill);
 			}
@@ -111,15 +114,14 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 		List<Qualification> savedQualificationList = new ArrayList<>();
 		Qualification qualification = new Qualification();
-		if(job.getQualification()!=null) {
-			for(Qualification s : job.getQualification()) {
+		if (job.getQualification() != null) {
+			for (Qualification s : job.getQualification()) {
 				qualification = qualificationservice.getQualificationById(s.getId());
 				savedQualificationList.add(qualification);
 			}
 			job.setQualification(savedQualificationList);
 		}
-		
-		
+
 		return jobservice.insertJob(job);
 	}
 
