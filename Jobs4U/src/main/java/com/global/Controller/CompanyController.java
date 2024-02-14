@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.global.Entity.Company;
 import com.global.Entity.Job;
+import com.global.Entity.Location;
 import com.global.Services.CompanyService;
 
 @RestController
@@ -52,5 +53,11 @@ public class CompanyController {
 	public Job createjob(@PathVariable int companyId, @RequestBody Job job)
 	{
 		return companyService.createjob(companyId, job);
+	}
+	
+	@PostMapping("/{companyId}/addLocation")
+	public Company addCompanyLocation(@PathVariable int companyId, @RequestBody Location location)
+	{
+		return companyService.addCompanyLocation(companyId, location);
 	}
 }

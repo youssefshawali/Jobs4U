@@ -19,8 +19,6 @@ public class IndustryServiceImpl implements IndustryService {
 	@Autowired
 	private IndustryRepo industryRepo;
 
-	 @Autowired
-	 CompanyService companyservice;
 	@Override
 	public List<Industry> getAllIndustries() {
 		// TODO Auto-generated method stub
@@ -63,11 +61,11 @@ public class IndustryServiceImpl implements IndustryService {
 
 	}
 
-	@Override
-	public Company createCompany(int industryId, Company company) {
-		// TODO Auto-generated method stub
-		Industry industry = getIndustryById(industryId);
-		company.setIndustry(industry);
-		return companyservice.insertCompany(company);
-	}
+//	@Override
+//	public Company createCompany(int industryId, Company company) {
+//		// TODO Auto-generated method stub
+//		Industry industry = getIndustryById(industryId);
+//		company.setIndustry(industry);
+//		return companyservice.insertCompany(company);
+//	}
 }

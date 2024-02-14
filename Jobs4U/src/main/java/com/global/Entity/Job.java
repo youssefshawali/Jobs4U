@@ -27,8 +27,6 @@ public class Job {
 	private String description;
 	private String requirments;
 	private int experience;
-	private String workHours;// partime or full time
-	private String workPlaceType;// remote or onsite
 	private String category;//
 	private String status;// opened / closed
 	private int applicantsCount;
@@ -57,6 +55,8 @@ public class Job {
 	@JoinTable(name = "Job_required_skills", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
 	private List<Skill> skills;
 
+	private String workHours;// partime or full time
+	private String workPlaceType;// remote or onsite
 	
 	@ManyToMany
     @JoinTable(

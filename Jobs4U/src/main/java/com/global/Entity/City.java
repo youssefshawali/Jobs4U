@@ -27,20 +27,16 @@ public class City {
 	@JoinColumn(name = "government_id")
 	private Government government;
 
-	//@OneToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "location_id")
-	
+	// @OneToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "location_id")
+	@JsonIgnore
 	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Location> locations;
-	//private Location location;
+	// private Location location;
 
-	
-
-	
 	public City() {
 		super();
 	}
-
 
 	public City(int id, String name, Government government, List<Location> locations) {
 		super();
@@ -49,7 +45,6 @@ public class City {
 		this.government = government;
 		this.locations = locations;
 	}
-
 
 	public int getId() {
 		return id;
@@ -75,16 +70,12 @@ public class City {
 		this.government = government;
 	}
 
-
 	public List<Location> getLocations() {
 		return locations;
 	}
 
-
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
 	}
-
-
 
 }

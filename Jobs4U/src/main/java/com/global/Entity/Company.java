@@ -9,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,21 +44,16 @@ public class Company {
 
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "main_location_id")
-	private Location mainLocation;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<CompanyBranchLocation> branchLocations;
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Location> locations = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "industry_id")
 	private Industry industry;
 
 	public Company(int id, String name, String email, String webSite, String password, int size, int foundedYear,
-			String about, String specialists, byte[] profilePicture, byte[] coverPicture, Location mainLocation,
-			List<CompanyBranchLocation> branchLocations, Industry industry) {
+			String about, String specialists, byte[] profilePicture, byte[] coverPicture, List<Location> locations,
+			Industry industry) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -68,10 +64,9 @@ public class Company {
 		this.foundedYear = foundedYear;
 		this.about = about;
 		this.specialists = specialists;
-		this.mainLocation = mainLocation;
 		this.profilePicture = profilePicture;
 		this.coverPicture = coverPicture;
-		this.branchLocations = branchLocations;
+		this.locations = locations;
 		this.industry = industry;
 	}
 
@@ -178,20 +173,12 @@ public class Company {
 		this.coverPicture = coverPicture;
 	}
 
-	public Location getMainLocation() {
-		return mainLocation;
+	public List<Location> getLocations() {
+		return locations;
 	}
 
-	public void setMainLocation(Location mainLocation) {
-		this.mainLocation = mainLocation;
-	}
-
-	public List<CompanyBranchLocation> getBranchLocations() {
-		return branchLocations;
-	}
-
-	public void setBranchLocations(List<CompanyBranchLocation> branchLocations) {
-		this.branchLocations = branchLocations;
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
 
 	public Industry getIndustry() {
