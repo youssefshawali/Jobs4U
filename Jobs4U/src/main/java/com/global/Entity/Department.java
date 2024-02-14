@@ -6,6 +6,8 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +22,7 @@ public class Department {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String field;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Job> jobs;
 
@@ -30,14 +32,10 @@ public class Department {
 		this.field = field;
 		this.jobs = jobs;
 	}
-	
-	
 
 	public Department() {
 		super();
 	}
-
-
 
 	public int getId() {
 		return id;

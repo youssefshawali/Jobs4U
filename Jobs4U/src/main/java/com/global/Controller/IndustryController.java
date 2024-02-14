@@ -49,9 +49,9 @@ public class IndustryController {
 		industryService.deleteIndustry(id);
 	}
 	
-	@PostMapping("/{industryId}/company")
-	public Company createCompany(@PathVariable int industryId, @RequestBody Company company)
-	{
-		return industryService.createCompany(industryId, company);
-	}
+//	@PostMapping("/{industryId}/company")
+//	public Company createCompany(@PathVariable int industryId, @RequestBody Company company)
+//	{
+//		return industryService.createCompany(industryId, company);
+//	}
 }

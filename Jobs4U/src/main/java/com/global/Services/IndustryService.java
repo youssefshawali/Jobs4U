@@ -9,7 +9,7 @@ import com.global.Entity.Industry;
 
 public interface IndustryService {
 	
-Company createCompany(int industryId,Company company);
+//Company createCompany(int industryId,Company company);
 	
 List<Industry> getAllIndustries();
 	
