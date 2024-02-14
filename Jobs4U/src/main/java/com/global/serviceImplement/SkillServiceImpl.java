@@ -33,11 +33,15 @@ public class SkillServiceImpl implements SkillService {
 	public Skill updateSkill(Skill skill) {
 		// TODO Auto-generated method stub
 		Skill current = skillRepo.findById(skill.getId()).orElseThrow();
-
+		if(skill.getName()!= null) {
 		current.setName(skill.getName());
+		}
+		if(skill.getJobs()!= null) {
 		current.setJobs(skill.getJobs());
+		}
+		if(skill.getUserProfiles()!= null) {
 		current.setUserProfiles(skill.getUserProfiles());
-
+		}
 		return skillRepo.save(current);
 	}
 

@@ -34,12 +34,21 @@ public class LocationServiceImpl implements LocationService {
 	public Location updateLocation(Location location) {
 		// TODO Auto-generated method stub
 		Location current = locationRepo.findById(location.getId()).orElseThrow();
-
+		if(location.getStreetName()!= null) {
 		current.setStreetName(location.getStreetName());
+		}
+		if(location.getFloornumber()!= 0) {
 		current.setFloornumber(location.getFloornumber());
+		}
+		if(location.getApartmentnumber()!= 0) {
 		current.setApartmentnumber(location.getApartmentnumber());
+		}
+		if(location.getBuildingnumber()!= 0) {
 		current.setBuildingnumber(location.getBuildingnumber());
+		}
+		if(location.getZipcode()!= 0) {
 		current.setZipcode(location.getZipcode());
+		}
 
 		return locationRepo.save(current);
 	}

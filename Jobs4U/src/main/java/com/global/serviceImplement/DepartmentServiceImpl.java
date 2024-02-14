@@ -34,8 +34,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public Department updateDepartment(Department department) {
 		// TODO Auto-generated method stub
 		Department current = departmentRepo.findById(department.getId()).orElseThrow();
+		if(department.getField()!= null) {
 		current.setField(department.getField());
+		}
+		if(department.getJobs()!= null) {
 		current.setJobs(department.getJobs());
+		}
 
 		return departmentRepo.save(current);
 	}

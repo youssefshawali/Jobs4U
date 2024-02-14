@@ -41,11 +41,18 @@ public class EducationServiceImpl implements EducationService {
 	public Education updateEducation(Education education) {
 		// TODO Auto-generated method stub
 		Education current = educationRepo.findById(education.getId()).orElseThrow();
+		if(education.getStartYear()!=0) {
 		current.setStartYear(education.getStartYear());
+		}
+		if(education.getEndYear()!=0) {
 		current.setEndYear(education.getEndYear());
+		}
+		if(education.getUserProfile()!=null) {
 		current.setUserProfile(education.getUserProfile());
+		}
+		if(education.getCollege()!=null) {
 		current.setCollege(education.getCollege());
-
+		}
 		return educationRepo.save(current);
 	}
 

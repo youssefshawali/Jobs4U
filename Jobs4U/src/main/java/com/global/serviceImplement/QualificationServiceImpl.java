@@ -33,10 +33,12 @@ public class QualificationServiceImpl implements QualificationService {
 	public Qualification updateQualification(Qualification qualification) {
 		// TODO Auto-generated method stub
 		Qualification current = qualificationRepo.findById(qualification.getId()).orElseThrow();
-
+		if(qualification.getDegree()!=null) {
 		current.setDegree(qualification.getDegree());
+		}
+		if(qualification.getJobs()!=null) {
 		current.setJobs(qualification.getJobs());
-
+		}
 		return qualificationRepo.save(current);
 	}
 

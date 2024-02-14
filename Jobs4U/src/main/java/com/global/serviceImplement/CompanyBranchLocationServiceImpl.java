@@ -34,11 +34,15 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
 	public CompanyBranchLocation updateCompanyBranchLocation(CompanyBranchLocation companyBranchLocation) {
 		// TODO Auto-generated method stub
 		CompanyBranchLocation current = companyBranchLocationRepo.findById(companyBranchLocation.getId()).orElseThrow();
-
+	    if(companyBranchLocation.getCompany()!= null) {
 		current.setCompany(companyBranchLocation.getCompany());
+	    }
+	    if(companyBranchLocation.getLocation()!= null) {
 		current.setLocation(companyBranchLocation.getLocation());
+	    }
+	    if(companyBranchLocation.getBranchName()!= null) {
 		current.setBranchName(companyBranchLocation.getBranchName());
-
+	    }
 		return companyBranchLocationRepo.save(current);
 	}
 

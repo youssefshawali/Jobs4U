@@ -36,10 +36,14 @@ public class CollegeServiceImpl implements CollegeService {
 	public College updateCollege(College college) {
 		// TODO Auto-generated method stub
 		College current = collegeRepo.findById(college.getId()).orElseThrow();
-
+       if(college.getName()!= null) {
 		current.setName(college.getName());
-		current.setUniversity(college.getUniversity());
+       }
+       if(college.getUniversity()!= null) {
+		current.setUniversity(college.getUniversity());}
+       if(college.getEducations()!= null) {
 		current.setEducations(college.getEducations());
+       }
 
 		return collegeRepo.save(current);
 	}

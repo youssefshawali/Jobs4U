@@ -38,12 +38,21 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public UserProfile updateUserProfile(UserProfile userProfile) {
 		// TODO Auto-generated method stub
 		UserProfile current = userProfileRepo.findById(userProfile.getId()).orElseThrow();
-
+		if(userProfile.getCurrentJobTitle()!=null) {
 		current.setCurrentJobTitle(userProfile.getCurrentJobTitle());
+		}
+		if(userProfile.getBio()!=null) {
 		current.setBio(userProfile.getBio());
+		}
+		if(userProfile.getExperience()!=null) {
 		current.setExperience(userProfile.getExperience());
+		}
+		if(userProfile.getCvFile()!=null) {
 		current.setCvFile(userProfile.getCvFile());
+		}
+		if(userProfile.getEducation()!=null) {
 		current.setEducation(userProfile.getEducation());
+		}
 //		current.setUser(userProfile.getUser());
 
 		return userProfileRepo.save(current);

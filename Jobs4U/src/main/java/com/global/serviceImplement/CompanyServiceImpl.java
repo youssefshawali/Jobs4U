@@ -48,21 +48,46 @@ public class CompanyServiceImpl implements CompanyService {
 	public Company updateCompany(Company Company) {
 		// TODO Auto-generated method stub
 		Company current = companyRepo.findById(Company.getId()).orElseThrow();
-
+		if(Company.getName()!= null) {
 		current.setName(Company.getName());
+		}
+		if(Company.getEmail()!= null) {
 		current.setEmail(Company.getEmail());
+		}
+		if(Company.getWebSite()!= null) {
 		current.setWebSite(Company.getWebSite());
+		}
+		if(Company.getPassword()!= null) {
 		current.setPassword(Company.getPassword());
+		}
+		if(Company.getAbout()!= null) {
 		current.setAbout(Company.getAbout());
+		}
+		if(Company.getFoundedYear()!= 0) {
 		current.setFoundedYear(Company.getFoundedYear());
+		}
+		if(Company.getMainLocation()!= null) {
 		current.setMainLocation(Company.getMainLocation());
+		}
+		if(Company.getSpecialists()!= null) {
 		current.setSpecialists(Company.getSpecialists());
+		}
+		if(Company.getSize()!= 0) {
 		current.setSize(Company.getSize());
+		}
+		if(Company.getProfilePicture()!= null) {
 		current.setProfilePicture(Company.getProfilePicture());
+		}
+		if(Company.getCoverPicture()!= null) {
 		current.setCoverPicture(Company.getCoverPicture());
+		}
+		if(Company.getBranchLocations()!= null) {
 		current.setBranchLocations(Company.getBranchLocations());
+		}
+		if(Company.getIndustry()!= null) {
 		current.setIndustry(Company.getIndustry());
-
+		}
+		
 		return companyRepo.save(current);
 	}
 
