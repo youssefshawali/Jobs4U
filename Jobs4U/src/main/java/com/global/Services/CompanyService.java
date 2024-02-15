@@ -12,7 +12,7 @@ public interface CompanyService {
 	
 	Job createjob(int companyId, Job job);
 
-//	List<Company> getAllCompanies(String name);
+	List<Company> getAllCompanies(String name);
 	
 	Company insertCompany(Company Company);
 	
