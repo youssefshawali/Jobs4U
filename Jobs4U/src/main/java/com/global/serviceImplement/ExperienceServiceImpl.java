@@ -49,8 +49,8 @@ public class ExperienceServiceImpl implements ExperienceService{
 		if(experience.getEndDate()!= null) {
 		current.setEndDate(experience.getEndDate());
 		}
-		if(experience.getUser()!= null) {
-		current.setUser(experience.getUser());
+		if(experience.getUserProfile()!= null) {
+		current.setUserProfile(null);
 		}
 		return experienceRepo.save(current);
 	}

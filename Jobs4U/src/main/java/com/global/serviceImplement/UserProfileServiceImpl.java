@@ -1,5 +1,6 @@
 package com.global.serviceImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
@@ -7,14 +8,26 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.global.Entity.Education;
+import com.global.Entity.Experience;
+import com.global.Entity.Skill;
 import com.global.Entity.UserProfile;
 import com.global.Repository.UserProfileRepo;
+import com.global.Services.EducationService;
+import com.global.Services.ExperienceService;
+import com.global.Services.SkillService;
 import com.global.Services.UserProfileService;
 
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
 	@Autowired
 	private UserProfileRepo userProfileRepo;
+	@Autowired
+	ExperienceService experienceService;
+	@Autowired
+	EducationService educationService;
+	@Autowired
+	SkillService skillService;
 
 	@Override
 	public List<UserProfile> getAllUserProfiles() {
@@ -38,20 +51,20 @@ public class UserProfileServiceImpl implements UserProfileService {
 	public UserProfile updateUserProfile(UserProfile userProfile) {
 		// TODO Auto-generated method stub
 		UserProfile current = userProfileRepo.findById(userProfile.getId()).orElseThrow();
-		if(userProfile.getCurrentJobTitle()!=null) {
-		current.setCurrentJobTitle(userProfile.getCurrentJobTitle());
+		if (userProfile.getCurrentJobTitle() != null) {
+			current.setCurrentJobTitle(userProfile.getCurrentJobTitle());
 		}
-		if(userProfile.getBio()!=null) {
-		current.setBio(userProfile.getBio());
+		if (userProfile.getBio() != null) {
+			current.setBio(userProfile.getBio());
 		}
-		if(userProfile.getExperience()!=null) {
-		current.setExperience(userProfile.getExperience());
+		if (userProfile.getExperience() != null) {
+			current.setExperience(userProfile.getExperience());
 		}
-		if(userProfile.getCvFile()!=null) {
-		current.setCvFile(userProfile.getCvFile());
+		if (userProfile.getCvFile() != null) {
+			current.setCvFile(userProfile.getCvFile());
 		}
-		if(userProfile.getEducation()!=null) {
-		current.setEducation(userProfile.getEducation());
+		if (userProfile.getEducation() != null) {
+			current.setEducation(userProfile.getEducation());
 		}
 //		current.setUser(userProfile.getUser());
 
@@ -66,6 +79,53 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return userProfile.get();
 		}
 		throw new RuntimeException("UserProfile Not Fond");
+
+	}
+
+	// Experience
+	@Override
+	public Experience createExperience(int profileId, Experience experience) {
+		UserProfile userProfile = getUserProfileById(profileId);
+		experience.setUserProfile(userProfile);
+		return experienceService.insertExperience(experience);
+	}
+
+	// Education
+	@Override
+	public Education createEducation(int profileId, Education education) {
+		UserProfile userProfile = getUserProfileById(profileId);
+		education.setUserProfile(userProfile);
+		return educationService.insertEducation(education);
+	}
+
+	// skills
+	@Override
+	public UserProfile createSkill(int profileId, List<Skill> skill) {
+		UserProfile userProfile = getUserProfileById(profileId);
+		List<Skill> skills;
+		if (userProfile.getSkills() == null) {
+			skills = new ArrayList();
+			for (Skill skillitem : skill) {
+				Skill s = skillService.getSkillById(skillitem.getId());
+				skills.add(s);
+			}
+
+		} else {
+			skills = userProfile.getSkills();
+			List<Integer> ids = new ArrayList<>();
+			for (Skill s : skills) {
+				ids.add(s.getId());
+			}
+			for (Skill skillitem : skill) {
+				if (! ids.contains(skillitem.getId())) {
+					Skill s = skillService.getSkillById(skillitem.getId());
+					skills.add(s);
+				}
+			}
+		}
+
+		userProfile.setSkills(skills);
+		return updateUserProfile(userProfile);
 
 	}
 
