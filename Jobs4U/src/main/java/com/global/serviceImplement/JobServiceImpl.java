@@ -85,4 +85,10 @@ public class JobServiceImpl implements JobService {
 		}
 	}
 
+	@Override
+	public List<Job> findByCompanyName(String companyName) {
+		// TODO Auto-generated method stub
+		return jobRepo.findByCompany_Name(companyName);
+	}
+
 }
