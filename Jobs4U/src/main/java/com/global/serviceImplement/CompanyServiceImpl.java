@@ -47,11 +47,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private DepartmentService departmentService;
 
-	@Override
-	public List<Company> getAllCompanies() {
-		// TODO Auto-generated method stub
-		return companyRepo.findAll();
-	}
+
 
 	@Override
 	public Company insertCompany(Company company) {
