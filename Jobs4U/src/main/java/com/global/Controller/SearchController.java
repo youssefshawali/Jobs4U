@@ -28,9 +28,9 @@ public class SearchController {
 	
 	
 	@GetMapping("/")
-	public List<?>getAll(@RequestParam String key){
+	public List<?>getAll(@RequestParam String key,@RequestParam String hours,@RequestParam String workPlace,@RequestParam(required = false) Integer experience,@RequestParam String category){
 //		key="MMMMMMMMMM";
 //		//key="AAAAAAAAAA";
-	return searchService.getAll(key);
+	return searchService.getAll(key,hours,workPlace,experience,category);
 	}
 }

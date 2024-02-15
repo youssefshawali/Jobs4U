@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface SearchService {
 
-	List<?>getAll(String key);
+	List<?>getAll(String key,String wrokingHours,String workPlace,Integer experience,String category);
 }

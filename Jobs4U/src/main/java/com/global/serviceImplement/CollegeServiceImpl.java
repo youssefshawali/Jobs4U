@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +36,26 @@ public class CollegeServiceImpl implements CollegeService {
 	@Override
 	public College updateCollege(College college) {
 		// TODO Auto-generated method stub
-		College current = collegeRepo.findById(college.getId()).orElseThrow();
-       if(college.getName()!= null) {
-		current.setName(college.getName());
-       }
-       if(college.getUniversity()!= null) {
-		current.setUniversity(college.getUniversity());}
-       if(college.getEducations()!= null) {
-		current.setEducations(college.getEducations());
-       }
+		try {
+			College current = collegeRepo.findById(college.getId()).orElseThrow();
+			if (college.getName() != null) {
+				current.setName(college.getName());
+			}
+			if (college.getUniversity() != null) {
+				current.setUniversity(college.getUniversity());
+			}
+			if (college.getEducations() != null) {
+				current.setEducations(college.getEducations());
+			}
 
-		return collegeRepo.save(current);
+			return collegeRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("college not found for ID: " + college.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update college", e);
+		}
 	}
 
 	@Override
@@ -64,6 +74,5 @@ public class CollegeServiceImpl implements CollegeService {
 		throw new RuntimeException("College Not Fond");
 
 	}
-
 
 }

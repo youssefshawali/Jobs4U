@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,22 @@ public class IndustryServiceImpl implements IndustryService {
 	@Override
 	public Industry updateIndustry(Industry industry) {
 		// TODO Auto-generated method stub
-		Industry current = industryRepo.findById(industry.getId()).orElseThrow();
-		if(industry.getType()!=null) {
-		current.setType(industry.getType());
+		try {
+			Industry current = industryRepo.findById(industry.getId()).orElseThrow();
+			if (industry.getType() != null) {
+				current.setType(industry.getType());
+			}
+			if (industry.getCompanies() != null) {
+				current.setCompanies(industry.getCompanies());
+			}
+			return industryRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("industry not found for ID: " + industry.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update industry", e);
 		}
-		if(industry.getCompanies()!=null) {
-		current.setCompanies(industry.getCompanies());
-		}
-		return industryRepo.save(current);
 	}
 
 	@Override
@@ -57,7 +66,7 @@ public class IndustryServiceImpl implements IndustryService {
 		if (industry.isPresent()) {
 			return industry.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Industry Not Fond");
 
 	}
 

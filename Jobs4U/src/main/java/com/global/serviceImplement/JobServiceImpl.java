@@ -91,4 +91,15 @@ public class JobServiceImpl implements JobService {
 		return jobRepo.findByCompany_Name(companyName);
 	}
 
+	@Override
+	public List<Job> findBySearchFilters(String title,String hours,String workPlace,Integer experience,String category) {
+		// TODO Auto-generated method stub
+		return jobRepo.findBySearchFilters(title,hours,workPlace,experience, category);
+	}
+	@Override
+	public List<Job> findBySearchFilters(String title,String hours,String workPlace,String category) {
+		// TODO Auto-generated method stub
+		return jobRepo.findBySearchFilters(title,hours,workPlace,category);
+	}
+
 }
