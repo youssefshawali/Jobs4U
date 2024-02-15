@@ -25,9 +25,16 @@ public class Job {
 	private int id;
 	private String jobTitle;
 	private String description;
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 	private String requirments;
-	private int experience;
-	private String category;//
+	private int experience;//number of years
+	private String category;// it/software
 	private String status;// opened / closed
 	private int applicantsCount;
 	private LocalTime dateTime;

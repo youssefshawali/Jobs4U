@@ -15,6 +15,10 @@ public interface JobService {
 
 	List<Job> getAllJobs(String jobTitle);
 		
+	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,Integer experience,String category);
+	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,String category);
+
+	
 	Job insertJob(Job Job);
 		
 	Job updateJob (Job Job);
@@ -22,4 +26,6 @@ public interface JobService {
 	void deleteJob(int id);
 		
 	Job getJobById(int id);
+	
+	
 }

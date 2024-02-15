@@ -13,33 +13,30 @@ import com.global.Services.JobService;
 import com.global.Services.SearchService;
 
 @Service
-public class SearchServiceImpl implements SearchService{
+public class SearchServiceImpl implements SearchService {
 
 	@Autowired
 	private JobService jobService;
 	@Autowired
 	private CompanyService companyService;
-	
-	
+
 	@Override
-	public List<Object> getAll(String key) {
-		if(key!=null) {
-		List<Object> list=new ArrayList<>();
-		
-		
+	public List<Object> getAll(String key, String workingHours, String workPlace,Integer experience,String category) {
+		if(experience!=null) {
+		List<Object> list = new ArrayList<>();
+		list.addAll(jobService.findBySearchFilters(key, workingHours, workPlace,experience,category));
 
-		list.addAll(jobService.getAllJobs(key));
 		list.addAll(companyService.getAllCompanies(key));
-		list.addAll(jobService.findByCompanyName(key));
 		
-		return list;
-		}else {
+		return list;}
+		else {
+			List<Object> list = new ArrayList<>();
+			list.addAll(jobService.findBySearchFilters(key, workingHours, workPlace,category));
 
-			List<Object> list=new ArrayList<>();
-			list.addAll(jobService.getAllJobs(key));
+			list.addAll(companyService.getAllCompanies(key));
 			return list;
-			}
 		}
-	
+
+			}
 
 }
