@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.global.Entity.Job;
@@ -21,36 +22,38 @@ public class JobController {
 
 	@Autowired
 	private JobService jobService;
-	
+
 	@GetMapping("/")
-	public List<Job> getAllJobs(){
-		return jobService.getAllJobs();
+	public List<Job> getAllJobs(@RequestParam String jobTitle) {
+		// jobTitle="AAAAAAAAAA";
+		return jobService.getAllJobs(jobTitle);
 	}
-	
+
 	@GetMapping("/{id}")
 	public Job getJob(@PathVariable int id) {
 		return jobService.getJobById(id);
 	}
-	
+
 	@PostMapping("/")
-	public Job saveJob (@RequestBody Job job) {
+	public Job saveJob(@RequestBody Job job) {
 		return jobService.insertJob(job);
 	}
-	
+
 	@PutMapping("/")
-	public Job updateJob (@RequestBody Job job) {
+	public Job updateJob(@RequestBody Job job) {
 		return jobService.updateJob(job);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void deleteJob(@PathVariable int id) {
 		jobService.deleteJob(id);
 	}
+
+	@GetMapping("/company/{companyId}")
+	public List<Job> getAllJobsByCompanyId(@PathVariable int companyId, @RequestParam String jobTitle) {
+		// jobTitle="AAAAAAAAAA";
+		return jobService.findByCompanyId(companyId, jobTitle);
+	}
 	
-	  @GetMapping("/company/{companyId}")
-	    public List<Job> getAllJobsByCompanyId(@PathVariable int companyId) {
-	        return jobService.findByCompanyId(companyId);
-	    }
-	
-	
+
 }

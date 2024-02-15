@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.global.Entity.Company;
 import com.global.Entity.Job;
+import com.global.Entity.Location;
 import com.global.Services.CompanyService;
 
 @RestController
@@ -24,8 +26,9 @@ public class CompanyController {
 	private CompanyService companyService;
 	
 	@GetMapping("/")
-	public List<Company> getAllCompanies(){
-		return companyService.getAllCompanies();
+	public List<Company> getAllCompanies(@RequestParam String name){
+	//	name="MMMMMMMMMM";
+		return companyService.getAllCompanies(name);
 	}
 	
 	@GetMapping("/{id}")
@@ -52,5 +55,11 @@ public class CompanyController {
 	public Job createjob(@PathVariable int companyId, @RequestBody Job job)
 	{
 		return companyService.createjob(companyId, job);
+	}
+	
+	@PostMapping("/{companyId}/addLocation")
+	public Company addCompanyLocation(@PathVariable int companyId, @RequestBody Location location)
+	{
+		return companyService.addCompanyLocation(companyId, location);
 	}
 }

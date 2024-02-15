@@ -19,10 +19,13 @@ public class JobServiceImpl implements JobService {
 	private JobRepo jobRepo;
 
 	@Override
-	public List<Job> getAllJobs() {
+	public List<Job> getAllJobs(String jobTitle) {
 		// TODO Auto-generated method stub
+		if(jobTitle!=null) {
+			return jobRepo.findAll(jobTitle);
+		}else {
 		return jobRepo.findAll();
-	}
+	}}
 
 	@Override
 	public Job insertJob(Job job) {
@@ -73,9 +76,19 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	   public List<Job> findByCompanyId(int companyId) {
+	   public List<Job> findByCompanyId(int companyId,String jobTitle) {
+		if(jobTitle!=null) {
+
+	        return jobRepo.findByCompany_Id(companyId,jobTitle);
+		}else {
         return jobRepo.findByCompany_Id(companyId);
-    
+		}
+	}
+
+	@Override
+	public List<Job> findByCompanyName(String companyName) {
+		// TODO Auto-generated method stub
+		return jobRepo.findByCompany_Name(companyName);
 	}
 
 }

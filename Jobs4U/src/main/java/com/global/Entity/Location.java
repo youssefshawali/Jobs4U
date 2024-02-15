@@ -1,5 +1,7 @@
 package com.global.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,47 +19,35 @@ public class Location {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String streetName;
-	private int floornumber;
+	private int floorNumber;
 	private int apartmentNumber;
 	private int buildingNumber;
-	private int zipcode;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	private int zipCode;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "city_id")
 	private City city;
 
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Company company;
 
-
-	public City getCity() {
-		return city;
-	}
-
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-
-
-
-
-	public Location(int id, String streetName, int floornumber, int apartmentnumber, int buildingnumber, int zipcode,
-			City city) {
+	public Location(int id, String streetName, int floorNumber, int apartmentNumber, int buildingNumber, int zipCode,
+			City city, Company company) {
 		super();
 		this.id = id;
 		this.streetName = streetName;
-		this.floornumber = floornumber;
-		this.apartmentNumber = apartmentnumber;
-		this.buildingNumber = buildingnumber;
-		this.zipcode = zipcode;
+		this.floorNumber = floorNumber;
+		this.apartmentNumber = apartmentNumber;
+		this.buildingNumber = buildingNumber;
+		this.zipCode = zipCode;
 		this.city = city;
+		this.company = company;
 	}
-
 
 	public Location() {
 		super();
 	}
-
 
 	public int getId() {
 		return id;
@@ -67,58 +57,60 @@ public class Location {
 		this.id = id;
 	}
 
-
 	public String getStreetName() {
 		return streetName;
 	}
-
 
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
 
-
-	public int getFloornumber() {
-		return floornumber;
+	public int getFloorNumber() {
+		return floorNumber;
 	}
 
-
-	public void setFloornumber(int floornumber) {
-		this.floornumber = floornumber;
+	public void setFloorNumber(int floorNumber) {
+		this.floorNumber = floorNumber;
 	}
 
-
-	public int getApartmentnumber() {
+	public int getApartmentNumber() {
 		return apartmentNumber;
 	}
 
-
-	public void setApartmentnumber(int apartmentnumber) {
-		apartmentnumber = apartmentnumber;
+	public void setApartmentNumber(int apartmentNumber) {
+		this.apartmentNumber = apartmentNumber;
 	}
 
-
-	public int getBuildingnumber() {
+	public int getBuildingNumber() {
 		return buildingNumber;
 	}
 
-
-	public void setBuildingnumber(int buildingnumber) {
-		this.buildingNumber = buildingnumber;
+	public void setBuildingNumber(int buildingNumber) {
+		this.buildingNumber = buildingNumber;
 	}
 
-
-	public int getZipcode() {
-		return zipcode;
+	public int getZipCode() {
+		return zipCode;
 	}
 
-
-	public void setZipcode(int zipcode) {
-		this.zipcode = zipcode;
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
 	}
 
+	public City getCity() {
+		return city;
+	}
 
-	
-	
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
 }
