@@ -2,6 +2,8 @@ package com.global.Entity;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,13 +26,15 @@ public class Experience {
 	Location companyLocation;
 	Date startDate;
 	Date endDate;
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="profile_Id")
+	private UserProfile userProfile;
+
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private User user;
 
 	public Experience(int id, String jobTitle, String companyName, Location companyLocation, Date startDate,
-			Date endDate, User user) {
+			Date endDate, UserProfile userProfile) {
 		super();
 		this.id = id;
 		this.jobTitle = jobTitle;
@@ -38,7 +42,7 @@ public class Experience {
 		this.companyLocation = companyLocation;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.user = user;
+		this.userProfile = userProfile;
 	}
 
 	public Experience() {
@@ -94,13 +98,15 @@ public class Experience {
 		this.endDate = endDate;
 	}
 
-	public User getUser() {
-		return user;
+	public UserProfile getUserProfile() {
+		return userProfile;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
+
+	
 	
 	
 	
