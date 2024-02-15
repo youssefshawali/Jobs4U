@@ -65,6 +65,7 @@ public class CompanyServiceImpl implements CompanyService {
 			Industry industry = industryService.getIndustryById(company.getIndustry().getId());
 			company.setIndustry(industry);
 		}
+		
 		setCompanyLocations(company);
 		return companyRepo.save(company);
 
