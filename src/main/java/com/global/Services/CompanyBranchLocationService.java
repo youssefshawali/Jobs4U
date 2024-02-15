@@ -9,9 +9,9 @@ public interface CompanyBranchLocationService {
 
 	List<CompanyBranchLocation> getAllCompanyBranchLocations();
 	
-	CompanyBranchLocation insertCompanyBranchLocation(CompanyBranchLocation CompanyBranchLocation);
+	CompanyBranchLocation insertCompanyBranchLocation(CompanyBranchLocation companyBranchLocation);
 	
-	CompanyBranchLocation updateCompanyBranchLocation (CompanyBranchLocation CompanyBranchLocation);
+	CompanyBranchLocation updateCompanyBranchLocation (CompanyBranchLocation companyBranchLocation);
 	
 	void deleteCompanyBranchLocation(int id);
 	

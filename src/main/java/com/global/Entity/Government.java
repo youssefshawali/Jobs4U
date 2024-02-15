@@ -21,14 +21,11 @@ public class Government {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "government", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<City> cities;
 
-	
-
-	
 	public Government(int id, String name, List<College> colleges) {
 		super();
 		this.id = id;
@@ -36,11 +33,17 @@ public class Government {
 		this.cities = cities;
 	}
 
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
 
 	public Government() {
 		super();
 	}
-
 
 	public int getId() {
 		return id;

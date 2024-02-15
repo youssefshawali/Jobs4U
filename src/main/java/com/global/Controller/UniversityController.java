@@ -50,7 +50,7 @@ public class UniversityController {
 	}
 	
 	@PostMapping("/{universityId}/college")
-	public College createcollege(@PathVariable int universityId, @RequestBody College college)
+	public College createCollege(@PathVariable int universityId, @RequestBody College college)
 	{
 		return universityService.createCollege(universityId, college);
 	}

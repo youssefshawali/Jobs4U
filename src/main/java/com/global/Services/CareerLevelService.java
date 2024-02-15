@@ -10,9 +10,9 @@ public interface CareerLevelService {
 	
 	List<CareerLevel> getAllCareerLevels();
 	
-	CareerLevel insertCareerLevel(CareerLevel CareerLevel);
+	CareerLevel insertCareerLevel(CareerLevel careerLevel);
 		
-	CareerLevel updateCareerLevel (CareerLevel CareerLevel);
+	CareerLevel updateCareerLevel (CareerLevel careerLevel);
 		
 	void deleteCareerLevel(int id);
 		

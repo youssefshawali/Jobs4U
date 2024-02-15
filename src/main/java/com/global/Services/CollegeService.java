@@ -9,9 +9,9 @@ public interface CollegeService {
 
 	List<College> getAllColleges();
 
-	College insertCollege(College Collage);
+	College insertCollege(College collage);
 
-	College updateCollege(College Collage);
+	College updateCollege(College collage);
 
 	void deleteCollege(int id);
 

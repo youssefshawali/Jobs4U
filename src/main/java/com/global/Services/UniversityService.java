@@ -11,9 +11,9 @@ College createCollege(int universityId, College college);
 	
 List<University> getAllUniversities();
 	
-University insertUniversity(University University);
+University insertUniversity(University university);
 	
-University updateUniversity (University University);
+University updateUniversity (University university);
 	
 	void deleteUniversity(int id);
 	

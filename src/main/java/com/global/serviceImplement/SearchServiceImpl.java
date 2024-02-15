@@ -1,13 +1,9 @@
 package com.global.serviceImplement;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.Job;
 import com.global.Services.CompanyService;
 import com.global.Services.JobService;
 import com.global.Services.SearchService;

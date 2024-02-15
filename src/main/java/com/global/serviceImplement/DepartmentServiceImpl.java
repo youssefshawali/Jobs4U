@@ -3,13 +3,9 @@ package com.global.serviceImplement;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.City;
 import com.global.Entity.Department;
-import com.global.Entity.User;
 import com.global.Repository.DepartmentRepo;
 import com.global.Services.DepartmentService;
 
@@ -46,7 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 			return departmentRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("department not found for ID: " + department.getId());
+			throw new RuntimeException("Department not found for ID: " + department.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
 			throw new RuntimeException("Failed to update department", e);

@@ -2,6 +2,7 @@ package com.global.serviceImplement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,11 @@ import org.springframework.stereotype.Service;
 import com.global.Entity.CareerLevel;
 import com.global.Entity.Company;
 import com.global.Entity.Department;
-import com.global.Entity.Education;
 import com.global.Entity.Industry;
 import com.global.Entity.Job;
 import com.global.Entity.Location;
 import com.global.Entity.Qualification;
 import com.global.Entity.Skill;
-import com.global.Entity.User;
 import com.global.Repository.CompanyRepo;
 import com.global.Services.CareerLevelService;
 import com.global.Services.CompanyService;
@@ -33,20 +32,19 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CompanyRepo companyRepo;
 	@Autowired
-	private JobService jobservice;
+	private JobService jobService;
 	@Autowired
 	private CareerLevelService careerLevelService;
 	@Autowired
 	private SkillService skillService;
 	@Autowired
-	private QualificationService qualificationservice;
+	private QualificationService qualificationService;
 	@Autowired
 	private LocationService locationService;
 	@Autowired
 	private IndustryService industryService;
 	@Autowired
 	private DepartmentService departmentService;
-
 
 	@Override
 	public List<Company> getAllCompanies(String name) {
@@ -65,55 +63,63 @@ public class CompanyServiceImpl implements CompanyService {
 			Industry industry = industryService.getIndustryById(company.getIndustry().getId());
 			company.setIndustry(industry);
 		}
-		
+
 		setCompanyLocations(company);
 		return companyRepo.save(company);
 
 	}
 
 	@Override
-	public Company updateCompany(Company Company) {
+	public Company updateCompany(Company company) {
 		// TODO Auto-generated method stub
-		Company current = companyRepo.findById(Company.getId()).orElseThrow();
-		if (Company.getName() != null) {
-			current.setName(Company.getName());
-		}
-		if (Company.getEmail() != null) {
-			current.setEmail(Company.getEmail());
-		}
-		if (Company.getWebSite() != null) {
-			current.setWebSite(Company.getWebSite());
-		}
-		if (Company.getPassword() != null) {
-			current.setPassword(Company.getPassword());
-		}
-		if (Company.getAbout() != null) {
-			current.setAbout(Company.getAbout());
-		}
-		if (Company.getFoundedYear() != 0) {
-			current.setFoundedYear(Company.getFoundedYear());
-		}
-		if (Company.getLocations() != null) {
-			current.setLocations(Company.getLocations());
-		}
-		if (Company.getSpecialists() != null) {
-			current.setSpecialists(Company.getSpecialists());
-		}
-		if (Company.getSize() != 0) {
-			current.setSize(Company.getSize());
-		}
-		if (Company.getProfilePicture() != null) {
-			current.setProfilePicture(Company.getProfilePicture());
-		}
-		if (Company.getCoverPicture() != null) {
-			current.setCoverPicture(Company.getCoverPicture());
-		}
+		try {
+			Company current = companyRepo.findById(company.getId()).orElseThrow();
+			if (company.getName() != null) {
+				current.setName(company.getName());
+			}
+			if (company.getEmail() != null) {
+				current.setEmail(company.getEmail());
+			}
+			if (company.getWebSite() != null) {
+				current.setWebSite(company.getWebSite());
+			}
+			if (company.getPassword() != null) {
+				current.setPassword(company.getPassword());
+			}
+			if (company.getAbout() != null) {
+				current.setAbout(company.getAbout());
+			}
+			if (company.getFoundedYear() != 0) {
+				current.setFoundedYear(company.getFoundedYear());
+			}
+			if (company.getLocations() != null) {
+				current.setLocations(company.getLocations());
+			}
+			if (company.getSpecialists() != null) {
+				current.setSpecialists(company.getSpecialists());
+			}
+			if (company.getSize() != 0) {
+				current.setSize(company.getSize());
+			}
+			if (company.getProfilePicture() != null) {
+				current.setProfilePicture(company.getProfilePicture());
+			}
+			if (company.getCoverPicture() != null) {
+				current.setCoverPicture(company.getCoverPicture());
+			}
 
-		if (Company.getIndustry() != null) {
-			current.setIndustry(Company.getIndustry());
-		}
+			if (company.getIndustry() != null) {
+				current.setIndustry(company.getIndustry());
+			}
 
-		return companyRepo.save(current);
+			return companyRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("Company not found for ID: " + company.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update Company", e);
+		}
 	}
 
 	@Override
@@ -129,11 +135,11 @@ public class CompanyServiceImpl implements CompanyService {
 		if (company.isPresent()) {
 			return company.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Company Not Fond");
 	}
 
 	@Override
-	public Job createjob(int companyId, Job job) {
+	public Job createJob(int companyId, Job job) {
 		Company company = getCompanyById(companyId);
 		job.setCompanyId(company);
 		addJobCareerLevels(job);
@@ -141,7 +147,7 @@ public class CompanyServiceImpl implements CompanyService {
 		addJobQualification(job);
 		addJobLocation(job);
 		addJobDepartment(job);
-		return jobservice.insertJob(job);
+		return jobService.insertJob(job);
 	}
 
 	@Override
@@ -203,7 +209,7 @@ public class CompanyServiceImpl implements CompanyService {
 		Qualification qualification = new Qualification();
 		if (job.getQualification() != null) {
 			for (Qualification s : job.getQualification()) {
-				qualification = qualificationservice.getQualificationById(s.getId());
+				qualification = qualificationService.getQualificationById(s.getId());
 				savedQualificationList.add(qualification);
 			}
 			job.setQualification(savedQualificationList);

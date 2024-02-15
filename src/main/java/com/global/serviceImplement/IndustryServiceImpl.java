@@ -6,12 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.Company;
-import com.global.Entity.Government;
 import com.global.Entity.Industry;
 import com.global.Repository.IndustryRepo;
-import com.global.Services.CompanyService;
 import com.global.Services.IndustryService;
 
 @Service
@@ -46,7 +42,7 @@ public class IndustryServiceImpl implements IndustryService {
 			return industryRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("industry not found for ID: " + industry.getId());
+			throw new RuntimeException("Industry not found for ID: " + industry.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
 			throw new RuntimeException("Failed to update industry", e);

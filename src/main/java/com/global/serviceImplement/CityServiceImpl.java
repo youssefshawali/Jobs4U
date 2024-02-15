@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.CareerLevel;
 import com.global.Entity.City;
 import com.global.Repository.CityRepo;
 import com.global.Services.CityService;
@@ -25,29 +23,29 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public City insertCity(City City) {
+	public City insertCity(City city) {
 		// TODO Auto-generated method stub
-		return cityRepo.save(City);
+		return cityRepo.save(city);
 	}
 
 	@Override
-	public City updateCity(City City) {
+	public City updateCity(City city) {
 		// TODO Auto-generated method stub
 		try {
-			City current = cityRepo.findById(City.getId()).orElseThrow();
-			if (City.getName() != null) {
-				current.setName(City.getName());
+			City current = cityRepo.findById(city.getId()).orElseThrow();
+			if (city.getName() != null) {
+				current.setName(city.getName());
 			}
-			if (City.getGovernment() != null) {
-				current.setGovernment(City.getGovernment());
+			if (city.getGovernment() != null) {
+				current.setGovernment(city.getGovernment());
 			}
-			if (City.getLocations() != null) {
-				current.setLocations(City.getLocations());
+			if (city.getLocations() != null) {
+				current.setLocations(city.getLocations());
 			}
 			return cityRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("City not found for ID: " + City.getId());
+			throw new RuntimeException("City not found for ID: " + city.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
 			throw new RuntimeException("Failed to update City", e);
@@ -63,9 +61,9 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public City getCityById(int id) {
 		// TODO Auto-generated method stub
-		Optional<City> City = cityRepo.findById(id);
-		if (City.isPresent()) {
-			return City.get();
+		Optional<City> city = cityRepo.findById(id);
+		if (city.isPresent()) {
+			return city.get();
 		}
 		throw new RuntimeException("City Not Fond");
 

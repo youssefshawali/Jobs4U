@@ -19,9 +19,9 @@ public interface JobService {
 	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,String category);
 
 	
-	Job insertJob(Job Job);
+	Job insertJob(Job job);
 		
-	Job updateJob (Job Job);
+	Job updateJob (Job job);
 		
 	void deleteJob(int id);
 		

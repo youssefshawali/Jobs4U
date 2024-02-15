@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.global.Entity.Education;
 import com.global.Entity.Experience;
 import com.global.Entity.Skill;
@@ -72,7 +70,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return userProfileRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("userProfile not found for ID: " + userProfile.getId());
+			throw new RuntimeException("UserProfile not found for ID: " + userProfile.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
 			throw new RuntimeException("Failed to update userProfile", e);
@@ -112,7 +110,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 		UserProfile userProfile = getUserProfileById(profileId);
 		List<Skill> skills;
 		if (userProfile.getSkills() == null) {
-			skills = new ArrayList();
+			skills = new ArrayList<>();
 			for (Skill skillitem : skill) {
 				Skill s = skillService.getSkillById(skillitem.getId());
 				skills.add(s);

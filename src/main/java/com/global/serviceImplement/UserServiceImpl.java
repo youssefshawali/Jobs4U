@@ -3,6 +3,7 @@ package com.global.serviceImplement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
 				// Optionally, you can save each Education here
 				// educationRepo.save(education);
 			}
-			
+
 		}
 
 		List<Experience> experiences = new ArrayList<>();
@@ -78,17 +79,17 @@ public class UserServiceImpl implements UserService {
 			}
 			userProfile.setExperience(experiences);
 		}
-		
+
 		List<Skill> savedSkills = new ArrayList<>();
 		Skill skill = new Skill();
-		if(userProfile.getSkills()!=null) {
-			for(Skill s : userProfile.getSkills()) {
+		if (userProfile.getSkills() != null) {
+			for (Skill s : userProfile.getSkills()) {
 				skill = skillService.getSkillById(s.getId());
 				savedSkills.add(skill);
 			}
 			userProfile.setSkills(savedSkills);
 		}
-		
+
 //		List<Education> educations = new ArrayList<>();
 //
 //		if (userProfile.getEducation() != null) {
@@ -119,35 +120,43 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUser(User user) {
 		// TODO Auto-generated method stub
-		User current = userRepo.findById(user.getId()).orElseThrow();
-		if (user.getFname() != null) {
-			current.setFname(user.getFname());
+		try {
+			User current = userRepo.findById(user.getId()).orElseThrow();
+			if (user.getFname() != null) {
+				current.setFname(user.getFname());
+			}
+			if (user.getLname() != null) {
+				current.setLname(user.getLname());
+			}
+			if (user.getPhoneNumber() != null) {
+				current.setPhoneNumber(user.getPhoneNumber());
+			}
+			if (user.getEmail() != null) {
+				current.setEmail(user.getEmail());
+			}
+			if (user.getPassword() != null) {
+				current.setPassword(user.getPassword());
+			}
+			if (user.getAge() != 0) {
+				current.setAge(user.getAge());
+			}
+			if (user.getProfilePicture() != null) {
+				current.setProfilePicture(user.getProfilePicture());
+			}
+			if (user.getUserProfile() != null) {
+				current.setUserProfile(user.getUserProfile());
+			}
+			if (user.getAppliedJobs() != null) {
+				current.setAppliedJobs(user.getAppliedJobs());
+			}
+			return userRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("User not found for ID: " + user.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update user", e);
 		}
-		if (user.getLname() != null) {
-			current.setLname(user.getLname());
-		}
-		if (user.getPhoneNumber() != null) {
-			current.setPhoneNumber(user.getPhoneNumber());
-		}
-		if (user.getEmail() != null) {
-			current.setEmail(user.getEmail());
-		}
-		if (user.getPassword() != null) {
-			current.setPassword(user.getPassword());
-		}
-		if (user.getAge() != 0) {
-			current.setAge(user.getAge());
-		}
-		if (user.getProfilePicture() != null) {
-			current.setProfilePicture(user.getProfilePicture());
-		}
-		if (user.getUserProfile() != null) {
-			current.setUserProfile(user.getUserProfile());
-		}
-		if (user.getAppliedJobs() != null) {
-			current.setAppliedJobs(user.getAppliedJobs());
-		}
-		return userRepo.save(current);
 	}
 
 	@Override

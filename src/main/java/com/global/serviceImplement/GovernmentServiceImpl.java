@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.global.Entity.City;
-import com.global.Entity.Education;
 import com.global.Entity.Government;
-import com.global.Entity.User;
-import com.global.Entity.UserProfile;
 import com.global.Repository.GovernmentRepo;
 import com.global.Services.CityService;
 import com.global.Services.GovernmentService;

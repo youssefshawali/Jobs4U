@@ -9,9 +9,9 @@ public interface LocationService {
 
 	List<Location> getAllLocations();
 	
-	Location insertLocation(Location Location);
+	Location insertLocation(Location location);
 	
-	Location updateLocation (Location Location);
+	Location updateLocation (Location location);
 	
 	void deleteLocation(int id);
 	
