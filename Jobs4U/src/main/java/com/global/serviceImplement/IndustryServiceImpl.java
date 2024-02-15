@@ -57,7 +57,7 @@ public class IndustryServiceImpl implements IndustryService {
 		if (industry.isPresent()) {
 			return industry.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Industry Not Fond");
 
 	}
 

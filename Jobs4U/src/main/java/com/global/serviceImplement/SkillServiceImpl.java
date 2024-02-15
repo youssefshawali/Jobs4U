@@ -58,7 +58,7 @@ public class SkillServiceImpl implements SkillService {
 		if (skill.isPresent()) {
 			return skill.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Skill Not Fond");
 	}
 
 }

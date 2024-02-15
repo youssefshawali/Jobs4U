@@ -71,7 +71,7 @@ public class LocationServiceImpl implements LocationService {
 		if (location.isPresent()) {
 			return location.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Location Not Fond");
 	}
 
 }

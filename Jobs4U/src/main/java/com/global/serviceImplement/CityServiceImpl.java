@@ -58,7 +58,7 @@ public class CityServiceImpl implements CityService {
 		if (City.isPresent()) {
 			return City.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("City Not Fond");
 
 	}
 

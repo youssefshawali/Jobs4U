@@ -59,7 +59,7 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
 		if (CompanyBranchLocation.isPresent()) {
 			return CompanyBranchLocation.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Company Branch Location Not Fond");
 	}
 
 }

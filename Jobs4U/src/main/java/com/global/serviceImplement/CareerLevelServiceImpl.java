@@ -56,7 +56,7 @@ public class CareerLevelServiceImpl implements CareerLevelService{
 		if(CareerLevel.isPresent()) {
 			return CareerLevel.get();
 		}
-		throw new RuntimeException("User Not Fond");	
+		throw new RuntimeException("CareerLevel Not Fond");	
 
 	}
 

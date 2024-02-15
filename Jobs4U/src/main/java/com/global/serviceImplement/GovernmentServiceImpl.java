@@ -61,7 +61,7 @@ public class GovernmentServiceImpl implements GovernmentService {
 				if(government.isPresent()) {
 					return government.get();
 				}
-				throw new RuntimeException("User Not Fond");	
+				throw new RuntimeException("Government Not Fond");	
 	}
 	public City createCity(int governmentId, City city) {
 	    Government government = getGovernmentById(governmentId);

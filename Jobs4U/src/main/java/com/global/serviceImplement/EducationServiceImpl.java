@@ -69,7 +69,7 @@ public class EducationServiceImpl implements EducationService {
 		if (education.isPresent()) {
 			return education.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Education Not Fond");
 	}
 	
 	

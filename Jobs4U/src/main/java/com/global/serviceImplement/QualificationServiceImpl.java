@@ -55,7 +55,7 @@ public class QualificationServiceImpl implements QualificationService {
 		if (qualification.isPresent()) {
 			return qualification.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Qualification Not Fond");
 	}
 
 }

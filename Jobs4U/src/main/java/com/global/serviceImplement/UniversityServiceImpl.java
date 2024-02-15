@@ -56,7 +56,7 @@ public class UniversityServiceImpl implements UniversityService {
 		if (university.isPresent()) {
 			return university.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("University Not Fond");
 	}
 
 	@Override

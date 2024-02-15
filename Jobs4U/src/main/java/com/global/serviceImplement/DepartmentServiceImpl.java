@@ -57,6 +57,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 		if (department.isPresent()) {
 			return department.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		throw new RuntimeException("Department Not Fond");
 	}
 }
