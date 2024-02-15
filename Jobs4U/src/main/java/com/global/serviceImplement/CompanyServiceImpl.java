@@ -48,9 +48,13 @@ public class CompanyServiceImpl implements CompanyService {
 	private DepartmentService departmentService;
 
 	@Override
-	public List<Company> getAllCompanies() {
+	public List<Company> getAllCompanies(String name) {
 		// TODO Auto-generated method stub
-		return companyRepo.findAll();
+		if (name != null) {
+			return companyRepo.findAll(name);
+		} else {
+			return companyRepo.findAll();
+		}
 	}
 
 	@Override
@@ -219,4 +223,5 @@ public class CompanyServiceImpl implements CompanyService {
 			job.setDepartment(department);
 		}
 	}
+
 }

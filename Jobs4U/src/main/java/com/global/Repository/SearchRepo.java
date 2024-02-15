@@ -9,4 +9,5 @@ import com.global.Entity.Job;
 @Repository
 public interface SearchRepo extends JpaRepository<Job, Company> {
 
+	
 }

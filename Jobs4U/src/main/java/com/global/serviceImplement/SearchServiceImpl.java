@@ -25,9 +25,12 @@ public class SearchServiceImpl implements SearchService{
 	public List<Object> getAll(String key) {
 		if(key!=null) {
 		List<Object> list=new ArrayList<>();
+		
+		
 
 		list.addAll(jobService.getAllJobs(key));
 		list.addAll(companyService.getAllCompanies(key));
+		list.addAll(jobService.findByCompanyName(key));
 		
 		return list;
 		}else {
