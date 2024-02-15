@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +34,23 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public Department updateDepartment(Department department) {
 		// TODO Auto-generated method stub
-		Department current = departmentRepo.findById(department.getId()).orElseThrow();
-		if(department.getField()!= null) {
-		current.setField(department.getField());
-		}
-		if(department.getJobs()!= null) {
-		current.setJobs(department.getJobs());
-		}
+		try {
+			Department current = departmentRepo.findById(department.getId()).orElseThrow();
+			if (department.getField() != null) {
+				current.setField(department.getField());
+			}
+			if (department.getJobs() != null) {
+				current.setJobs(department.getJobs());
+			}
 
-		return departmentRepo.save(current);
+			return departmentRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("department not found for ID: " + department.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update department", e);
+		}
 	}
 
 	@Override

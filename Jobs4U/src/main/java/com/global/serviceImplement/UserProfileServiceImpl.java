@@ -2,7 +2,7 @@ package com.global.serviceImplement;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,25 +50,33 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public UserProfile updateUserProfile(UserProfile userProfile) {
 		// TODO Auto-generated method stub
-		UserProfile current = userProfileRepo.findById(userProfile.getId()).orElseThrow();
-		if (userProfile.getCurrentJobTitle() != null) {
-			current.setCurrentJobTitle(userProfile.getCurrentJobTitle());
-		}
-		if (userProfile.getBio() != null) {
-			current.setBio(userProfile.getBio());
-		}
-		if (userProfile.getExperience() != null) {
-			current.setExperience(userProfile.getExperience());
-		}
-		if (userProfile.getCvFile() != null) {
-			current.setCvFile(userProfile.getCvFile());
-		}
-		if (userProfile.getEducation() != null) {
-			current.setEducation(userProfile.getEducation());
-		}
+		try {
+			UserProfile current = userProfileRepo.findById(userProfile.getId()).orElseThrow();
+			if (userProfile.getCurrentJobTitle() != null) {
+				current.setCurrentJobTitle(userProfile.getCurrentJobTitle());
+			}
+			if (userProfile.getBio() != null) {
+				current.setBio(userProfile.getBio());
+			}
+			if (userProfile.getExperience() != null) {
+				current.setExperience(userProfile.getExperience());
+			}
+			if (userProfile.getCvFile() != null) {
+				current.setCvFile(userProfile.getCvFile());
+			}
+			if (userProfile.getEducation() != null) {
+				current.setEducation(userProfile.getEducation());
+			}
 //		current.setUser(userProfile.getUser());
 
-		return userProfileRepo.save(current);
+			return userProfileRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("userProfile not found for ID: " + userProfile.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update userProfile", e);
+		}
 	}
 
 	@Override
@@ -117,7 +125,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 				ids.add(s.getId());
 			}
 			for (Skill skillitem : skill) {
-				if (! ids.contains(skillitem.getId())) {
+				if (!ids.contains(skillitem.getId())) {
 					Skill s = skillService.getSkillById(skillitem.getId());
 					skills.add(s);
 				}

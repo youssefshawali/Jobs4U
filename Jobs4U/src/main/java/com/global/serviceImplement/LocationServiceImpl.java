@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,24 +39,32 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public Location updateLocation(Location location) {
 		// TODO Auto-generated method stub
-		Location current = locationRepo.findById(location.getId()).orElseThrow();
-		if (location.getStreetName() != null) {
-			current.setStreetName(location.getStreetName());
-		}
-		if (location.getFloorNumber() != 0) {
-			current.setFloorNumber(location.getFloorNumber());
-		}
-		if (location.getApartmentNumber() != 0) {
-			current.setApartmentNumber(location.getApartmentNumber());
-		}
-		if (location.getBuildingNumber() != 0) {
-			current.setBuildingNumber(location.getBuildingNumber());
-		}
-		if (location.getZipCode() != 0) {
-			current.setZipCode(location.getZipCode());
-		}
+		try {
+			Location current = locationRepo.findById(location.getId()).orElseThrow();
+			if (location.getStreetName() != null) {
+				current.setStreetName(location.getStreetName());
+			}
+			if (location.getFloorNumber() != 0) {
+				current.setFloorNumber(location.getFloorNumber());
+			}
+			if (location.getApartmentNumber() != 0) {
+				current.setApartmentNumber(location.getApartmentNumber());
+			}
+			if (location.getBuildingNumber() != 0) {
+				current.setBuildingNumber(location.getBuildingNumber());
+			}
+			if (location.getZipCode() != 0) {
+				current.setZipCode(location.getZipCode());
+			}
 
-		return locationRepo.save(current);
+			return locationRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("location not found for ID: " + location.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update location", e);
+		}
 	}
 
 	@Override

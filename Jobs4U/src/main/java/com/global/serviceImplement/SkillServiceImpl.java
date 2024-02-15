@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,25 @@ public class SkillServiceImpl implements SkillService {
 	@Override
 	public Skill updateSkill(Skill skill) {
 		// TODO Auto-generated method stub
-		Skill current = skillRepo.findById(skill.getId()).orElseThrow();
-		if(skill.getName()!= null) {
-		current.setName(skill.getName());
+		try {
+			Skill current = skillRepo.findById(skill.getId()).orElseThrow();
+			if (skill.getName() != null) {
+				current.setName(skill.getName());
+			}
+			if (skill.getJobs() != null) {
+				current.setJobs(skill.getJobs());
+			}
+			if (skill.getUserProfiles() != null) {
+				current.setUserProfiles(skill.getUserProfiles());
+			}
+			return skillRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("skill not found for ID: " + skill.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update skill", e);
 		}
-		if(skill.getJobs()!= null) {
-		current.setJobs(skill.getJobs());
-		}
-		if(skill.getUserProfiles()!= null) {
-		current.setUserProfiles(skill.getUserProfiles());
-		}
-		return skillRepo.save(current);
 	}
 
 	@Override

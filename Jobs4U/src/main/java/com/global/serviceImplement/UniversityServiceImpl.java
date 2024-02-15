@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,19 @@ public class UniversityServiceImpl implements UniversityService {
 	@Override
 	public University updateUniversity(University university) {
 		// TODO Auto-generated method stub
-		University current = universityRepo.findById(university.getId()).orElseThrow();
-		if(university.getName()!=null) {
-		current.setName(university.getName());
+		try {
+			University current = universityRepo.findById(university.getId()).orElseThrow();
+			if (university.getName() != null) {
+				current.setName(university.getName());
+			}
+			return universityRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("university not found for ID: " + university.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update university", e);
 		}
-		return universityRepo.save(current);
 	}
 
 	@Override

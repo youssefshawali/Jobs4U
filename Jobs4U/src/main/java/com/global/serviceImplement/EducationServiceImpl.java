@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class EducationServiceImpl implements EducationService {
 
 	@Autowired
 	private EducationRepo educationRepo;
-   @Autowired
+	@Autowired
 	CollegeService collegeService;
+
 	@Override
 	public List<Education> getAllEducations() {
 		// TODO Auto-generated method stub
@@ -40,20 +42,28 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public Education updateEducation(Education education) {
 		// TODO Auto-generated method stub
-		Education current = educationRepo.findById(education.getId()).orElseThrow();
-		if(education.getStartYear()!=0) {
-		current.setStartYear(education.getStartYear());
+		try {
+			Education current = educationRepo.findById(education.getId()).orElseThrow();
+			if (education.getStartYear() != 0) {
+				current.setStartYear(education.getStartYear());
+			}
+			if (education.getEndYear() != 0) {
+				current.setEndYear(education.getEndYear());
+			}
+			if (education.getUserProfile() != null) {
+				current.setUserProfile(education.getUserProfile());
+			}
+			if (education.getCollege() != null) {
+				current.setCollege(education.getCollege());
+			}
+			return educationRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("education not found for ID: " + education.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update education", e);
 		}
-		if(education.getEndYear()!=0) {
-		current.setEndYear(education.getEndYear());
-		}
-		if(education.getUserProfile()!=null) {
-		current.setUserProfile(education.getUserProfile());
-		}
-		if(education.getCollege()!=null) {
-		current.setCollege(education.getCollege());
-		}
-		return educationRepo.save(current);
 	}
 
 	@Override
@@ -71,10 +81,5 @@ public class EducationServiceImpl implements EducationService {
 		}
 		throw new RuntimeException("Education Not Fond");
 	}
-	
-	
-
-
-
 
 }

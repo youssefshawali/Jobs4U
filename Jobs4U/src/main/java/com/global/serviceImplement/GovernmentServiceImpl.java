@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,11 @@ import com.global.Services.GovernmentService;
 
 @Service
 public class GovernmentServiceImpl implements GovernmentService {
-	
+
 	@Autowired
 	private GovernmentRepo governmentRepo;
 	@Autowired
 	private CityService cityService;
-	
 
 	@Override
 	public List<Government> getAllGovernments() {
@@ -39,12 +39,19 @@ public class GovernmentServiceImpl implements GovernmentService {
 	@Override
 	public Government updateGovernment(Government government) {
 		// TODO Auto-generated method stub
-		Government current = governmentRepo.findById(government.getId()).orElseThrow();
-		if(government.getName()!= null)
-		{
-		current.setName(government.getName());
+		try {
+			Government current = governmentRepo.findById(government.getId()).orElseThrow();
+			if (government.getName() != null) {
+				current.setName(government.getName());
+			}
+			return governmentRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("government not found for ID: " + government.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update government", e);
 		}
-		return governmentRepo.save(current);
 	}
 
 	@Override
@@ -57,16 +64,17 @@ public class GovernmentServiceImpl implements GovernmentService {
 	public Government getGovernmentById(int id) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-				Optional<Government> government = governmentRepo.findById(id);
-				if(government.isPresent()) {
-					return government.get();
-				}
-				throw new RuntimeException("Government Not Fond");	
+		Optional<Government> government = governmentRepo.findById(id);
+		if (government.isPresent()) {
+			return government.get();
+		}
+		throw new RuntimeException("Government Not Fond");
 	}
+
 	public City createCity(int governmentId, City city) {
-	    Government government = getGovernmentById(governmentId);
-	    city.setGovernment(government);
-	    
+		Government government = getGovernmentById(governmentId);
+		city.setGovernment(government);
+
 		/*
 		 * List<Education> educations = userProfile.getEducation(); if (educations !=
 		 * null) { for (Education education : educations) { // Set the UserProfile for
@@ -74,8 +82,8 @@ public class GovernmentServiceImpl implements GovernmentService {
 		 * save each Education here // educationRepo.save(education); } }
 		 */
 
-	    // Save the UserProfile with its associated Education entries
-	    return cityService.insertCity(city);
+		// Save the UserProfile with its associated Education entries
+		return cityService.insertCity(city);
 	}
 
 }

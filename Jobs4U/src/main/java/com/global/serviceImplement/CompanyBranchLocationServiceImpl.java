@@ -1,6 +1,7 @@
- package com.global.serviceImplement;
+package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,26 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
 	@Override
 	public CompanyBranchLocation updateCompanyBranchLocation(CompanyBranchLocation companyBranchLocation) {
 		// TODO Auto-generated method stub
-		CompanyBranchLocation current = companyBranchLocationRepo.findById(companyBranchLocation.getId()).orElseThrow();
-	    if(companyBranchLocation.getCompany()!= null) {
-		current.setCompany(companyBranchLocation.getCompany());
-	    }
-	    if(companyBranchLocation.getLocation()!= null) {
-		current.setLocation(companyBranchLocation.getLocation());
-	    }
-	    if(companyBranchLocation.getBranchName()!= null) {
-		current.setBranchName(companyBranchLocation.getBranchName());
-	    }
-		return companyBranchLocationRepo.save(current);
+		try {
+			CompanyBranchLocation current = companyBranchLocationRepo.findById(companyBranchLocation.getId())
+					.orElseThrow();
+			if (companyBranchLocation.getCompany() != null) {
+				current.setCompany(companyBranchLocation.getCompany());
+			}
+			if (companyBranchLocation.getLocation() != null) {
+				current.setLocation(companyBranchLocation.getLocation());
+			}
+			if (companyBranchLocation.getBranchName() != null) {
+				current.setBranchName(companyBranchLocation.getBranchName());
+			}
+			return companyBranchLocationRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("company Branch Location not found for ID: " + companyBranchLocation.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update company Branch Location", e);
+		}
 	}
 
 	@Override

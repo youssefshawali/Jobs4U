@@ -1,6 +1,7 @@
 package com.global.serviceImplement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,25 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public City updateCity(City City) {
 		// TODO Auto-generated method stub
-		City current = cityRepo.findById(City.getId()).orElseThrow();
-       if(City.getName()!= null) {
-		current.setName(City.getName());
-       }
-       if(City.getGovernment()!= null) {
-		current.setGovernment(City.getGovernment());
-       }
-       if(City.getLocations()!= null) {
-		current.setLocations(City.getLocations());
-       }
-		return cityRepo.save(current);
+		try {
+			City current = cityRepo.findById(City.getId()).orElseThrow();
+			if (City.getName() != null) {
+				current.setName(City.getName());
+			}
+			if (City.getGovernment() != null) {
+				current.setGovernment(City.getGovernment());
+			}
+			if (City.getLocations() != null) {
+				current.setLocations(City.getLocations());
+			}
+			return cityRepo.save(current);
+		} catch (NoSuchElementException e) {
+			// Handle the case where the experience with the given ID is not found
+			throw new RuntimeException("City not found for ID: " + City.getId());
+		} catch (Exception e) {
+			// Handle other exceptions that might occur during the update process
+			throw new RuntimeException("Failed to update City", e);
+		}
 	}
 
 	@Override
