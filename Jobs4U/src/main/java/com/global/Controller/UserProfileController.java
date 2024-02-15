@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.Entity.College;
+import com.global.Entity.Education;
+import com.global.Entity.Experience;
+import com.global.Entity.Skill;
 import com.global.Entity.UserProfile;
 import com.global.Services.UserProfileService;
 
@@ -47,4 +51,21 @@ public class UserProfileController {
 	public void deleteUserProfile(@PathVariable int id) {
 		userProfileService.deleteUserProfile(id);
 	}
+	@PostMapping("/{profileId}/experience")
+	public Experience createExperience(@PathVariable int profileId, @RequestBody Experience experience)
+	{
+		return userProfileService.createExperience(profileId, experience);
+	}
+	@PostMapping("/{profileId}/education")
+	public Education createEducation(@PathVariable int profileId, @RequestBody Education education)
+	{
+		return userProfileService.createEducation(profileId, education);
+	}
+	
+	@PostMapping("/{profileId}/skill")
+	public UserProfile createSkill(@PathVariable int profileId, @RequestBody List<Skill> skill)
+	{
+		return userProfileService.createSkill(profileId, skill);
+	}
+	
 }

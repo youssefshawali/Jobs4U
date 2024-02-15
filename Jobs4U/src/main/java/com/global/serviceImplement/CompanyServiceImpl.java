@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.global.Entity.CareerLevel;
 import com.global.Entity.Company;
+import com.global.Entity.Department;
 import com.global.Entity.Education;
 import com.global.Entity.Job;
 import com.global.Entity.Qualification;
@@ -17,6 +18,7 @@ import com.global.Entity.User;
 import com.global.Repository.CompanyRepo;
 import com.global.Services.CareerLevelService;
 import com.global.Services.CompanyService;
+import com.global.Services.DepartmentService;
 import com.global.Services.JobService;
 import com.global.Services.QualificationService;
 import com.global.Services.SkillService;
@@ -28,6 +30,8 @@ public class CompanyServiceImpl implements CompanyService {
 	private CompanyRepo companyRepo;
 	@Autowired
 	JobService jobservice;
+	@Autowired
+	DepartmentService departmentService ;
 
 	@Override
 	public List<Company> getAllCompanies() {
@@ -143,6 +147,9 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 			job.setQualification(savedQualificationList);
 		}
+	
+	
+		
 		
 		
 		return jobservice.insertJob(job);

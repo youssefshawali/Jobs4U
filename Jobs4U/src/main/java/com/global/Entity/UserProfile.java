@@ -31,8 +31,8 @@ public class UserProfile {
 	private int id;
 	private String currentJobTitle;
 	private String bio;
-	@Transient
-	private Experience experience;
+	@OneToMany(mappedBy = "userProfile",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<Experience> experience;
 	@Lob
 	private byte[] cvFile;
 
@@ -54,7 +54,10 @@ public class UserProfile {
 	private List<Skill> skills;
 
 
-	public UserProfile(int id, String currentJobTitle, String bio, Experience experience, byte[] cvFile,
+	
+
+
+	public UserProfile(int id, String currentJobTitle, String bio, List<Experience> experience, byte[] cvFile,
 			List<String> languages, List<Education> education, User user, List<Skill> skills) {
 		super();
 		this.id = id;
@@ -100,12 +103,15 @@ public class UserProfile {
 
 	
 
-	public Experience getExperience() {
+
+
+
+	public List<Experience> getExperience() {
 		return experience;
 	}
 
 
-	public void setExperience(Experience experience) {
+	public void setExperience(List<Experience> experience) {
 		this.experience = experience;
 	}
 
