@@ -3,11 +3,8 @@ package com.global.serviceImplement;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.Location;
 import com.global.Entity.Qualification;
 import com.global.Services.QualificationService;
 import com.global.Repository.QualificationRepo;
@@ -44,7 +41,7 @@ public class QualificationServiceImpl implements QualificationService {
 			return qualificationRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("qualification not found for ID: " + qualification.getId());
+			throw new RuntimeException("Qualification not found for ID: " + qualification.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
 			throw new RuntimeException("Failed to update qualification", e);

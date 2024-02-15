@@ -13,9 +13,9 @@ public interface IndustryService {
 	
 List<Industry> getAllIndustries();
 	
-Industry insertIndustry(Industry Industry);
+Industry insertIndustry(Industry industry);
 	
-Industry updateIndustry (Industry Industry);
+Industry updateIndustry (Industry industry);
 	
 	void deleteIndustry(int id);
 	

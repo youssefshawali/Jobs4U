@@ -7,11 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.global.Entity.City;
 import com.global.Entity.College;
-import com.global.Entity.Education;
 import com.global.Services.CollegeService;
-import com.global.Services.EducationService;
 import com.global.Repository.CollegeRepo;
 
 @Service
@@ -51,7 +48,7 @@ public class CollegeServiceImpl implements CollegeService {
 			return collegeRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("college not found for ID: " + college.getId());
+			throw new RuntimeException("College not found for ID: " + college.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
 			throw new RuntimeException("Failed to update college", e);

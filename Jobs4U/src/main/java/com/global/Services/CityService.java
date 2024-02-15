@@ -9,9 +9,9 @@ public interface CityService {
 	
 	List<City> getAllCities();
 	
-	City insertCity(City City);
+	City insertCity(City city);
 		
-	City updateCity (City City);
+	City updateCity (City city);
 		
 	void deleteCity(int id);
 		

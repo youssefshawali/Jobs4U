@@ -3,13 +3,9 @@ package com.global.serviceImplement;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.City;
 import com.global.Entity.Experience;
-import com.global.Repository.CityRepo;
 import com.global.Repository.ExperienceRepo;
 import com.global.Services.ExperienceService;
 
@@ -73,9 +69,9 @@ public class ExperienceServiceImpl implements ExperienceService {
 	@Override
 	public Experience getExperienceById(int id) {
 		// TODO Auto-generated method stub
-		Optional<Experience> Experience = experienceRepo.findById(id);
-		if (Experience.isPresent()) {
-			return Experience.get();
+		Optional<Experience> experience = experienceRepo.findById(id);
+		if (experience.isPresent()) {
+			return experience.get();
 		}
 		throw new RuntimeException("Experience Not Fond");
 

@@ -10,9 +10,9 @@ public interface GovernmentService {
 
 List<Government> getAllGovernments();
 	
-Government insertGovernment(Government Government);
+Government insertGovernment(Government government);
 	
-Government updateGovernment(Government Government);
+Government updateGovernment(Government government);
 
 City createCity(int governmentId, City city);
 	

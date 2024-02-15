@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.global.Entity.College;
 import com.global.Entity.Education;
-import com.global.Entity.Skill;
-import com.global.Entity.User;
-import com.global.Entity.UserProfile;
 import com.global.Repository.EducationRepo;
 import com.global.Services.CollegeService;
 import com.global.Services.EducationService;

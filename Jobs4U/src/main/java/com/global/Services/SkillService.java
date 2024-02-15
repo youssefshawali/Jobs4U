@@ -8,9 +8,9 @@ public interface SkillService {
 
 List<Skill> getAllSkills();
 	
-Skill insertSkill(Skill Skill);
+Skill insertSkill(Skill skill);
 	
-Skill updateSkill (Skill Skill);
+Skill updateSkill (Skill skill);
 	
 	void deleteSkill(int id);
 	

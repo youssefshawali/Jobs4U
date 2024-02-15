@@ -52,9 +52,9 @@ public class CompanyController {
 	}
 	
 	@PostMapping("/{companyId}/job")
-	public Job createjob(@PathVariable int companyId, @RequestBody Job job)
+	public Job createJob(@PathVariable int companyId, @RequestBody Job job)
 	{
-		return companyService.createjob(companyId, job);
+		return companyService.createJob(companyId, job);
 	}
 	
 	@PostMapping("/{companyId}/addLocation")

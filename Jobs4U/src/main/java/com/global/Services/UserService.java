@@ -10,6 +10,7 @@ import com.global.Entity.UserProfile;
 public interface UserService {
 	
 	UserProfile createUserProfile(int userId, UserProfile userProfile);
+	
 	List<User> getAllUsers();
 	
 	User insertUser(User user);

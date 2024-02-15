@@ -8,9 +8,9 @@ public interface EducationService {
 	
 List<Education> getAllEducations();
 	
-Education insertEducation(Education Education);
+Education insertEducation(Education education);
 	
-Education updateEducation(Education Education);
+Education updateEducation(Education education);
 	
 	void deleteEducation(int id);
 	

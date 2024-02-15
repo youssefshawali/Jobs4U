@@ -6,9 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.global.Entity.Department;
-import com.global.Entity.Government;
 import com.global.Entity.CompanyBranchLocation;
 import com.global.Repository.CompanyBranchLocationRepo;
 import com.global.Services.CompanyBranchLocationService;
@@ -65,9 +62,9 @@ public class CompanyBranchLocationServiceImpl implements CompanyBranchLocationSe
 	@Override
 	public CompanyBranchLocation getCompanyBranchLocationById(int id) {
 		// TODO Auto-generated method stub
-		Optional<CompanyBranchLocation> CompanyBranchLocation = companyBranchLocationRepo.findById(id);
-		if (CompanyBranchLocation.isPresent()) {
-			return CompanyBranchLocation.get();
+		Optional<CompanyBranchLocation> companyBranchLocation = companyBranchLocationRepo.findById(id);
+		if (companyBranchLocation.isPresent()) {
+			return companyBranchLocation.get();
 		}
 		throw new RuntimeException("Company Branch Location Not Fond");
 	}

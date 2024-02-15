@@ -9,9 +9,9 @@ public interface DepartmentService {
 
 	List<Department> getAllDepartments();
 	
-	Department insertDepartment(Department Department);
+	Department insertDepartment(Department department);
 	
-	Department updateDepartment (Department Department);
+	Department updateDepartment (Department department);
 	
 	void deleteDepartment(int id);
 	

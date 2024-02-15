@@ -11,9 +11,9 @@ public interface QualificationService {
 	
 	List<Qualification> getAllQualifications();
 	
-	Qualification insertQualification(Qualification Qualification);
+	Qualification insertQualification(Qualification qualification);
 	
-	Qualification updateQualification (Qualification Qualification);
+	Qualification updateQualification (Qualification qualification);
 	
 	void deleteQualification(int id);
 	
