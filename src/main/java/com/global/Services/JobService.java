@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.global.Entity.Job;
 
+import org.springframework.stereotype.Service;
+@Service
 
 public interface JobService {
 	

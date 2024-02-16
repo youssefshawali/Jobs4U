@@ -1,6 +1,8 @@
 package com.global.Services;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
+@Service
 
 public interface SearchService {
 

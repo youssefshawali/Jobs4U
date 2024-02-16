@@ -5,6 +5,8 @@ import java.util.List;
 import com.global.Entity.Qualification;
 
 
+import org.springframework.stereotype.Service;
+@Service
 
 public interface QualificationService {
 

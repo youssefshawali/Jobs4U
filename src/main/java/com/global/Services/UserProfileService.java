@@ -7,7 +7,8 @@ import com.global.Entity.Experience;
 import com.global.Entity.Skill;
 import com.global.Entity.UserProfile;
 
-
+import org.springframework.stereotype.Service;
+@Service
 public interface UserProfileService {
 	
 	Experience createExperience(int profileId, Experience experience);

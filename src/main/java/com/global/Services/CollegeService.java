@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.global.Entity.College;
 import com.global.Entity.Education;
+import org.springframework.stereotype.Service;
+@Service
 
 public interface CollegeService {
 

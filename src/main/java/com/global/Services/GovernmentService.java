@@ -5,6 +5,8 @@ import java.util.List;
 import com.global.Entity.City;
 import com.global.Entity.Government;
 
+import org.springframework.stereotype.Service;
+@Service
 
 public interface GovernmentService {
 

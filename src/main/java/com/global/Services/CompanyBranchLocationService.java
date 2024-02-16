@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.global.Entity.CompanyBranchLocation;
 
+import org.springframework.stereotype.Service;
+@Service
 
 public interface CompanyBranchLocationService {
 

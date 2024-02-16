@@ -5,6 +5,8 @@ import com.global.Entity.Company;
 import com.global.Entity.Job;
 import com.global.Entity.Location;
 
+import org.springframework.stereotype.Service;
+@Service
 
 public interface CompanyService {
 	
