@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 @Table(name = "City")
 public class City {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String name;
 

@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Location {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String streetName;
 	private int floorNumber;

@@ -27,7 +27,7 @@ import jakarta.persistence.GenerationType;
 public class Company {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String name;
 	private String email;

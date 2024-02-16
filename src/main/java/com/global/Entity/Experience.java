@@ -18,7 +18,7 @@ import jakarta.persistence.Transient;
 @Table
 public class Experience {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	String jobTitle;
 	String companyName;

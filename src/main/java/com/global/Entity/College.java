@@ -21,7 +21,7 @@ import jakarta.persistence.GenerationType;
 public class College {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String name;
 	@ManyToOne(fetch = FetchType.EAGER)
