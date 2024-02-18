@@ -171,9 +171,9 @@ public class CompanyServiceImpl implements CompanyService {
 		if (company.getLocations().size() != 0) {
 			List<Location> locations = new ArrayList<>();
 			for (Location location : company.getLocations()) {
-				location.setCompany(company);
+//				location.setCompany(company);
 				locations.add(location);
-//				locationService.insertLocation(location);
+				locationService.insertLocation(location);
 			}
 			company.setLocations(locations);
 		}
