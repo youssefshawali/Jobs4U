@@ -26,10 +26,11 @@ public class CompanyController {
 	private CompanyService companyService;
 	
 	@GetMapping("/")
-	public List<Company> getAllCompanies(@RequestParam String name){
+	public List<Company> getAllCompanies(){
 	//	name="MMMMMMMMMM";
-		return companyService.getAllCompanies(name);
+		return companyService.getAllCompanies();
 	}
+	
 	
 	@GetMapping("/{id}")
 	public Company getCompany(@PathVariable int id) {

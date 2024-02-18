@@ -109,4 +109,10 @@ public class JobServiceImpl implements JobService {
 		return jobRepo.findBySearchFilters(title, hours, workPlace, category);
 	}
 
+	@Override
+	public List<Job> getAllJobs() {
+		// TODO Auto-generated method stub
+		return jobRepo.findAll();
+	}
+
 }

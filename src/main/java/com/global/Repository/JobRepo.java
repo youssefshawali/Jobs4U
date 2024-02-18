@@ -18,7 +18,7 @@ public interface JobRepo extends JpaRepository<Job,Integer>{
 	   @Query("SELECT job FROM Job job  WHERE (job.jobTitle LIKE %?1% OR job.company.name LIKE %?1%)   AND job.workHours LIKE %?2% AND job.workPlaceType LIKE %?3% AND job.experience = ?4 AND job.category LIKE %?5% ")
 	    List<Job> findBySearchFilters(String title,String hours,String workPlace,Integer experience,String category );
 	  
-	   @Query("SELECT job FROM Job job WHERE job.jobTitle LIKE %?1% OR job.company.name LIKE %?1%   AND job.workHours LIKE %?2% AND job.workPlaceType LIKE %?3% AND job.category LIKE %?4% ")
+	   @Query("SELECT job FROM Job job WHERE (job.jobTitle LIKE %?1% OR job.company.name LIKE %?1%)   AND job.workHours LIKE %?2% AND job.workPlaceType LIKE %?3% AND job.category LIKE %?4% ")
 	   List<Job> findBySearchFilters(String title,String hours,String workPlace,String category );
 	   
 	   @Query("SELECT job FROM Job job WHERE job.company.name LIKE %?1%")

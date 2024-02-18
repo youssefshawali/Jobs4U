@@ -231,4 +231,10 @@ public class CompanyServiceImpl implements CompanyService {
 			job.setDepartment(department);
 		}
 	}
+
+	@Override
+	public List<Company> getAllCompanies() {
+		
+		return companyRepo.findAll();
+	}
 }

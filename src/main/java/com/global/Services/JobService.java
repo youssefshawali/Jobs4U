@@ -16,6 +16,7 @@ public interface JobService {
     List<Job> findByCompanyName(String companyName);
 
 	List<Job> getAllJobs(String jobTitle);
+	List<Job> getAllJobs();
 		
 	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,Integer experience,String category);
 	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,String category);

@@ -24,9 +24,8 @@ public class JobController {
 	private JobService jobService;
 
 	@GetMapping("/")
-	public List<Job> getAllJobs(@RequestParam String jobTitle) {
-		// jobTitle="AAAAAAAAAA";
-		return jobService.getAllJobs(jobTitle);
+	public List<Job> getAllJobs() {
+		return jobService.getAllJobs();
 	}
 
 	@GetMapping("/{id}")
