@@ -37,7 +37,7 @@ public class User {
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private UserProfile userProfile;
 
