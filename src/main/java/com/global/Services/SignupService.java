@@ -6,7 +6,6 @@ import com.global.Entity.Company;
 import com.global.Entity.User;
 import org.springframework.stereotype.Service;
 @Service
-
 public interface SignupService {
 
 	public Boolean checkEmail(String email);
