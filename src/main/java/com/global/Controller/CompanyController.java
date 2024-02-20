@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.Company;
 import com.global.Entity.Job;
 import com.global.Entity.Location;
+import com.global.Repository.CompanyRepo;
 import com.global.Services.CompanyService;
 
 @RestController
@@ -62,5 +63,9 @@ public class CompanyController {
 	public Company addCompanyLocation(@PathVariable int companyId, @RequestBody Location location)
 	{
 		return companyService.addCompanyLocation(companyId, location);
+	}
+	@GetMapping("/{companyId}/locations")
+	public List<Location> getAllCompanyLocations(@PathVariable int companyId){
+		return companyService.getAllCompanyLocations(companyId);
 	}
 }

@@ -72,4 +72,8 @@ public class UniversityServiceImpl implements UniversityService {
 		return collegeService.insertCollege(college);
 	}
 
+	@Override
+	public List<College> getUniverstyColleges(int uId) {
+		return collegeService.getUniverstyColleges(uId);
+	}
 }

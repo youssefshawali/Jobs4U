@@ -18,4 +18,6 @@ public interface CityService {
 	void deleteCity(int id);
 		
 	City getCityById(int id);
+
+	List<City> getCityByGovernmentId(int governmentId);
 }

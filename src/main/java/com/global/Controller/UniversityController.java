@@ -54,5 +54,8 @@ public class UniversityController {
 	{
 		return universityService.createCollege(universityId, college);
 	}
-	
+	@GetMapping("/{uId}/colleges")
+	public List<College> getUniverstyColleges(@PathVariable int uId){
+		return universityService.getUniverstyColleges(uId);
+	}
 }

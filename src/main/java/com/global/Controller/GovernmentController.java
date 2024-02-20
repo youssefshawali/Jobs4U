@@ -52,4 +52,8 @@ public class GovernmentController {
 	public void deleteGovernment(@PathVariable int id) {
 		governmentService.deleteGovernment(id);
 	}
+	@GetMapping("/{govId}/cities")
+	public List<City> getCityByGovernmentId(@PathVariable int govId){
+		return governmentService.getAllGovCities(govId);
+	}
 }

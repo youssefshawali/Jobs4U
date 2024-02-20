@@ -18,4 +18,6 @@ public interface LocationService {
 	void deleteLocation(int id);
 	
 	Location getLocationById(int id);
+	
+	List<Location> getLocationByCompanyId(int companyId);
 }

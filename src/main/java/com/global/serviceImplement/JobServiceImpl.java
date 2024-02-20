@@ -53,6 +53,7 @@ public class JobServiceImpl implements JobService {
 			current.setCareerLevels(job.getCareerLevels());
 			current.setSkills(job.getSkills());
 			current.setApplicants(job.getApplicants());
+			current.setTarget(job.getTarget());
 			return jobRepo.save(current);
 
 		} catch (NoSuchElementException e) {

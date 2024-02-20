@@ -28,10 +28,10 @@ public class Location {
 	@JoinColumn(name = "city_id")
 	private City city;
 
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Company company;
-
+ 
 	public Location(int id, String streetName, int floorNumber, int apartmentNumber, int buildingNumber, int zipCode,
 			City city, Company company) {
 		super();

@@ -71,5 +71,9 @@ public class CollegeServiceImpl implements CollegeService {
 		throw new RuntimeException("College Not Fond");
 
 	}
+	@Override
+	public List<College> getUniverstyColleges(int uId){
+		return collegeRepo.findByUniversity_Id(uId);
+	}
 
 }

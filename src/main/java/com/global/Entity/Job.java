@@ -25,6 +25,8 @@ public class Job {
 	private int id;
 	private String jobTitle;
 	private String description;
+	private String target;
+
 	public Company getCompany() {
 		return company;
 	}
@@ -32,8 +34,9 @@ public class Job {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+
 	private String requirments;
-	private int experience;//number of years
+	private int experience;// number of years
 	private String category;// it/software
 	private String status;// opened / closed
 	private int applicantsCount;
@@ -49,11 +52,11 @@ public class Job {
 	@ManyToMany
 	@JoinTable(name = "job_qualification", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "qualification_id"))
 	private List<Qualification> qualification;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "department_id") // Name of the foreign key column in the Job table
 	private Department department;
-	
+
 	@ManyToMany
 	@JoinTable(name = "job_career_level", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "career_level_id"))
 	private List<CareerLevel> careerLevels = new ArrayList<>();
@@ -64,30 +67,22 @@ public class Job {
 
 	private String workHours;// partime or full time
 	private String workPlaceType;// remote or onsite
-	
+	@JsonIgnore
 	@ManyToMany
-    @JoinTable(
-        name = "job_applicants",
-        joinColumns = @JoinColumn(name = "job_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<User> applicants;
+	@JoinTable(name = "job_applicants", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> applicants;
 
-	
-	
-
-	public Job(int id, String jobTitle, String description, String requirments, int experience, String workHours,
-			String workPlaceType, String category, String status, int applicantsCount, LocalTime dateTime,
-			Location location, Company company, List<Qualification> qualification, Department department,
-			List<CareerLevel> careerLevels, List<Skill> skills, List<User> applicants) {
+	public Job(int id, String jobTitle, String description, String target, String requirments, int experience,
+			String category, String status, int applicantsCount, LocalTime dateTime, Location location, Company company,
+			List<Qualification> qualification, Department department, List<CareerLevel> careerLevels,
+			List<Skill> skills, String workHours, String workPlaceType, List<User> applicants) {
 		super();
 		this.id = id;
 		this.jobTitle = jobTitle;
 		this.description = description;
+		this.target = target;
 		this.requirments = requirments;
 		this.experience = experience;
-		this.workHours = workHours;
-		this.workPlaceType = workPlaceType;
 		this.category = category;
 		this.status = status;
 		this.applicantsCount = applicantsCount;
@@ -98,6 +93,8 @@ public class Job {
 		this.department = department;
 		this.careerLevels = careerLevels;
 		this.skills = skills;
+		this.workHours = workHours;
+		this.workPlaceType = workPlaceType;
 		this.applicants = applicants;
 	}
 
@@ -240,6 +237,7 @@ public class Job {
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
+
 	public List<User> getApplicants() {
 		return applicants;
 	}
@@ -247,7 +245,17 @@ public class Job {
 	public void setApplicants(List<User> applicants) {
 		this.applicants = applicants;
 	}
-public void setCareerLevelOneByOne(CareerLevel careerLevel) {
-	this.careerLevels.add(careerLevel);
-}
+
+	public void setCareerLevelOneByOne(CareerLevel careerLevel) {
+		this.careerLevels.add(careerLevel);
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	
 }

@@ -24,4 +24,6 @@ public interface CompanyService {
 	Company getCompanyById(int id);
 
 	Company addCompanyLocation(int companyId,Location location);
+
+	List<Location> getAllCompanyLocations(int copmpanyId);
 }

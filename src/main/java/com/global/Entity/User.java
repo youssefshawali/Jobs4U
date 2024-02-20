@@ -40,7 +40,7 @@ public class User {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private UserProfile userProfile;
-
+	@JsonIgnore
 	@ManyToMany(mappedBy = "applicants")
 	private List<Job> appliedJobs;
 

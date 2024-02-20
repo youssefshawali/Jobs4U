@@ -82,5 +82,8 @@ public class GovernmentServiceImpl implements GovernmentService {
 		// Save the UserProfile with its associated Education entries
 		return cityService.insertCity(city);
 	}
-
+@Override 
+ public List <City> getAllGovCities(int govId){
+	return cityService.getCityByGovernmentId(govId);
+}
 }

@@ -80,5 +80,8 @@ public class LocationServiceImpl implements LocationService {
 		}
 		throw new RuntimeException("Location Not Fond");
 	}
+	public List<Location> getLocationByCompanyId(int companyId){
+		return locationRepo.findByCompany_Id(companyId);
+	}
 
 }

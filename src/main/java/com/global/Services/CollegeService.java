@@ -18,4 +18,6 @@ public interface CollegeService {
 	void deleteCollege(int id);
 
 	College getCollegeById(int id);
+
+	List<College> getUniverstyColleges(int uId);
 }

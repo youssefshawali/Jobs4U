@@ -19,4 +19,6 @@ University updateUniversity (University university);
 	void deleteUniversity(int id);
 	
 	University getUniversityById(int id);
+
+	List<College> getUniverstyColleges(int uId);
 }

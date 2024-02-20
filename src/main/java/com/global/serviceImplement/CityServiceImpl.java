@@ -69,4 +69,8 @@ public class CityServiceImpl implements CityService {
 
 	}
 
+	@Override
+	public List<City> getCityByGovernmentId(int governmentId) {
+		return cityRepo.findByGovernment_Id(governmentId);
+	}
 }

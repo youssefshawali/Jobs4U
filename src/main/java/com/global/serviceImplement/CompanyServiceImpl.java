@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.global.Entity.CareerLevel;
+import com.global.Entity.City;
 import com.global.Entity.Company;
 import com.global.Entity.Department;
 import com.global.Entity.Industry;
@@ -18,6 +19,7 @@ import com.global.Entity.Qualification;
 import com.global.Entity.Skill;
 import com.global.Repository.CompanyRepo;
 import com.global.Services.CareerLevelService;
+import com.global.Services.CityService;
 import com.global.Services.CompanyService;
 import com.global.Services.DepartmentService;
 import com.global.Services.IndustryService;
@@ -166,14 +168,20 @@ public class CompanyServiceImpl implements CompanyService {
 
 	}
 
+	@Autowired
+	CityService cityService;
+
 	public void setCompanyLocations(Company company) {
 
 		if (company.getLocations().size() != 0) {
 			List<Location> locations = new ArrayList<>();
+			City city = new City();
 			for (Location location : company.getLocations()) {
-//				location.setCompany(company);
+				location.setCompany(company);
+				city = cityService.getCityById(location.getCity().getId());
+				location.setCity(city);
 				locations.add(location);
-				locationService.insertLocation(location);
+//				locationService.insertLocation(location);
 			}
 			company.setLocations(locations);
 		}
@@ -234,7 +242,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Company> getAllCompanies() {
-		
+
 		return companyRepo.findAll();
+	}
+
+	@Override
+	public List<Location> getAllCompanyLocations(int copmpanyId) {
+		return locationService.getLocationByCompanyId(copmpanyId);
 	}
 }

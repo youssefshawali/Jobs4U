@@ -21,4 +21,6 @@ City createCity(int governmentId, City city);
 	void deleteGovernment(int id);
 	
 	Government getGovernmentById(int id);
+
+	List<City> getAllGovCities(int govId);
 }
