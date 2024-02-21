@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.global.Entity.CareerLevel;
 import com.global.Entity.Job;
 import com.global.Services.JobService;
 import com.global.Repository.JobRepo;
@@ -94,20 +96,24 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public List<Job> findByCompanyName(String companyName) {
 		// TODO Auto-generated method stub
+		if(companyName!=null) {
 		return jobRepo.findByCompany_Name(companyName);
+		}else {
+			return jobRepo.findAll();
+		}
+		}
+
+	@Override
+	public List<Job> findBySearchFilters(String title, String hours, String workPlaceType, Integer experience,
+			String category,String target) {
+		// TODO Auto-generated method stub
+		return jobRepo.findBySearchFilters(title, hours, workPlaceType, experience, category,target);
 	}
 
 	@Override
-	public List<Job> findBySearchFilters(String title, String hours, String workPlace, Integer experience,
-			String category) {
+	public List<Job> findBySearchFilters(String title, String hours, String workPlace, String category,String target) {
 		// TODO Auto-generated method stub
-		return jobRepo.findBySearchFilters(title, hours, workPlace, experience, category);
-	}
-
-	@Override
-	public List<Job> findBySearchFilters(String title, String hours, String workPlace, String category) {
-		// TODO Auto-generated method stub
-		return jobRepo.findBySearchFilters(title, hours, workPlace, category);
+		return jobRepo.findBySearchFilters(title, hours, workPlace, category,target);
 	}
 
 	@Override
@@ -115,5 +121,9 @@ public class JobServiceImpl implements JobService {
 		// TODO Auto-generated method stub
 		return jobRepo.findAll();
 	}
+
+
+
+	
 
 }

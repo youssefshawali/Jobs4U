@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.global.Entity.CareerLevel;
 import com.global.Entity.Job;
 
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public interface JobService {
 	List<Job> getAllJobs(String jobTitle);
 	List<Job> getAllJobs();
 		
-	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,Integer experience,String category);
-	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,String category);
+	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,Integer experience,String category,String target);
+	List<Job> findBySearchFilters(String title,String hours,String workPlaceType,String category,String target);
 
 	
 	Job insertJob(Job job);
