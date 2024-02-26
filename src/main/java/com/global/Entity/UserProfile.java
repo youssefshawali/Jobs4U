@@ -44,7 +44,7 @@ public class UserProfile {
 	
 	 @OneToMany(mappedBy = "userProfile", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	    private List<Education> education= new ArrayList<>();
-
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;

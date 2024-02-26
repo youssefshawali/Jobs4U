@@ -74,7 +74,7 @@ public class Job {
 	private List<User> applicants;
 
 	public Job(int id, String jobTitle, String description, String target, String requirments, int experience,
-			String category, String status, int applicantsCount, LocalTime dateTime, Location location, Company company,
+			String category, String status, int applicantsCount, LocalDateTime dateTime, Location location, Company company,
 			List<Qualification> qualification, Department department, List<CareerLevel> careerLevels,
 			List<Skill> skills, String workHours, String workPlaceType, List<User> applicants) {
 		super();
@@ -187,7 +187,7 @@ public class Job {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalTime dateTime) {
+	public void setDateTime() {
 		  if (this.dateTime == null) {
 		        this.dateTime = LocalDateTime.now();}
 	}

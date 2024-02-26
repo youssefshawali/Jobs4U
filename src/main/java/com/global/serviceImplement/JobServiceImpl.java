@@ -47,7 +47,6 @@ public class JobServiceImpl implements JobService {
 			current.setCategory(job.getCategory());
 			current.setStatus(job.getStatus());
 			current.setApplicantsCount(job.getApplicantsCount());
-			current.setDateTime(job.getDateTime());
 			current.setLocation(job.getLocation());
 			current.setCompanyId(job.getCompanyId());
 			current.setQualification(job.getQualification());

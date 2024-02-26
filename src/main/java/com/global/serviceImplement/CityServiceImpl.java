@@ -7,8 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.global.Entity.City;
+import com.global.Entity.Government;
 import com.global.Repository.CityRepo;
+import com.global.Repository.GovernmentRepo;
 import com.global.Services.CityService;
+import com.global.Services.GovernmentService;
 
 @Service
 public class CityServiceImpl implements CityService {
@@ -27,7 +30,8 @@ public class CityServiceImpl implements CityService {
 		// TODO Auto-generated method stub
 		return cityRepo.save(city);
 	}
-
+   @Autowired
+  GovernmentRepo governmentRepo;
 	@Override
 	public City updateCity(City city) {
 		// TODO Auto-generated method stub
@@ -37,6 +41,8 @@ public class CityServiceImpl implements CityService {
 				current.setName(city.getName());
 			}
 			if (city.getGovernment() != null) {
+				Government gov = governmentRepo.getById(city.getGovernment().getId());
+				city.setGovernment(gov);
 				current.setGovernment(city.getGovernment());
 			}
 			if (city.getLocations() != null) {
