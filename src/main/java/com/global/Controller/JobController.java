@@ -3,6 +3,7 @@ package com.global.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +54,10 @@ public class JobController {
 		// jobTitle="AAAAAAAAAA";
 		return jobService.findByCompanyId(companyId);
 	}
-	
 
+	@GetMapping("/applied/{userId}")
+	public ResponseEntity<List<Job>> getAppliedJobsByUserId(@PathVariable int userId) {
+		List<Job> appliedJobs = jobService.getAppliedJobsByUserId(userId);
+		return ResponseEntity.ok(appliedJobs);
+	}
 }

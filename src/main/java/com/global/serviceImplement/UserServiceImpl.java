@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.global.Entity.College;
 import com.global.Entity.Education;
 import com.global.Entity.Experience;
+import com.global.Entity.Job;
 import com.global.Entity.Qualification;
 import com.global.Entity.Skill;
 import com.global.Entity.User;
@@ -22,6 +23,7 @@ import com.global.Repository.UserRepo;
 import com.global.Services.CollegeService;
 import com.global.Services.EducationService;
 import com.global.Services.ExperienceService;
+import com.global.Services.JobService;
 import com.global.Services.SkillService;
 import com.global.Services.UserProfileService;
 import com.global.Services.UserService;
@@ -168,6 +170,41 @@ public class UserServiceImpl implements UserService {
 		}
 		throw new RuntimeException("User Not Fond");
 
+	}
+
+	@Autowired
+	JobService jobService;
+
+	@Override
+	public String applyForJob(int userId, int jobId) {
+		User user = getUserById(userId);
+		List<Job> jobList;
+		Job job = jobService.getJobById(jobId);
+		List<User> userList;
+		if (job.getApplicants().size() == 0) {
+			userList = new ArrayList<>();
+			userList.add(user);
+			job.setApplicants(userList);
+
+		} else {
+
+			userList = job.getApplicants();
+			userList.add(user);
+			job.setApplicants(userList);
+		}
+		job.setApplicantsCount(job.getApplicantsCount()+1);
+		jobService.updateJob(job);
+//		if (user.getAppliedJobs().size() == 0) {
+//			jobList = new ArrayList<>();
+//			jobList.add(jobService.getJobById(jobId));
+//
+//		} else {
+//			jobList = user.getAppliedJobs();
+//			jobList.add(job);
+//		}
+//		user.setAppliedJobs(jobList);
+//		userRepo.save(user);
+		return "Application Successfully";
 	}
 
 }

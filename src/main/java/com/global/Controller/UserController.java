@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.global.Entity.Education;
@@ -52,5 +53,10 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable int id) {
 		userService.deleteUser(id);
+	}
+	
+	@PostMapping("/apply")
+	public String applyForJob(@RequestParam int userId,@RequestParam int jobId) {
+		return userService.applyForJob(userId, jobId);
 	}
 }

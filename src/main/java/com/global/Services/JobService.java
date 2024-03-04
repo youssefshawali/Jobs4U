@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 public interface JobService {
 
 	Job insertJob(Job job);
-	
+
 	Job updateJob(Job job);
-	
+
 	void deleteJob(int id);
-	
+
 	Job getJobById(int id);
-	
+
 	List<Job> getAllJobs();
 
 	List<Job> findByCompanyId(int companyId);
@@ -25,6 +25,6 @@ public interface JobService {
 	List<?> findBySearchFilters(String title, List<String> workingHour, List<String> workPlace, Integer experience,
 			List<String> skills, List<String> target, List<String> qualification, List<String> careerLevel);
 
-
+	List<Job> getAppliedJobsByUserId(int userId);
 
 }

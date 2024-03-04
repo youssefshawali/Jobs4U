@@ -97,5 +97,9 @@ public class JobServiceImpl implements JobService {
 				careerLevel);
 
 	}
+	@Override
+	 public List<Job> getAppliedJobsByUserId(int userId) {
+	        return jobRepo.findByApplicantsId(userId);
+	    }
 
 }

@@ -68,7 +68,6 @@ public class Job {
 
 	private String workHours;// partime or full time
 	private String workPlaceType;// remote or onsite
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "job_applicants", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> applicants;
