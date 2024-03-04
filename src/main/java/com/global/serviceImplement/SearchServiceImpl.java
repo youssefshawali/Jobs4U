@@ -18,12 +18,10 @@ public class SearchServiceImpl implements SearchService {
 
 	@Autowired
 	private JobService jobService;
-	@Autowired
 
 	@Override
-	public List<?> getAll(Map<String, String> queryParams) {
+	public List<Job> getAll(Map<String, String> queryParams) {
 		String q = queryParams.getOrDefault("q", null);
-//        String category = queryParams.getOrDefault("category", null);
 		List<String> skills = queryParams.containsKey("skills") ? List.of(queryParams.get("skills").split(",")) : null;
 		List<String> workPlace = queryParams.containsKey("workPlace") ? List.of(queryParams.get("workPlace").split(","))
 				: null;
@@ -40,7 +38,7 @@ public class SearchServiceImpl implements SearchService {
 		String experienceValue = queryParams.get("experience");
 		Integer experience = (experienceValue != null && !experienceValue.isEmpty()) ? Integer.parseInt(experienceValue)
 				: null;
-		List<Object> list = new ArrayList<>();
+		List<Job> list = new ArrayList<>();
 		list.addAll(jobService.findBySearchFilters(q, workingHours, workPlace, experience, skills, target,
 				qualification, careerLevels));
 		return list;

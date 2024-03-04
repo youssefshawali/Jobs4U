@@ -48,15 +48,6 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private DepartmentService departmentService;
 
-	@Override
-	public List<Company> getAllCompanies(String name) {
-		// TODO Auto-generated method stub
-		if (name != null) {
-			return companyRepo.findAll(name);
-		} else {
-			return companyRepo.findAll();
-		}
-	}
 
 	@Override
 	public Company insertCompany(Company company) {

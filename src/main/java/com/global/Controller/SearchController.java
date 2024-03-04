@@ -20,20 +20,9 @@ import com.global.Services.SearchService;
 public class SearchController {
 
 	@Autowired
-	private JobService jobService;
-	@Autowired
-	private CompanyService companyService;
-	@Autowired
 	private SearchService searchService;
 	
 	
-	
-//	@GetMapping("/")
-//	public List<?>getAll(@RequestParam String key,@RequestParam String hours,@RequestParam String workPlace,@RequestParam(required = false) Integer experience,@RequestParam String category){
-////		key="MMMMMMMMMM";
-////		//key="AAAAAAAAAA";
-//	return searchService.getAll(key,hours,workPlace,experience,category);
-//	}
 	
 	@GetMapping("/")
     public List<?> getAll(@RequestParam Map<String, String> queryParams) {
