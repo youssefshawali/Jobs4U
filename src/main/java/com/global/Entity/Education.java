@@ -25,7 +25,7 @@ public class Education {
 	private int startYear;
 	private int endYear;
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToOne( fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 

@@ -73,10 +73,11 @@ public class UserServiceImpl implements UserService {
 
 		List<Experience> experiences = new ArrayList<>();
 
-		if (userProfile.getExperience() != null) {
+		if (userProfile.getExperience().size()!=0) {
+			System.out.println("Add Expoo");
 			for (Experience experience : userProfile.getExperience()) {
-
-				experienceService.insertExperience(experience);
+				experience.setUserProfile(userProfile);
+//				experienceService.insertExperience(experience);
 				experiences.add(experience);
 			}
 			userProfile.setExperience(experiences);
@@ -107,10 +108,30 @@ public class UserServiceImpl implements UserService {
 		return userProfileService.insertUserProfile(userProfile);
 	}
 
+//UserProfileService userProfileService2;
 	@Override
 	public void deleteUser(int id) {
-		// TODO Auto-generated method stub
-		userRepo.deleteById(id);
+		User user = getUserById(id);
+
+		if (user != null) {
+			// Delete associated UserProfile
+			UserProfile userProfile = user.getUserProfile();
+			if (userProfile != null) {
+				userProfile.setUser(null);
+				user.setUserProfile(null);
+				userProfileService.deleteUserProfile(userProfile.getId());
+			}
+
+			// Update and delete the User
+			if (user.getAppliedJobs().size() != 0) {
+				for (Job job : new ArrayList<>(user.getAppliedJobs())) {
+					job.setApplicantsCount(job.getApplicantsCount() - 1);
+					job.getApplicants().remove(user);
+					user.getAppliedJobs().remove(job);
+				}
+			}
+			userRepo.deleteById(id);
+		}
 	}
 
 	@Override
@@ -178,7 +199,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String applyForJob(int userId, int jobId) {
 		User user = getUserById(userId);
-		List<Job> jobList;
 		Job job = jobService.getJobById(jobId);
 		List<User> userList;
 		if (job.getApplicants().size() == 0) {
@@ -192,18 +212,12 @@ public class UserServiceImpl implements UserService {
 			userList.add(user);
 			job.setApplicants(userList);
 		}
-		job.setApplicantsCount(job.getApplicantsCount()+1);
-		jobService.updateJob(job);
-//		if (user.getAppliedJobs().size() == 0) {
-//			jobList = new ArrayList<>();
-//			jobList.add(jobService.getJobById(jobId));
-//
-//		} else {
-//			jobList = user.getAppliedJobs();
-//			jobList.add(job);
-//		}
-//		user.setAppliedJobs(jobList);
-//		userRepo.save(user);
+		int old = job.getApplicants().size();
+		job = jobService.updateJob(job);
+		int newObj = job.getApplicants().size();
+		if (old != newObj) {
+			job.setApplicantsCount(job.getApplicantsCount() + 1);
+		}
 		return "Application Successfully";
 	}
 

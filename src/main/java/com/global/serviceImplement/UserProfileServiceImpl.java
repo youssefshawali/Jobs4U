@@ -30,12 +30,40 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public List<UserProfile> getAllUserProfiles() {
 		// TODO Auto-generated method stub
+
 		return userProfileRepo.findAll();
 	}
 
 	@Override
 	public void deleteUserProfile(int id) {
 		// TODO Auto-generated method stub
+		UserProfile userProfile = getUserProfileById(id);
+//		System.out.println("User Id "+userProfile.getUser().getId());
+		if (!userProfile.getExperience().isEmpty()) {
+			for (Experience exp : new ArrayList<>(userProfile.getExperience())) {
+				exp.setUserProfile(null); // Disassociate education from user profile
+				userProfile.getExperience().remove(exp);
+				experienceService.updateExperience(exp);
+				experienceService.deleteExperience(exp.getId()); // Delete the education
+				System.out.println("EXPOO");
+			}
+		
+		}
+		if (userProfile.getEducation().size() != 0) {
+			for (Education edu : new ArrayList<>(userProfile.getEducation())) {
+				edu.setUserProfile(null); // Disassociate education from user profile
+				userProfile.getEducation().remove(edu);
+				educationService.updateEducation(edu);
+				educationService.deleteEducation(edu.getId()); // Delete the education
+			}
+		}
+		if (userProfile.getSkills().size() != 0) {
+			for (Skill skill : new ArrayList<>(userProfile.getSkills())) {
+				userProfile.getSkills().remove(skill);
+//				educationService.deleteEducation(edu.getId());
+			}
+		}
+		updateUserProfile(userProfile);
 		userProfileRepo.deleteById(id);
 	}
 

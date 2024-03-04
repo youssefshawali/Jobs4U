@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -18,20 +20,20 @@ import jakarta.persistence.Transient;
 @Table
 public class Experience {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	String jobTitle;
 	String companyName;
-	@Transient
-	Location companyLocation;
 	Date startDate;
 	Date endDate;
 	@JsonIgnore
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="profile_Id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "profile_Id")
 	private UserProfile userProfile;
 
-	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "location_id")
+	private Location companyLocation;
 
 	public Experience(int id, String jobTitle, String companyName, Location companyLocation, Date startDate,
 			Date endDate, UserProfile userProfile) {
@@ -105,10 +107,5 @@ public class Experience {
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
-
-	
-	
-	
-	
 
 }

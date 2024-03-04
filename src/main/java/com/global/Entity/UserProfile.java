@@ -31,8 +31,9 @@ public class UserProfile {
 	private int id;
 	private String currentJobTitle;
 	private String bio;
-	@OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Experience> experience;
+	@OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
+	private List<Experience> experience = new ArrayList<>();;
+
 	@Lob
 	private byte[] cvFile;
 

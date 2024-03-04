@@ -67,9 +67,22 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public void deleteLocation(int id) {
-		// TODO Auto-generated method stub
-		locationRepo.deleteById(id);
+	    Location loc = getLocationById(id);
+	    if (loc != null) {
+	        City city = cityService.getCityById(loc.getCity().getId());
+	        if (city != null) {
+	            // Remove association between Location and City
+	            city.getLocations().remove(loc);
+	            loc.setCity(null);
+	            // Save the updated City entity
+	            cityService.updateCity(city);
+	            locationRepo.save(loc);
+	        }
+	        // Delete the Location entity
+	        locationRepo.deleteById(id);
+	    }
 	}
+
 
 	@Override
 	public Location getLocationById(int id) {
@@ -80,7 +93,8 @@ public class LocationServiceImpl implements LocationService {
 		}
 		throw new RuntimeException("Location Not Fond");
 	}
-	public List<Location> getLocationByCompanyId(int companyId){
+
+	public List<Location> getLocationByCompanyId(int companyId) {
 		return locationRepo.findByCompany_Id(companyId);
 	}
 

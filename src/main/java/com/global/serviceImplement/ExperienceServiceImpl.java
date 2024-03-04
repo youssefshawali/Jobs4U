@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.global.Entity.Experience;
+import com.global.Entity.Location;
 import com.global.Repository.ExperienceRepo;
 import com.global.Services.ExperienceService;
+import com.global.Services.LocationService;
 
 @Service
 public class ExperienceServiceImpl implements ExperienceService {
@@ -60,10 +62,24 @@ public class ExperienceServiceImpl implements ExperienceService {
 		}
 	}
 
+	@Autowired
+	LocationService locationService;
+
 	@Override
 	public void deleteExperience(int id) {
-		// TODO Auto-generated method stub
-		experienceRepo.deleteById(id);
+		Experience exp = getExperienceById(id);
+		if (exp != null) {
+			Location loc =locationService.getLocationById(exp.getCompanyLocation().getId());
+			if (loc != null) {
+				System.out.println("LOOOOOOC");
+				loc.setExperience(null);// Disassociate the Location from the Experience
+				exp.setCompanyLocation(null);
+				locationService.updateLocation(loc);
+				locationService.deleteLocation(loc.getId()); // Delete the associated Location
+				experienceRepo.save(exp);
+			}
+			experienceRepo.deleteById(id); // Delete the Experience entity
+		}
 	}
 
 	@Override

@@ -65,9 +65,26 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public void deleteEducation(int id) {
-		// TODO Auto-generated method stub
-		educationRepo.deleteById(id);
+	    System.out.println("EDUCAAATIOOOOOONNNNN " + id);
+	    Education edu = getEducationById(id);
+	    
+	    if (edu != null) {
+	        System.out.println("EDUCAAATIOOOOOONNNNN " + edu.getStartYear());
+	        
+	        // Remove the association between Education and College
+	        College college = edu.getCollege();
+	        if (college != null) {
+	            college.getEducations().remove(edu);
+	            edu.setCollege(null);
+	            collegeService.updateCollege(college);  // Save the disassociated College entity
+	        }
+	        
+	        // Delete the Education entity
+	        educationRepo.deleteById(id);
+	    }
 	}
+
+
 
 	@Override
 	public Education getEducationById(int id) {

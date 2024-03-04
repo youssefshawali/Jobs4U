@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,9 +32,12 @@ public class Location {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Company company;
- 
+	@JsonIgnore
+	@OneToOne(mappedBy = "companyLocation", fetch = FetchType.EAGER)
+	private Experience experience;
+
 	public Location(int id, String streetName, int floorNumber, int apartmentNumber, int buildingNumber, int zipCode,
-			City city, Company company) {
+			City city, Company company, Experience experience) {
 		super();
 		this.id = id;
 		this.streetName = streetName;
@@ -43,6 +47,7 @@ public class Location {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.company = company;
+		this.experience = experience;
 	}
 
 	public Location() {
@@ -111,6 +116,14 @@ public class Location {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Experience getExperience() {
+		return experience;
+	}
+
+	public void setExperience(Experience experience) {
+		this.experience = experience;
 	}
 
 }
