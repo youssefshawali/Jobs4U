@@ -90,7 +90,7 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public List<Job> findBySearchFilters(String title, List<String> workingHour, List<String> workPlace,
+	public List<?> findBySearchFilters(String title, List<String> workingHour, List<String> workPlace,
 			Integer experience, List<String> skills, List<String> target, List<String> qualification,
 			List<String> careerLevel) {
 		return jobRepo.findBySearchFilters(title, workingHour, workPlace, experience, skills, target, qualification,

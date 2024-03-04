@@ -22,7 +22,7 @@ public interface JobService {
 
 	List<Job> findByCompanyId(int companyId);
 
-	List<Job> findBySearchFilters(String title, List<String> workingHour, List<String> workPlace, Integer experience,
+	List<?> findBySearchFilters(String title, List<String> workingHour, List<String> workPlace, Integer experience,
 			List<String> skills, List<String> target, List<String> qualification, List<String> careerLevel);
 
 

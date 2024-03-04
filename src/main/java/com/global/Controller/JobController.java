@@ -23,10 +23,10 @@ public class JobController {
 	@Autowired
 	private JobService jobService;
 
-//	@GetMapping("/")
-//	public List<Job> getAllJobs() {
-//		return jobService.getAllJobs();
-//	}
+	@GetMapping("/")
+	public List<Job> getAllJobs() {
+		return jobService.getAllJobs();
+	}
 
 	@GetMapping("/{id}")
 	public Job getJob(@PathVariable int id) {
@@ -48,11 +48,11 @@ public class JobController {
 		jobService.deleteJob(id);
 	}
 
-//	@GetMapping("/company/{companyId}")
-//	public List<Job> getAllJobsByCompanyId(@PathVariable int companyId, @RequestParam String jobTitle) {
-//		// jobTitle="AAAAAAAAAA";
-//		return jobService.findByCompanyId(companyId, jobTitle);
-//	}
+	@GetMapping("/company/{companyId}")
+	public List<Job> getAllJobsByCompanyId(@PathVariable int companyId) {
+		// jobTitle="AAAAAAAAAA";
+		return jobService.findByCompanyId(companyId);
+	}
 	
 
 }

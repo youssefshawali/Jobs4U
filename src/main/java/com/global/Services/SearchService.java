@@ -10,6 +10,6 @@ import com.global.Entity.Job;
 
 public interface SearchService {
 
-	 List<Job> getAll(Map<String, String> queryParams);
+	 List<?> getAll(Map<String, String> queryParams);
 
 }
