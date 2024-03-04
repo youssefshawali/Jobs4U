@@ -1,5 +1,6 @@
 package com.global.Entity;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class Job {
 	private String category;// it/software
 	private String status;// opened / closed
 	private int applicantsCount;
-	private LocalTime dateTime;
+	private LocalDateTime dateTime=LocalDateTime.now();
 
 	@ManyToOne
 	@JoinColumn(name = "location_id") // Name of the foreign key column in the Job table
@@ -73,7 +74,7 @@ public class Job {
 	private List<User> applicants;
 
 	public Job(int id, String jobTitle, String description, String target, String requirments, int experience,
-			String category, String status, int applicantsCount, LocalTime dateTime, Location location, Company company,
+			String category, String status, int applicantsCount, LocalDateTime dateTime, Location location, Company company,
 			List<Qualification> qualification, Department department, List<CareerLevel> careerLevels,
 			List<Skill> skills, String workHours, String workPlaceType, List<User> applicants) {
 		super();
@@ -182,12 +183,13 @@ public class Job {
 		this.applicantsCount = applicantsCount;
 	}
 
-	public LocalTime getDateTime() {
+	public LocalDateTime getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalTime dateTime) {
-		this.dateTime = dateTime;
+	public void setDateTime() {
+		  if (this.dateTime == null) {
+		        this.dateTime = LocalDateTime.now();}
 	}
 
 	public Location getLocation() {
