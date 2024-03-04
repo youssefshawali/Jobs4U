@@ -20,11 +20,11 @@ public class Skill {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String name;
-@JsonIgnore
+	@JsonIgnore
 	@ManyToMany(mappedBy = "skills")
 	private List<Job> jobs;
 
-@JsonIgnore
+	@JsonIgnore
 	@ManyToMany(mappedBy = "skills")
 	private List<UserProfile> userProfiles;
 
@@ -35,12 +35,10 @@ public class Skill {
 		this.jobs = jobs;
 		this.userProfiles = userProfiles;
 	}
-	
 
 	public Skill() {
 		super();
 	}
-
 
 	public int getId() {
 		return id;
