@@ -3,6 +3,8 @@ package com.global.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,53 +21,96 @@ import com.global.Entity.Skill;
 import com.global.Entity.UserProfile;
 import com.global.Services.UserProfileService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/user/profile")
 public class UserProfileController {
 
 	@Autowired
 	private UserProfileService userProfileService;
-	
+
 	@GetMapping("/")
-	public List<UserProfile> getAllUserProfiles(){
-		return userProfileService.getAllUserProfiles();
+	public Response<List<UserProfile>> getAllUsers() {
+		List<UserProfile> profiles = userProfileService.getAllUserProfiles();
+		if (profiles.size() != 0) {
+			return new Response<>(200, "Success", profiles);
+		} else {
+			return new Response<>(404, "No profiles found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public UserProfile getUserProfile(@PathVariable int id) {
-		return userProfileService.getUserProfileById(id);
+	public Response<UserProfile> getUserProfile(@PathVariable int id) {
+		UserProfile profile = userProfileService.getUserProfileById(id);
+		if (profile != null) {
+			return new Response<>(200, "Success", profile);
+		} else {
+			return new Response<>(404, "No profiles found", null);
+		}
+
 	}
-	
+
 	@PostMapping("/")
-	public UserProfile saveUserProfile (@RequestBody UserProfile userProfile) {
-		return userProfileService.insertUserProfile(userProfile);
+	public Response<UserProfile> saveUserProfile(@RequestBody UserProfile userProfile) {
+		UserProfile profile = userProfileService.insertUserProfile(userProfile);
+		if (profile != null) {
+			return new Response<>(200, "User profile saved successfully", profile);
+		} else {
+			return new Response<>(404, "Failed to save user profile", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public UserProfile updateUserProfile (@RequestBody UserProfile userProfile) {
-		System.out.println("ID qqqqqqqqqqqqqqqqq "+userProfile.getId());
-		return userProfileService.updateUserProfile(userProfile);
+	public Response<UserProfile> updateUserProfile(@RequestBody UserProfile userProfile) {
+		// System.out.println("ID qqqqqqqqqqqqqqqqq "+userProfile.getId());
+		UserProfile profile = userProfileService.updateUserProfile(userProfile);
+		if (profile != null) {
+			return new Response<>(200, "User profile updated successfully", profile);
+		} else {
+			return new Response<>(404, "Failed to update user profile", null);
+		}
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteUserProfile(@PathVariable int id) {
-		userProfileService.deleteUserProfile(id);
-	}
+//	public Response<Void> deleteUserProfile(@PathVariable int id) {
+//	    boolean deleted = userProfileService.deleteUserProfile(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "User profile deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete user profile", null);
+//	    }
+//	}
 	@PostMapping("/{profileId}/experience")
-	public Experience createExperience(@PathVariable int profileId, @RequestBody Experience experience)
-	{
-		return userProfileService.createExperience(profileId, experience);
+	public Response<Experience> createExperience(@PathVariable int profileId, @RequestBody Experience experience) {
+		Experience exper = userProfileService.createExperience(profileId, experience);
+		if (exper != null) {
+			return new Response<>(200, "Experience added successfully", exper);
+		} else {
+			return new Response<>(404, "Failed to create Experience", null);
+		}
+
 	}
+
 	@PostMapping("/{profileId}/education")
-	public Education createEducation(@PathVariable int profileId, @RequestBody Education education)
-	{
-		return userProfileService.createEducation(profileId, education);
+	public Response<Education> createEducation(@PathVariable int profileId, @RequestBody Education education) {
+
+		Education educ = userProfileService.createEducation(profileId, education);
+		if (educ != null) {
+			return new Response<>(200, "Education added successfully", educ);
+		} else {
+			return new Response<>(404, "Failed to create Education", null);
+		}
 	}
-	
+
 	@PostMapping("/{profileId}/skill")
-	public UserProfile createSkill(@PathVariable int profileId, @RequestBody List<Skill> skill)
-	{
-		return userProfileService.createSkill(profileId, skill);
+	public Response<UserProfile> createSkill(@PathVariable int profileId, @RequestBody List<Skill> skill) {
+		UserProfile profile = userProfileService.createSkill(profileId, skill);
+		if (profile != null) {
+			return new Response<>(200, "skill added successfully", profile);
+		} else {
+			return new Response<>(404, "Failed to create skill", null);
+		}
 	}
-	
+
 }

@@ -17,43 +17,88 @@ import com.global.Entity.Government;
 import com.global.Entity.UserProfile;
 import com.global.Services.GovernmentService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/government")
 public class GovernmentController {
 
 	@Autowired
 	private GovernmentService governmentService;
-	
+
 	@GetMapping("/")
-	public List<Government> getAllGovernments(){
-		return governmentService.getAllGovernments();
+	public Response<List<Government>> getAllGovernments() {
+		List<Government> governments = governmentService.getAllGovernments();
+		if (governments.size() != 0) {
+			return new Response<>(200, "Success", governments);
+		} else {
+			return new Response<>(404, "No governments found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public Government getGovernment(@PathVariable int id) {
-		return governmentService.getGovernmentById(id);
+	public Response<Government> getGovernment(@PathVariable int id) {
+		Government government = governmentService.getGovernmentById(id);
+		if (government != null) {
+			return new Response<>(200, "Success", government);
+		} else {
+			return new Response<>(404, "No government found", null);
+		}
 	}
-	
+
 	@PostMapping("/")
-	public Government saveGovernment (@RequestBody Government government) {
-		return governmentService.insertGovernment(government);
+	public Response<Government> saveGovernment(@RequestBody Government government) {
+		Government savegovernment = governmentService.insertGovernment(government);
+		if (savegovernment != null) {
+			return new Response<>(200, "Government saved successfully", savegovernment);
+		} else {
+			return new Response<>(404, "Failed to save government", null);
+		}
 	}
+
 	@PostMapping("/{governmentId}/city")
-	public City createCity(@PathVariable int governmentId, @RequestBody City city) {
-		return governmentService.createCity(governmentId, city);
+	public Response<City> createCity(@PathVariable int governmentId, @RequestBody City city) {
+		City createcity = governmentService.createCity(governmentId, city);
+		if (createcity != null) {
+			return new Response<>(200, "City added successfully", createcity);
+		} else {
+			return new Response<>(404, "Failed to create City", null);
+		}
+
 	}
-	
+
 	@PutMapping("/")
-	public Government updateGovernment (@RequestBody Government government) {
-		return governmentService.updateGovernment(government);
+	public Response<Government> updateGovernment(@RequestBody Government government) {
+		Government updategovernment = governmentService.updateGovernment(government);
+		if (updategovernment != null) {
+			return new Response<>(200, "Government updated successfully", updategovernment);
+		} else {
+			return new Response<>(404, "Failed to update government", null);
+		}
 	}
 	
-	@DeleteMapping("/{id}")
-	public void deleteGovernment(@PathVariable int id) {
-		governmentService.deleteGovernment(id);
-	}
+
+	//@DeleteMapping("/{id}")
+//	public Respose<void> deleteGovernment(@PathVariable int id) {
+		
+	 //   boolean deleted = governmentService.deleteGovernment(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "Government  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete Government ", null);
+//	    }
+//	}
+	
+
 	@GetMapping("/{govId}/cities")
-	public List<City> getCityByGovernmentId(@PathVariable int govId){
-		return governmentService.getAllGovCities(govId);
+	public Response<List<City>> getCityByGovernmentId(@PathVariable int govId) {
+		List<City> cities = governmentService.getAllGovCities(govId);
+		if (cities.size() != 0) {
+			return new Response<>(200, "Success", cities);
+		} else {
+			return new Response<>(404, "No cities found in this government", null);
+		}
+		
 	}
 }
+

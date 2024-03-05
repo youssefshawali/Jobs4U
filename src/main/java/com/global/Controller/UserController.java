@@ -18,45 +18,86 @@ import com.global.Entity.User;
 import com.global.Entity.UserProfile;
 import com.global.Services.UserService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/")
-	public List<User> getAllUsers(){
-		return userService.getAllUsers();
+	public Response<List<User>> getAllUsers() {
+		List<User> users = userService.getAllUsers();
+		if (users.size() != 0) {
+			return new Response<>(200, "Success", users);
+		} else {
+			return new Response<>(404, "No users found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable int id) {
-		return userService.getUserById(id);
+	public Response<User>  getUser(@PathVariable int id) {
+		User user = userService.getUserById(id);
+		if (user != null) {
+			return new Response<>(200, "Success", user);
+		} else {
+			return new Response<>(404, "No user found", null);
+		}
 	}
 	
+
 	@PostMapping("/")
-	public User saveUser (@RequestBody User user) {
-		return userService.insertUser(user);
+	public  Response<User> saveUser(@RequestBody User user) {
+		User saveusers= userService.insertUser(user);
+		if (saveusers != null) {
+			return new Response<>(200, "User profile saved successfully", saveusers);
+		} else {
+			return new Response<>(404, "Failed to save user profile", null);
+		}
 	}
 
 	@PostMapping("/{userId}/profile")
-	public UserProfile createUserProfile(@PathVariable int userId, @RequestBody UserProfile userProfile) {
-		return userService.createUserProfile(userId, userProfile);
+	public Response<UserProfile> createUserProfile(@PathVariable int userId, @RequestBody UserProfile userProfile) {
+		UserProfile profile = userService.createUserProfile(userId, userProfile);
+		 if (profile != null) {
+		        return new Response<>(200, "User Profile added successfully", profile);
+		    } else {
+		        return new Response<>(404, "Failed to create User Profile", null);
+		    }
 	}
 	
+
 	@PutMapping("/")
-	public User updateUser (@RequestBody User user) {
-		return userService.updateUser(user);
+	public Response<User> updateUser(@RequestBody User user) {
+		User updateuser = userService.updateUser(user);
+		 if (updateuser != null) {
+		        return new Response<>(200, "User info updated successfully", updateuser);
+		    } else {
+		        return new Response<>(404, "Failed to update user info", null);
+		    }
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
-	}
-	
+	//public Response<void> deleteUser(@PathVariable int id) {		
+//	    boolean deleted = userService.deleteUser(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "User  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete user ", null);
+//	    }
+		
+//	}
+
 	@PostMapping("/apply")
-	public String applyForJob(@RequestParam int userId,@RequestParam int jobId) {
-		return userService.applyForJob(userId, jobId);
+	public Response<String> applyForJob(@RequestParam int userId, @RequestParam int jobId) {
+		String applyjob = userService.applyForJob(userId, jobId);
+		 if (applyjob != null) {
+		        return new Response<>(200, "job applied successfully", applyjob);
+		    } else {
+		        return new Response<>(404, "Failed to apply job", null);
+		    }
+		
 	}
 }

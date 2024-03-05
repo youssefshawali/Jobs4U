@@ -19,6 +19,8 @@ import com.global.Entity.Location;
 import com.global.Repository.CompanyRepo;
 import com.global.Services.CompanyService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/company")
 public class CompanyController {
@@ -27,15 +29,26 @@ public class CompanyController {
 	private CompanyService companyService;
 	
 	@GetMapping("/")
-	public List<Company> getAllCompanies(){
+	public Response<List<Company>> getAllCompanies(){
 	//	name="MMMMMMMMMM";
-		return companyService.getAllCompanies();
+		
+		List<Company> companies = companyService.getAllCompanies();
+		if (companies.size() != 0) {
+			return new Response<>(200, "Success", companies);
+		} else {
+			return new Response<>(404, "No companies found", null);
+		}
 	}
 	
 	
 	@GetMapping("/{id}")
-	public Company getCompany(@PathVariable int id) {
-		return companyService.getCompanyById(id);
+	public Response<Company> getCompany(@PathVariable int id) {
+		Company company = companyService.getCompanyById(id);
+		if (company != null) {
+			return new Response<>(200, "Success", company);
+		} else {
+			return new Response<>(404, "No company found", null);
+		}
 	}
 	
 	@PostMapping("/")

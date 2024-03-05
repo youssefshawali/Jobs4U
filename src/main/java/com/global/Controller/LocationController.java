@@ -15,35 +15,63 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.Location;
 import com.global.Services.LocationService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/location")
 public class LocationController {
 
 	@Autowired
 	private LocationService locationService;
-	
+
 	@GetMapping("/")
-	public List<Location> getAllLocations(){
-		return locationService.getAllLocations();
+	public Response<List<Location>> getAllLocations() {
+		List<Location> locations = locationService.getAllLocations();
+		if (locations.size() != 0) {
+			return new Response<>(200, "Success", locations);
+		} else {
+			return new Response<>(404, "No locations found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public Location getLocation(@PathVariable int id) {
-		return locationService.getLocationById(id);
+	public Response<Location> getLocation(@PathVariable int id) {
+		Location location = locationService.getLocationById(id);
+		if (location != null) {
+			return new Response<>(200, "Success", location);
+		} else {
+			return new Response<>(404, "No location found", null);
+		}
 	}
-	
+
 	@PostMapping("/")
-	public Location saveLocation (@RequestBody Location location) {
-		return locationService.insertLocation(location);
+	public Response<Location> saveLocation(@RequestBody Location location) {
+		Location savelocation = locationService.insertLocation(location);
+		if (savelocation != null) {
+			return new Response<>(200, "Location saved successfully", savelocation);
+		} else {
+			return new Response<>(404, "Failed to save skillLocation", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public Location updateLocation (@RequestBody Location location) {
-		return locationService.updateLocation(location);
+	public Response<Location> updateLocation(@RequestBody Location location) {
+		Location updatelocation = locationService.updateLocation(location);
+		if (updatelocation != null) {
+			return new Response<>(200, "Location updated successfully", updatelocation);
+		} else {
+			return new Response<>(404, "Failed to update Location", null);
+		}
 	}
-	
-	@DeleteMapping("/{id}")
-	public void deleteLocation(@PathVariable int id) {
-		locationService.deleteLocation(id);
-	}
+
+	// @DeleteMapping("/{id}")
+//	public Respons<void> deleteLocation(@PathVariable int id) {
+
+	// boolean deleted =locationService.deleteLocation(id);
+//		    if (deleted) {
+//		        return new Response<>(200, "Location  deleted successfully", null);
+//		    } else {
+//		        return new Response<>(404, "Failed to delete Location ", null);
+//		    }
+	// }
 }

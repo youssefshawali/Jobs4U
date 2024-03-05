@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.College;
 import com.global.Entity.Company;
 import com.global.Entity.Industry;
+import com.global.Entity.Job;
 import com.global.Services.IndustryService;
+
+import ApiResponse.Response;
 
 @RestController
 @RequestMapping("/industry")
@@ -23,35 +26,57 @@ public class IndustryController {
 
 	@Autowired
 	private IndustryService industryService;
-	
+
 	@GetMapping("/")
-	public List<Industry> getAllIndustries(){
-		return industryService.getAllIndustries();
+	public Response<List<Industry>> getAllIndustries() {
+		List<Industry> industries = industryService.getAllIndustries();
+
+		if (industries.size() != 0) {
+			return new Response<>(200, "Success", industries);
+		} else {
+			return new Response<>(404, "No industries found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public Industry getIndustry(@PathVariable int id) {
-		return industryService.getIndustryById(id);
+	public Response<Industry> getIndustry(@PathVariable int id) {
+		Industry industry = industryService.getIndustryById(id);
+		if (industry != null) {
+			return new Response<>(200, "Success", industry);
+		} else {
+			return new Response<>(404, "No industries found", null);
+		}
 	}
-	
+
 	@PostMapping("/")
-	public Industry saveIndustry (@RequestBody Industry industry) {
-		return industryService.insertIndustry(industry);
+	public Response<Industry> saveIndustry(@RequestBody Industry industry) {
+		Industry saveindustry =  industryService.insertIndustry(industry);
+		if (saveindustry != null) {
+			return new Response<>(200, "Industry saved successfully", saveindustry);
+		} else {
+			return new Response<>(404, "Failed to save Industry", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public Industry updateIndustry (@RequestBody Industry industry) {
-		return industryService.updateIndustry(industry);
+	public Response<Industry> updateIndustry(@RequestBody Industry industry) {
+		Industry updateindustry = industryService.updateIndustry(industry);
+		if (updateindustry != null) {
+			return new Response<>(200, "Industry updated successfully", updateindustry);
+		} else {
+			return new Response<>(404, "Failed to update Industry", null);
+		}
 	}
-	
-	@DeleteMapping("/{id}")
-	public void deleteIndustry(@PathVariable int id) {
-		industryService.deleteIndustry(id);
-	}
-	
-//	@PostMapping("/{industryId}/company")
-//	public Company createCompany(@PathVariable int industryId, @RequestBody Company company)
-//	{
-//		return industryService.createCompany(industryId, company);
-//	}
+
+	//@DeleteMapping("/{id}")
+//	public Response<void> deleteIndustry(@PathVariable int id) {
+		
+		// boolean deleted = industryService.deleteIndustry(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "Industry  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete Industry ", null);
+//	    }
+	//}
+
 }

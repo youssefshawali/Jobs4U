@@ -24,25 +24,15 @@ public class LoginController {
 //	public Object login(@RequestBody Login login) {
 //		return loginService.login(login.getEmail(),login.getPassword());
 //	}
-	
-	
+
 	@PostMapping("/")
-	public ResponseEntity<Response<Object>> login(@RequestBody Login login) {
-	    Object result = loginService.login(login.getEmail(), login.getPassword());
-	    Response<Object> response = new Response<>();
+	public Response<Object> login(@RequestBody Login login) {
+		Object result = loginService.login(login.getEmail(), login.getPassword());
 
-	    if (result != null) {
-	        // Login successful
-	        response.setStatus(HttpStatus.OK.value());
-	        response.setMessage("Success");
-	        response.setData(result);
-	    } else {
-	        // Login failed
-	        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-	        response.setMessage("Login failed");
-	        response.setData(null);
-	    }
-
-	    return ResponseEntity.ok(response);
+		if (result != null) {
+			return new Response<>(200, "Login successful", result);
+		} else {
+			return new Response<>(404, "Login failed", null);
+		}
 	}
 }

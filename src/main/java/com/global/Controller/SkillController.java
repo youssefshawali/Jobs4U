@@ -15,35 +15,63 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.Skill;
 import com.global.Services.SkillService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/skill")
 public class SkillController {
 
 	@Autowired
 	private SkillService skillService;
-	
+
 	@GetMapping("/")
-	public List<Skill> getAllSkills(){
-		return skillService.getAllSkills();
+	public Response<List<Skill>> getAllSkills() {
+		List<Skill> skills = skillService.getAllSkills();
+		if (skills.size() != 0) {
+			return new Response<>(200, "Success", skills);
+		} else {
+			return new Response<>(404, "No skills found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public Skill getSkill(@PathVariable int id) {
-		return skillService.getSkillById(id);
+	public Response<Skill> getSkill(@PathVariable int id) {
+		Skill skill = skillService.getSkillById(id);
+		if (skill != null) {
+			return new Response<>(200, "Success", skill);
+		} else {
+			return new Response<>(404, "No skill found", null);
+		}
 	}
-	
+
 	@PostMapping("/")
-	public Skill saveSkill (@RequestBody Skill skill) {
-		return skillService.insertSkill(skill);
+	public Response<Skill> saveSkill(@RequestBody Skill skill) {
+		Skill saveskill = skillService.insertSkill(skill);
+		if (saveskill != null) {
+			return new Response<>(200, "Skill saved successfully", saveskill);
+		} else {
+			return new Response<>(404, "Failed to save skill", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public Skill updateSkill (@RequestBody Skill skill) {
-		return skillService.updateSkill(skill);
+	public Response<Skill> updateSkill(@RequestBody Skill skill) {
+		Skill updateskill = skillService.updateSkill(skill);
+		if (updateskill != null) {
+			return new Response<>(200, "Skill updated successfully", updateskill);
+		} else {
+			return new Response<>(404, "Failed to update skill", null);
+		}
 	}
 	
-	@DeleteMapping("/{id}")
-	public void deleteSkill(@PathVariable int id) {
-		skillService.deleteSkill(id);
-	}
+
+//	@DeleteMapping("/{id}")
+//	public Response<void> deleteSkill(@PathVariable int id) {
+//	    boolean deleted = skillService.deleteSkill(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "Skill  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete skill ", null);
+//	    }
+//	}
 }

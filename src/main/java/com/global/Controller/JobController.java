@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.Job;
 import com.global.Services.JobService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/job")
 public class JobController {
@@ -25,39 +27,74 @@ public class JobController {
 	private JobService jobService;
 
 	@GetMapping("/")
-	public List<Job> getAllJobs() {
-		return jobService.getAllJobs();
+	public Response<List<Job>> getAllJobs() {
+		List<Job> jobs = jobService.getAllJobs();
+		if (jobs.size() != 0) {
+			return new Response<>(200, "Success", jobs);
+		} else {
+			return new Response<>(404, "No jobs found", null);
+		}
 	}
 
 	@GetMapping("/{id}")
-	public Job getJob(@PathVariable int id) {
-		return jobService.getJobById(id);
+	public Response<Job> getJob(@PathVariable int id) {
+		Job job = jobService.getJobById(id);
+		if (job != null) {
+			return new Response<>(200, "Success", job);
+		} else {
+			return new Response<>(404, "No job found", null);
+		}
 	}
 
 	@PostMapping("/")
-	public Job saveJob(@RequestBody Job job) {
-		return jobService.insertJob(job);
+	public Response<Job> saveJob(@RequestBody Job job) {
+		Job savejob = jobService.insertJob(job);
+		if (savejob != null) {
+			return new Response<>(200, "Job saved successfully", savejob);
+		} else {
+			return new Response<>(404, "Failed to save Job", null);
+		}
 	}
 
 	@PutMapping("/")
-	public Job updateJob(@RequestBody Job job) {
-		return jobService.updateJob(job);
+	public Response<Job> updateJob(@RequestBody Job job) {
+		Job updatejob = jobService.updateJob(job);
+		if (updatejob != null) {
+			return new Response<>(200, "Job updated successfully", updatejob);
+		} else {
+			return new Response<>(404, "Failed to update Job", null);
+		}
 	}
 
-	@DeleteMapping("/{id}")
-	public void deleteJob(@PathVariable int id) {
-		jobService.deleteJob(id);
-	}
+//	@DeleteMapping("/{id}")
+	// public Response<void> deleteJob(@PathVariable int id) {
+
+	// boolean deleted = jobService.deleteJob(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "Job  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete job ", null);
+//	    }
+	// }
 
 	@GetMapping("/company/{companyId}")
-	public List<Job> getAllJobsByCompanyId(@PathVariable int companyId) {
+	public Response<List<Job>> getAllJobsByCompanyId(@PathVariable int companyId) {
 		// jobTitle="AAAAAAAAAA";
-		return jobService.findByCompanyId(companyId);
+		List<Job> jobs = jobService.findByCompanyId(companyId);
+		if (jobs.size() != 0) {
+			return new Response<>(200, "Success", jobs);
+		} else {
+			return new Response<>(404, "No jobs found in this company", null);
+		}
 	}
 
 	@GetMapping("/applied/{userId}")
-	public ResponseEntity<List<Job>> getAppliedJobsByUserId(@PathVariable int userId) {
+	public Response<List<Job>> getAppliedJobsByUserId(@PathVariable int userId) {
 		List<Job> appliedJobs = jobService.getAppliedJobsByUserId(userId);
-		return ResponseEntity.ok(appliedJobs);
+		if (appliedJobs.size() != 0) {
+			return new Response<>(200, "Success", appliedJobs);
+		} else {
+			return new Response<>(404, "No jobs were found for this user", null);
+		}
 	}
 }

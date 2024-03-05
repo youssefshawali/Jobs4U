@@ -15,6 +15,8 @@ import com.global.Services.CompanyService;
 import com.global.Services.JobService;
 import com.global.Services.SearchService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/search")
 public class SearchController {
@@ -25,7 +27,12 @@ public class SearchController {
 	
 	
 	@GetMapping("/")
-    public List<?> getAll(@RequestParam Map<String, String> queryParams) {
-        return searchService.getAll(queryParams);
+    public Response<List<?>> getAll(@RequestParam Map<String, String> queryParams) {
+		List<?> listitems = searchService.getAll(queryParams);
+		if (listitems.size() != 0) {
+			return new Response<>(200, "Success", listitems);
+		} else {
+			return new Response<>(404, "No items found", null);
+		}
     }
 }

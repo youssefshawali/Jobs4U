@@ -15,36 +15,64 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.Education;
 import com.global.Services.EducationService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/education")
 public class EducationController {
 
 	@Autowired
 	private EducationService educationService;
-	
+
 	@GetMapping("/")
-	public List<Education> getAllEducations(){
-		return educationService.getAllEducations();
+	public Response<List<Education>> getAllEducations() {
+		List<Education> educations = educationService.getAllEducations();
+		if (educations.size() != 0) {
+			return new Response<>(200, "Success", educations);
+		} else {
+			return new Response<>(404, "No educations found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public Education getEducation(@PathVariable int id) {
-		return educationService.getEducationById(id);
+	public Response<Education> getEducation(@PathVariable int id) {
+		Education education = educationService.getEducationById(id);
+		if (education != null) {
+			return new Response<>(200, "Success", education);
+		} else {
+			return new Response<>(404, "No education found", null);
+		}
 	}
-	
+
 	@PostMapping("/")
-	public Education saveEducation (@RequestBody Education education) {
-		return educationService.insertEducation(education);
+	public Response<Education> saveEducation(@RequestBody Education education) {
+		Education saveeducation = educationService.insertEducation(education);
+		if (saveeducation != null) {
+			return new Response<>(200, "Education saved successfully", saveeducation);
+		} else {
+			return new Response<>(404, "Failed to save education", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public Education updateEducation (@RequestBody Education education) {
-		return educationService.updateEducation(education);
+	public Response<Education> updateEducation(@RequestBody Education education) {
+		Education upateeducation = educationService.updateEducation(education);
+		if (upateeducation != null) {
+			return new Response<>(200, "Education updated successfully", upateeducation);
+		} else {
+			return new Response<>(404, "Failed to update education", null);
+		}
 	}
-	
-	@DeleteMapping("/{id}")
-	public void deleteEducation(@PathVariable int id) {
-		educationService.deleteEducation(id);
-	}
-   
+
+	// @DeleteMapping("/{id}")
+	// public void deleteEducation(@PathVariable int id) {
+
+	// boolean deleted =educationService.deleteEducation(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "Education  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete Education ", null);
+//	    }
+//	}
+
 }

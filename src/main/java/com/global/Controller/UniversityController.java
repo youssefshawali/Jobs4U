@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.global.Entity.College;
 import com.global.Entity.University;
+import com.global.Entity.User;
 import com.global.Entity.UserProfile;
 import com.global.Services.UniversityService;
+
+import ApiResponse.Response;
 
 @RestController
 @RequestMapping("/university")
@@ -25,37 +28,75 @@ public class UniversityController {
 	private UniversityService universityService;
 	
 	@GetMapping("/")
-	public List<University> getAllUniversitys(){
-		return universityService.getAllUniversities();
+	public Response<List<University>>getAllUniversitys(){
+
+	
+		List<University> universities = universityService.getAllUniversities();
+		if (universities.size() != 0) {
+			return new Response<>(200, "Success", universities);
+		} else {
+			return new Response<>(404, "No universities found", null);
+		}
+	
 	}
 	
 	@GetMapping("/{id}")
-	public University getUniversity(@PathVariable int id) {
-		return universityService.getUniversityById(id);
+	public Response<University> getUniversity(@PathVariable int id) {
+		University univ = universityService.getUniversityById(id);
+		if (univ != null) {
+			return new Response<>(200, "Success", univ);
+		} else {
+			return new Response<>(404, "No University found", null);
+		}
 	}
 	
 	@PostMapping("/")
-	public University saveUniversity (@RequestBody University university) {
-		return universityService.insertUniversity(university);
+	public Response<University> saveUniversity (@RequestBody University university) {
+		University univ =  universityService.insertUniversity(university);
+		if (univ != null) {
+			return new Response<>(200, "University saved successfully", univ);
+		} else {
+			return new Response<>(404, "Failed to save University", null);
+		}
 	}
 	
 	@PutMapping("/")
-	public University updateUniversity (@RequestBody University university) {
-		return universityService.updateUniversity(university);
+	public Response<University> updateUniversity (@RequestBody University university) {
+		University univ = universityService.updateUniversity(university);
+		if (univ != null) {
+		    return new Response<>(200, "University updated successfully", univ);
+	    } else {
+	        return new Response<>(404, "Failed to update University", null);
+	    }
 	}
 	
-	@DeleteMapping("/{id}")
-	public void deleteUniversity(@PathVariable int id) {
-		universityService.deleteUniversity(id);
-	}
+//	@DeleteMapping("/{id}")
+//	public Response<>void> deleteUniversity(@PathVariable int id) {	
+//	    boolean deleted = 	universityService.deleteUniversity(id);
+//	    if (deleted) {
+//	        return new Response<>(200, "University  deleted successfully", null);
+//	    } else {
+//	        return new Response<>(404, "Failed to delete University ", null);
+//	    }
+//	}
 	
 	@PostMapping("/{universityId}/college")
-	public College createCollege(@PathVariable int universityId, @RequestBody College college)
+	public Response<College> createCollege(@PathVariable int universityId, @RequestBody College college)
 	{
-		return universityService.createCollege(universityId, college);
+		College collage = universityService.createCollege(universityId, college);
+		if (collage != null) {
+			return new Response<>(200, "College added successfully", collage);
+		} else {
+			return new Response<>(404, "Failed to create College", null);
+		}
 	}
 	@GetMapping("/{uId}/colleges")
-	public List<College> getUniverstyColleges(@PathVariable int uId){
-		return universityService.getUniverstyColleges(uId);
+	public Response<List<College>> getUniverstyColleges(@PathVariable int uId){
+		List<College> colleges = universityService.getUniverstyColleges(uId);
+		if (colleges.size() != 0) {
+			return new Response<>(200, "Success", colleges);
+		} else {
+			return new Response<>(404, "No colleges found", null);
+		}
 	}
 }
