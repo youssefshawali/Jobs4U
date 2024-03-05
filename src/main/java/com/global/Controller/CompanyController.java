@@ -27,11 +27,11 @@ public class CompanyController {
 
 	@Autowired
 	private CompanyService companyService;
-	
+
 	@GetMapping("/")
-	public Response<List<Company>> getAllCompanies(){
-	//	name="MMMMMMMMMM";
-		
+	public Response<List<Company>> getAllCompanies() {
+		// name="MMMMMMMMMM";
+
 		List<Company> companies = companyService.getAllCompanies();
 		if (companies.size() != 0) {
 			return new Response<>(200, "Success", companies);
@@ -39,8 +39,7 @@ public class CompanyController {
 			return new Response<>(404, "No companies found", null);
 		}
 	}
-	
-	
+
 	@GetMapping("/{id}")
 	public Response<Company> getCompany(@PathVariable int id) {
 		Company company = companyService.getCompanyById(id);
@@ -50,35 +49,67 @@ public class CompanyController {
 			return new Response<>(404, "No company found", null);
 		}
 	}
-	
+
 	@PostMapping("/")
-	public Company saveCompany (@RequestBody Company company) {
-		return companyService.insertCompany(company);
+	public Response<Company> saveCompany(@RequestBody Company company) {
+		Company savecompany = companyService.insertCompany(company);
+		if (savecompany != null) {
+			return new Response<>(200, "Company saved successfully", savecompany);
+		} else {
+			return new Response<>(404, "Failed to save company", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public Company updateCompany (@RequestBody Company company) {
-		return companyService.updateCompany(company);
+	public Response<Company> updateCompany(@RequestBody Company company) {
+		Company updatecompany = companyService.updateCompany(company);
+		if (updatecompany != null) {
+			return new Response<>(200, "Company updated successfully", updatecompany);
+		} else {
+			return new Response<>(404, "Failed to update Company", null);
+		}
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteCompany(@PathVariable int id) {
-		companyService.deleteCompany(id);
+	public Response<Void> deleteCompany(@PathVariable int id) {
+		    boolean deleted = companyService.deleteCompany(id);
+	    if (deleted) {
+	        return new Response<>(200, "Company  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete Company ", null);
+	    }
 	}
-	
+
 	@PostMapping("/{companyId}/job")
-	public Job createJob(@PathVariable int companyId, @RequestBody Job job)
-	{
-		return companyService.createJob(companyId, job);
+	public Response<Job> createJob(@PathVariable int companyId, @RequestBody Job job) {
+		Job createjob = companyService.createJob(companyId, job);
+		if (createjob != null) {
+			return new Response<>(200, "Job added successfully", createjob);
+		} else {
+			return new Response<>(404, "Failed to create Job", null);
+		}
+
 	}
-	
+
 	@PostMapping("/{companyId}/addLocation")
-	public Company addCompanyLocation(@PathVariable int companyId, @RequestBody Location location)
-	{
-		return companyService.addCompanyLocation(companyId, location);
+	public Response<Company> addCompanyLocation(@PathVariable int companyId, @RequestBody Location location) {
+		Company company = companyService.addCompanyLocation(companyId, location);
+		if (company != null) {
+			return new Response<>(200, "Location added successfully", company);
+		} else {
+			return new Response<>(404, "Failed to add Location", null);
+		}
+
 	}
+
 	@GetMapping("/{companyId}/locations")
-	public List<Location> getAllCompanyLocations(@PathVariable int companyId){
-		return companyService.getAllCompanyLocations(companyId);
+	public Response<List<Location>> getAllCompanyLocations(@PathVariable int companyId) {
+		List<Location> locations = companyService.getAllCompanyLocations(companyId);
+		if (locations.size() != 0) {
+			return new Response<>(200, "Success", locations);
+		} else {
+			return new Response<>(404, "No locations found", null);
+		}
+
 	}
 }
