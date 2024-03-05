@@ -33,6 +33,7 @@ public class SignupServiceImpl implements SignupService {
 
 	@Override
 	public Boolean checkEmail(String email) {
+		try {
 		Company company = companyRepo.findByEmail(email);
 		User user = userRepo.findByEmail(email);
 
@@ -40,6 +41,9 @@ public class SignupServiceImpl implements SignupService {
 			return false;
 		}
 		return true;
+		} catch (Exception e) {
+			throw new RuntimeException("Error Checking The Following Email Address " + email + "\n" + e);
+		}
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class SignupServiceImpl implements SignupService {
 		if (checkEmail(company.getEmail())) {
 			return companyService.insertCompany(company);
 		}
-		throw new Error("Email is already in use");
+		throw new Error("The Following Email is already in use: " +company.getEmail());
 	}
 
 	@Override
@@ -55,6 +59,6 @@ public class SignupServiceImpl implements SignupService {
 		if (checkEmail(user.getEmail())) {
 			return userService.insertUser(user);
 		}
-		throw new Error("Email is already in use");
+		throw new Error("The Following Email is already in use: " +user.getEmail());
 	}
 }

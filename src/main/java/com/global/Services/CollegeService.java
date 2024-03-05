@@ -15,7 +15,7 @@ public interface CollegeService {
 
 	College updateCollege(College collage);
 
-	void deleteCollege(int id);
+	boolean deleteCollege(int id);
 
 	College getCollegeById(int id);
 

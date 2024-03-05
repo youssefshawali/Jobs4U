@@ -19,7 +19,7 @@ Industry insertIndustry(Industry industry);
 	
 Industry updateIndustry (Industry industry);
 	
-	void deleteIndustry(int id);
+	boolean deleteIndustry(int id);
 	
 	Industry getIndustryById(int id);
 }

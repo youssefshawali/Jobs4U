@@ -24,13 +24,21 @@ public class GovernmentServiceImpl implements GovernmentService {
 	@Override
 	public List<Government> getAllGovernments() {
 		// TODO Auto-generated method stub
-		return governmentRepo.findAll();
+		try {
+			return governmentRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Governorates " + e);
+		}
 	}
 
 	@Override
 	public Government insertGovernment(Government government) {
 		// TODO Auto-generated method stub
-		return governmentRepo.save(government);
+		try {
+			return governmentRepo.save(government);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Governorate " + e);
+		}
 	}
 
 	@Override
@@ -44,46 +52,51 @@ public class GovernmentServiceImpl implements GovernmentService {
 			return governmentRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("government not found for ID: " + government.getId());
+			throw new RuntimeException("Governorate not found for ID: " + government.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
-			throw new RuntimeException("Failed to update government", e);
+			throw new RuntimeException("Failed to update governorate", e);
 		}
 	}
 
 	@Override
-	public void deleteGovernment(int id) {
+	public boolean deleteGovernment(int id) {
 		// TODO Auto-generated method stub
-		governmentRepo.deleteById(id);
+		try {
+			governmentRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Governorate For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override
 	public Government getGovernmentById(int id) {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		Optional<Government> government = governmentRepo.findById(id);
 		if (government.isPresent()) {
 			return government.get();
 		}
-		throw new RuntimeException("Government Not Fond");
+		throw new RuntimeException("Governorate Not Fond");
 	}
 
 	public City createCity(int governmentId, City city) {
-		Government government = getGovernmentById(governmentId);
-		city.setGovernment(government);
-
-		/*
-		 * List<Education> educations = userProfile.getEducation(); if (educations !=
-		 * null) { for (Education education : educations) { // Set the UserProfile for
-		 * each Education education.setUserProfile(userProfile); // Optionally, you can
-		 * save each Education here // educationRepo.save(education); } }
-		 */
-
-		// Save the UserProfile with its associated Education entries
-		return cityService.insertCity(city);
+		try {
+			Government government = getGovernmentById(governmentId);
+			city.setGovernment(government);
+			return cityService.insertCity(city);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding City For Governorate ID: " + e);
+		}
 	}
-@Override 
- public List <City> getAllGovCities(int govId){
-	return cityService.getCityByGovernmentId(govId);
-}
+
+	@Override
+	public List<City> getAllGovCities(int govId) {
+		try {
+		return cityService.getCityByGovernmentId(govId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Cities For This Governorate ID: " + govId + " \n" + e);
+		}
+	}
 }

@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.global.Entity.CareerLevel;
 import com.global.Entity.Department;
-import com.global.Entity.Industry;
 import com.global.Entity.Job;
-import com.global.Entity.Location;
 import com.global.Entity.Qualification;
 import com.global.Entity.Skill;
 import com.global.Entity.User;
@@ -29,12 +24,27 @@ import com.global.Repository.JobRepo;
 public class JobServiceImpl implements JobService {
 
 	@Autowired
-	private JobRepo jobRepo;
+	JobRepo jobRepo;
+	@Autowired
+	LocationService locationService;
+	@Autowired
+	QualificationService qualificationService;
+	@Autowired
+	DepartmentService departmentService;
+	@Autowired
+	CareerLevelService careerLevelService;
+	@Autowired
+	SkillService skillService;
 
 	@Override
 	public Job insertJob(Job job) {
 		// TODO Auto-generated method stub
-		return jobRepo.save(job);
+		try {
+			return jobRepo.save(job);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding City " + e);
+		}
+
 	}
 
 	@Override
@@ -71,61 +81,57 @@ public class JobServiceImpl implements JobService {
 		}
 	}
 
-	@Autowired
-	LocationService locationService;
-	@Autowired
-	QualificationService qualificationService;
-	@Autowired
-	DepartmentService departmentService;
-	@Autowired
-	CareerLevelService careerLevelService;
-	@Autowired
-	SkillService skillService;
-
 	@Override
-	public void deleteJob(int id) {
+	public boolean deleteJob(int id) {
 		// TODO Auto-generated method stub
-		Job job = getJobById(id);
-		if (job != null) {
-			if (job.getLocation() != null) {
-				job.setLocation(null);
-			}
-			if (job.getCompany() != null) {
+		try {
+			Job job = getJobById(id);
+			if (job != null) {
+				if (job.getLocation() != null) {
+					job.setLocation(null);
+				}
+				if (job.getCompany() != null) {
 //				Company company = company.getIndustryById(company.getIndustry().getId());
-				job.setCompany(null);
-			}
-			for (Qualification qual : new ArrayList<>(job.getQualification())) {
-				Qualification q = qualificationService.getQualificationById(qual.getId());
-				q.getJobs().remove(job);
-				job.getQualification().remove(qual);
-				qualificationService.updateQualification(q);
-			}
-			if (job.getDepartment() != null) {
-				Department dep = departmentService.getDepartmentById(job.getDepartment().getId());
-				dep.getJobs().remove(job);
-				job.setDepartment(null);
-				departmentService.updateDepartment(dep);
-			}
-			for (CareerLevel career : new ArrayList<>(job.getCareerLevels())) {
-				CareerLevel c = careerLevelService.getCareerLevelById(career.getId());
-				c.getJobs().remove(job);
-				job.getCareerLevels().remove(c);
-				careerLevelService.updateCareerLevel(c);
+					job.setCompany(null);
+				}
+				for (Qualification qual : new ArrayList<>(job.getQualification())) {
+					Qualification q = qualificationService.getQualificationById(qual.getId());
+					q.getJobs().remove(job);
+					job.getQualification().remove(qual);
+					qualificationService.updateQualification(q);
+				}
+				if (job.getDepartment() != null) {
+					Department dep = departmentService.getDepartmentById(job.getDepartment().getId());
+					dep.getJobs().remove(job);
+					job.setDepartment(null);
+					departmentService.updateDepartment(dep);
+				}
+				for (CareerLevel career : new ArrayList<>(job.getCareerLevels())) {
+					CareerLevel c = careerLevelService.getCareerLevelById(career.getId());
+					c.getJobs().remove(job);
+					job.getCareerLevels().remove(c);
+					careerLevelService.updateCareerLevel(c);
 
-			}
-			for (Skill skill : new ArrayList<>(job.getSkills())) {
-				Skill s = skillService.getSkillById(skill.getId());
-				s.getJobs().remove(job);
-				job.getSkills().remove(s);
-				skillService.updateSkill(s);
+				}
+				for (Skill skill : new ArrayList<>(job.getSkills())) {
+					Skill s = skillService.getSkillById(skill.getId());
+					s.getJobs().remove(job);
+					job.getSkills().remove(s);
+					skillService.updateSkill(s);
 
+				}
+				for (User user : new ArrayList<>(job.getApplicants())) {
+					user.getAppliedJobs().remove(job);
+					job.getApplicants().remove(user);
+				}
+				jobRepo.deleteById(id);
+				return true;
 			}
-			for (User user : new ArrayList<>(job.getApplicants())) {
-				user.getAppliedJobs().remove(job);
-				job.getApplicants().remove(user);
-			}
-
-			jobRepo.deleteById(id);
+			System.err.println("No Job Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Job For ID: " + id + "\n" + e);
+			return false;
 		}
 
 	}
@@ -142,27 +148,44 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public List<Job> findByCompanyId(int companyId) {
-		return jobRepo.findByCompany_Id(companyId);
+		try {
+			return jobRepo.findByCompany_Id(companyId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Jobs For This Company ID: " + companyId + " \n" + e);
+		}
 	}
 
 	@Override
 	public List<Job> getAllJobs() {
 		// TODO Auto-generated method stub
-		return jobRepo.findAll();
+		try {
+			return jobRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Jobs " + e);
+		}
+
 	}
 
 	@Override
 	public List<?> findBySearchFilters(String title, List<String> workingHour, List<String> workPlace,
 			Integer experience, List<String> skills, List<String> target, List<String> qualification,
 			List<String> careerLevel) {
-		return jobRepo.findBySearchFilters(title, workingHour, workPlace, experience, skills, target, qualification,
-				careerLevel);
-
+		try {
+			return jobRepo.findBySearchFilters(title, workingHour, workPlace, experience, skills, target, qualification,
+					careerLevel);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Searching For Job Title " + title + "\n" + e);
+		}
 	}
 
 	@Override
 	public List<Job> getAppliedJobsByUserId(int userId) {
-		return jobRepo.findByApplicantsId(userId);
+		try {
+			return jobRepo.findByApplicantsId(userId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Applied Jobs For This User ID: " + userId + " \n" + e);
+		}
+
 	}
 
 }

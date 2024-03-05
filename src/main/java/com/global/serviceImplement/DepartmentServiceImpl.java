@@ -18,13 +18,21 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> getAllDepartments() {
 		// TODO Auto-generated method stub
-		return departmentRepo.findAll();
+		try {
+			return departmentRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Departments " + e);
+		}
 	}
 
 	@Override
 	public Department insertDepartment(Department department) {
 		// TODO Auto-generated method stub
-		return departmentRepo.save(department);
+		try {
+			return departmentRepo.save(department);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Department " + e);
+		}
 	}
 
 	@Override
@@ -50,9 +58,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public void deleteDepartment(int id) {
+	public boolean deleteDepartment(int id) {
 		// TODO Auto-generated method stub
-		departmentRepo.deleteById(id);
+		try {
+			departmentRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Department For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override

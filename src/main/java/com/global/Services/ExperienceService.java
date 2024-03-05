@@ -16,7 +16,7 @@ public interface ExperienceService {
 		
 	Experience updateExperience (Experience experience);
 		
-	void deleteExperience(int id);
+	boolean deleteExperience(int id);
 		
 	Experience getExperienceById(int id);
 }

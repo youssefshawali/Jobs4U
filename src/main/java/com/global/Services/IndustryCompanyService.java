@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public interface IndustryCompanyService {
 	
 	
-void deleteCompany(int id);
+boolean deleteCompany(int id);
 	
 	Company getCompanyById(int id);
 	

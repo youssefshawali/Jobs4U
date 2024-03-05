@@ -14,7 +14,7 @@ Skill insertSkill(Skill skill);
 	
 Skill updateSkill (Skill skill);
 	
-	void deleteSkill(int id);
+	boolean deleteSkill(int id);
 	
 	Skill getSkillById(int id);
 }
