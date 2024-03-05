@@ -18,11 +18,13 @@ public interface CompanyService {
 	
 	Company updateCompany (Company company);
 	
-	void deleteCompany(int id);
 	
-	Company getCompanyById(int id);
 
 	Company addCompanyLocation(int companyId,Location location);
 
 	List<Location> getAllCompanyLocations(int copmpanyId);
+
+	void deleteCompany(int id);
+
+	Company getCompanyById(int id);
 }

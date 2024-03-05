@@ -1,5 +1,6 @@
 package com.global.serviceImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -9,10 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.global.Entity.CareerLevel;
+import com.global.Entity.Department;
+import com.global.Entity.Industry;
 import com.global.Entity.Job;
+import com.global.Entity.Location;
 import com.global.Entity.Qualification;
 import com.global.Entity.Skill;
+import com.global.Entity.User;
+import com.global.Services.CareerLevelService;
+import com.global.Services.DepartmentService;
 import com.global.Services.JobService;
+import com.global.Services.LocationService;
+import com.global.Services.QualificationService;
+import com.global.Services.SkillService;
 import com.global.Repository.JobRepo;
 
 @Service
@@ -20,7 +30,6 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobRepo jobRepo;
-
 
 	@Override
 	public Job insertJob(Job job) {
@@ -44,7 +53,7 @@ public class JobServiceImpl implements JobService {
 			current.setApplicantsCount(job.getApplicantsCount());
 			current.setDateTime();
 			current.setLocation(job.getLocation());
-			current.setCompanyId(job.getCompanyId());
+			current.setCompany(job.getCompany());
 			current.setQualification(job.getQualification());
 			current.setDepartment(job.getDepartment());
 			current.setCareerLevels(job.getCareerLevels());
@@ -62,10 +71,63 @@ public class JobServiceImpl implements JobService {
 		}
 	}
 
+	@Autowired
+	LocationService locationService;
+	@Autowired
+	QualificationService qualificationService;
+	@Autowired
+	DepartmentService departmentService;
+	@Autowired
+	CareerLevelService careerLevelService;
+	@Autowired
+	SkillService skillService;
+
 	@Override
 	public void deleteJob(int id) {
 		// TODO Auto-generated method stub
-		jobRepo.deleteById(id);
+		Job job = getJobById(id);
+		if (job != null) {
+			if (job.getLocation() != null) {
+				job.setLocation(null);
+			}
+			if (job.getCompany() != null) {
+//				Company company = company.getIndustryById(company.getIndustry().getId());
+				job.setCompany(null);
+			}
+			for (Qualification qual : new ArrayList<>(job.getQualification())) {
+				Qualification q = qualificationService.getQualificationById(qual.getId());
+				q.getJobs().remove(job);
+				job.getQualification().remove(qual);
+				qualificationService.updateQualification(q);
+			}
+			if (job.getDepartment() != null) {
+				Department dep = departmentService.getDepartmentById(job.getDepartment().getId());
+				dep.getJobs().remove(job);
+				job.setDepartment(null);
+				departmentService.updateDepartment(dep);
+			}
+			for (CareerLevel career : new ArrayList<>(job.getCareerLevels())) {
+				CareerLevel c = careerLevelService.getCareerLevelById(career.getId());
+				c.getJobs().remove(job);
+				job.getCareerLevels().remove(c);
+				careerLevelService.updateCareerLevel(c);
+
+			}
+			for (Skill skill : new ArrayList<>(job.getSkills())) {
+				Skill s = skillService.getSkillById(skill.getId());
+				s.getJobs().remove(job);
+				job.getSkills().remove(s);
+				skillService.updateSkill(s);
+
+			}
+			for (User user : new ArrayList<>(job.getApplicants())) {
+				user.getAppliedJobs().remove(job);
+				job.getApplicants().remove(user);
+			}
+
+			jobRepo.deleteById(id);
+		}
+
 	}
 
 	@Override
@@ -97,9 +159,10 @@ public class JobServiceImpl implements JobService {
 				careerLevel);
 
 	}
+
 	@Override
-	 public List<Job> getAppliedJobsByUserId(int userId) {
-	        return jobRepo.findByApplicantsId(userId);
-	    }
+	public List<Job> getAppliedJobsByUserId(int userId) {
+		return jobRepo.findByApplicantsId(userId);
+	}
 
 }

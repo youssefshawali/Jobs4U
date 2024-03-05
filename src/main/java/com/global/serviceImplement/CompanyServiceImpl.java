@@ -22,6 +22,7 @@ import com.global.Services.CareerLevelService;
 import com.global.Services.CityService;
 import com.global.Services.CompanyService;
 import com.global.Services.DepartmentService;
+import com.global.Services.IndustryCompanyService;
 import com.global.Services.IndustryService;
 import com.global.Services.JobService;
 import com.global.Services.LocationService;
@@ -47,7 +48,6 @@ public class CompanyServiceImpl implements CompanyService {
 	private IndustryService industryService;
 	@Autowired
 	private DepartmentService departmentService;
-
 
 	@Override
 	public Company insertCompany(Company company) {
@@ -118,7 +118,28 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public void deleteCompany(int id) {
 		// TODO Auto-generated method stub
-		companyRepo.deleteById(id);
+		Company company = getCompanyById(id);
+		if (company != null) {
+			if (company.getIndustry() != null) {
+//				Industry industry = industryService.getIndustryById(company.getIndustry().getId());
+				company.getIndustry().getCompanies().remove(company);
+				company.setIndustry(null);
+			}
+			for (Job job : new ArrayList<>(company.getJobs())) {
+				company.getJobs().remove(job); // Remove from company's job list
+				jobService.deleteJob(job.getId()); // Delete the job
+			}
+			for (Location loc : new ArrayList<>(company.getLocations())) {
+				loc.setCompany(null);
+				locationService.updateLocation(loc);
+				locationService.deleteLocation(loc.getId());
+				company.getLocations().remove(loc);
+
+			}
+			companyRepo.save(company);
+			companyRepo.deleteById(id);
+
+		}
 	}
 
 	@Override
@@ -134,7 +155,9 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Job createJob(int companyId, Job job) {
 		Company company = getCompanyById(companyId);
-		job.setCompanyId(company);
+		company.getJobs().add(job);
+		updateCompany(company);
+		job.setCompany(company);
 		addJobCareerLevels(job);
 		addJobSkills(job);
 		addJobQualification(job);

@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -28,13 +29,7 @@ public class Job {
 	private String description;
 	private String target;
 
-	public Company getCompany() {
-		return company;
-	}
 
-	public void setCompany(Company company) {
-		this.company = company;
-	}
 
 	private String requirments;
 	private int experience;// number of years
@@ -50,7 +45,7 @@ public class Job {
 	@JoinColumn(name = "company_id") // Name of the foreign key column in the Job table
 	private Company company;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "job_qualification", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "qualification_id"))
 	private List<Qualification> qualification;
 
@@ -58,17 +53,17 @@ public class Job {
 	@JoinColumn(name = "department_id") // Name of the foreign key column in the Job table
 	private Department department;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "job_career_level", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "career_level_id"))
 	private List<CareerLevel> careerLevels = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Job_required_skills", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
 	private List<Skill> skills;
 
 	private String workHours;// partime or full time
 	private String workPlaceType;// remote or onsite
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "job_applicants", joinColumns = @JoinColumn(name = "job_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> applicants;
 
@@ -199,11 +194,11 @@ public class Job {
 		this.location = location;
 	}
 
-	public Company getCompanyId() {
+	public Company getCompany() {
 		return company;
 	}
 
-	public void setCompanyId(Company company) {
+	public void setCompany(Company company) {
 		this.company = company;
 	}
 

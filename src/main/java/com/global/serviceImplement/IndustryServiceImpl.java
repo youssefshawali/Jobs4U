@@ -1,13 +1,20 @@
 package com.global.serviceImplement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.global.Entity.Company;
 import com.global.Entity.Industry;
+import com.global.Repository.CompanyRepo;
 import com.global.Repository.IndustryRepo;
+import com.global.Services.CompanyService;
+import com.global.Services.IndustryCompanyService;
 import com.global.Services.IndustryService;
 
 @Service
@@ -49,9 +56,16 @@ public class IndustryServiceImpl implements IndustryService {
 		}
 	}
 
+	@Autowired
+	IndustryCompanyService industryCompanyService;
 	@Override
 	public void deleteIndustry(int id) {
 		// TODO Auto-generated method stub
+		Industry industry = getIndustryById(id);
+		for(Company company : new ArrayList<>(industry.getCompanies())) {
+			   industry.getCompanies().remove(company);  
+			   industryCompanyService.deleteCompany(company.getId());
+		}
 		industryRepo.deleteById(id);
 	}
 
