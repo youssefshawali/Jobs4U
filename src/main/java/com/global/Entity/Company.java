@@ -44,16 +44,21 @@ public class Company {
 
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Location> locations = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "industry_id")
 	private Industry industry;
+@JsonIgnore
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Job> jobs=new ArrayList<>();
+	
+	
 
 	public Company(int id, String name, String email, String webSite, String password, int size, int foundedYear,
 			String about, String specialists, byte[] profilePicture, byte[] coverPicture, List<Location> locations,
-			Industry industry) {
+			Industry industry, List<Job> jobs) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -68,6 +73,7 @@ public class Company {
 		this.coverPicture = coverPicture;
 		this.locations = locations;
 		this.industry = industry;
+		this.jobs = jobs;
 	}
 
 	public Company() {
@@ -188,5 +194,14 @@ public class Company {
 	public void setIndustry(Industry industry) {
 		this.industry = industry;
 	}
+
+	public List<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
+	
 
 }
