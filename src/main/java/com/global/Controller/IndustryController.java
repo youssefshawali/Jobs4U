@@ -68,15 +68,15 @@ public class IndustryController {
 		}
 	}
 
-	//@DeleteMapping("/{id}")
-//	public Response<void> deleteIndustry(@PathVariable int id) {
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteIndustry(@PathVariable int id) {
 		
-		// boolean deleted = industryService.deleteIndustry(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "Industry  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete Industry ", null);
-//	    }
-	//}
+		 boolean deleted = industryService.deleteIndustry(id);
+	    if (deleted) {
+	        return new Response<>(200, "Industry  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete Industry ", null);
+	    }
+	}
 
 }

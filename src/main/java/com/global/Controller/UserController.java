@@ -80,15 +80,15 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	//public Response<void> deleteUser(@PathVariable int id) {		
-//	    boolean deleted = userService.deleteUser(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "User  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete user ", null);
-//	    }
+	public Response<Void> deleteUser(@PathVariable int id) {		
+	    boolean deleted = userService.deleteUser(id);
+	    if (deleted) {
+	        return new Response<>(200, "User  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete user ", null);
+	    }
 		
-//	}
+	}
 
 	@PostMapping("/apply")
 	public Response<String> applyForJob(@RequestParam int userId, @RequestParam int jobId) {

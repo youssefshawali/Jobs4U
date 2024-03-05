@@ -64,14 +64,14 @@ public class LocationController {
 		}
 	}
 
-	// @DeleteMapping("/{id}")
-//	public Respons<void> deleteLocation(@PathVariable int id) {
+	 @DeleteMapping("/{id}")
+	public Response<Void> deleteLocation(@PathVariable int id) {
 
-	// boolean deleted =locationService.deleteLocation(id);
-//		    if (deleted) {
-//		        return new Response<>(200, "Location  deleted successfully", null);
-//		    } else {
-//		        return new Response<>(404, "Failed to delete Location ", null);
-//		    }
-	// }
+	 boolean deleted =locationService.deleteLocation(id);
+		    if (deleted) {
+		        return new Response<>(200, "Location  deleted successfully", null);
+		    } else {
+		        return new Response<>(404, "Failed to delete Location ", null);
+		    }
+	 }
 }

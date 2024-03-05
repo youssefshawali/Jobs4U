@@ -70,15 +70,15 @@ public class UniversityController {
 	    }
 	}
 	
-//	@DeleteMapping("/{id}")
-//	public Response<>void> deleteUniversity(@PathVariable int id) {	
-//	    boolean deleted = 	universityService.deleteUniversity(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "University  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete University ", null);
-//	    }
-//	}
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteUniversity(@PathVariable int id) {	
+	    boolean deleted = 	universityService.deleteUniversity(id);
+	    if (deleted) {
+	        return new Response<>(200, "University  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete University ", null);
+	    }
+	}
 	
 	@PostMapping("/{universityId}/college")
 	public Response<College> createCollege(@PathVariable int universityId, @RequestBody College college)

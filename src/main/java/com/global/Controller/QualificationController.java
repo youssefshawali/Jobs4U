@@ -66,14 +66,14 @@ public class QualificationController {
 	}
 	
 
-//	@DeleteMapping("/{id}")
-//	public Response<void> deleteQualification(@PathVariable int id) {
-//		
-//		  boolean deleted = qualificationService.deleteQualification(id);
-//		    if (deleted) {
-//		        return new Response<>(200, "Qualification  deleted successfully", null);
-//		    } else {
-//		        return new Response<>(404, "Failed to delete qualification ", null);
-//		    }
-//	}
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteQualification(@PathVariable int id) {
+		
+		  boolean deleted = qualificationService.deleteQualification(id);
+		    if (deleted) {
+		        return new Response<>(200, "Qualification  deleted successfully", null);
+		    } else {
+		        return new Response<>(404, "Failed to delete qualification ", null);
+		    }
+	}
 }

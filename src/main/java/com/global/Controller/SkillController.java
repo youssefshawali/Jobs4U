@@ -65,13 +65,13 @@ public class SkillController {
 	}
 	
 
-//	@DeleteMapping("/{id}")
-//	public Response<void> deleteSkill(@PathVariable int id) {
-//	    boolean deleted = skillService.deleteSkill(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "Skill  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete skill ", null);
-//	    }
-//	}
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteSkill(@PathVariable int id) {
+	    boolean deleted = skillService.deleteSkill(id);
+	    if (deleted) {
+	        return new Response<>(200, "Skill  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete skill ", null);
+	    }
+	}
 }
