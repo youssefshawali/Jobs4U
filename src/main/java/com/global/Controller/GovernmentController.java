@@ -78,16 +78,16 @@ public class GovernmentController {
 	}
 	
 
-	//@DeleteMapping("/{id}")
-//	public Respose<void> deleteGovernment(@PathVariable int id) {
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteGovernment(@PathVariable int id) {
 		
-	 //   boolean deleted = governmentService.deleteGovernment(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "Government  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete Government ", null);
-//	    }
-//	}
+	    boolean deleted = governmentService.deleteGovernment(id);
+	    if (deleted) {
+	        return new Response<>(200, "Government  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete Government ", null);
+	    }
+	}
 	
 
 	@GetMapping("/{govId}/cities")

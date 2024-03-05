@@ -73,14 +73,14 @@ public class UserProfileController {
 	}
 
 	@DeleteMapping("/{id}")
-//	public Response<Void> deleteUserProfile(@PathVariable int id) {
-//	    boolean deleted = userProfileService.deleteUserProfile(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "User profile deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete user profile", null);
-//	    }
-//	}
+	public Response<Void> deleteUserProfile(@PathVariable int id) {
+	    boolean deleted = userProfileService.deleteUserProfile(id);
+	    if (deleted) {
+	        return new Response<>(200, "User profile deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete user profile", null);
+	    }
+	}
 	@PostMapping("/{profileId}/experience")
 	public Response<Experience> createExperience(@PathVariable int profileId, @RequestBody Experience experience) {
 		Experience exper = userProfileService.createExperience(profileId, experience);

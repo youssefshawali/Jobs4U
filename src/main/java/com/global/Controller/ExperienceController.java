@@ -65,14 +65,14 @@ public class ExperienceController {
 		}
 	}
 	
-	//@DeleteMapping("/{id}")
-	//public Response<void> deleteExperience(@PathVariable int id) {
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteExperience(@PathVariable int id) {
 		
-		 //   boolean deleted = experienceService.deleteExperience(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "Experience  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete Experience ", null);
-//	    }
-//	}
+		    boolean deleted = experienceService.deleteExperience(id);
+	    if (deleted) {
+	        return new Response<>(200, "Experience  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete Experience ", null);
+	    }
+	}
 }

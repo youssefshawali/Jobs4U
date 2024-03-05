@@ -66,16 +66,16 @@ public class JobController {
 		}
 	}
 
-//	@DeleteMapping("/{id}")
-	// public Response<void> deleteJob(@PathVariable int id) {
+	@DeleteMapping("/{id}")
+	 public Response<Void> deleteJob(@PathVariable int id) {
 
-	// boolean deleted = jobService.deleteJob(id);
-//	    if (deleted) {
-//	        return new Response<>(200, "Job  deleted successfully", null);
-//	    } else {
-//	        return new Response<>(404, "Failed to delete job ", null);
-//	    }
-	// }
+	 boolean deleted = jobService.deleteJob(id);
+	    if (deleted) {
+	        return new Response<>(200, "Job  deleted successfully", null);
+	    } else {
+	        return new Response<>(404, "Failed to delete job ", null);
+	    }
+	 }
 
 	@GetMapping("/company/{companyId}")
 	public Response<List<Job>> getAllJobsByCompanyId(@PathVariable int companyId) {
