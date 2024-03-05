@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.global.Entity.CareerLevel;
 import com.global.Repository.CareerLevelRepo;
 import com.global.Services.CareerLevelService;
+import com.global.Services.IndustryCompanyService;
 
 @Service
 public class CareerLevelServiceImpl implements CareerLevelService {
@@ -20,13 +21,22 @@ public class CareerLevelServiceImpl implements CareerLevelService {
 	@Override
 	public List<CareerLevel> getAllCareerLevels() {
 		// TODO Auto-generated method stub
-		return careerLevelRepo.findAll();
+		try {
+			return careerLevelRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Career Levels " + e);
+		}
 	}
 
 	@Override
 	public CareerLevel insertCareerLevel(CareerLevel careerLevel) {
 		// TODO Auto-generated method stub
-		return careerLevelRepo.save(careerLevel);
+		try {
+			return careerLevelRepo.save(careerLevel);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Career Level " + e);
+		}
+
 	}
 
 	@Override
@@ -51,10 +61,17 @@ public class CareerLevelServiceImpl implements CareerLevelService {
 		}
 	}
 
+
 	@Override
-	public void deleteCareerLevel(int id) {
+	public boolean deleteCareerLevel(int id) {
 		// TODO Auto-generated method stub
-		careerLevelRepo.deleteById(id);
+		try {
+			careerLevelRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Career Level For ID: "+id +"\n"+e);
+			return false;
+		}
 	}
 
 	@Override

@@ -16,17 +16,28 @@ public class ExperienceServiceImpl implements ExperienceService {
 
 	@Autowired
 	private ExperienceRepo experienceRepo;
+	@Autowired
+	LocationService locationService;
 
 	@Override
 	public List<Experience> getAllExperiences() {
 		// TODO Auto-generated method stub
-		return experienceRepo.findAll();
+		try {
+			return experienceRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Experiences " + e);
+		}
 	}
 
 	@Override
 	public Experience insertExperience(Experience experience) {
 		// TODO Auto-generated method stub
-		return experienceRepo.save(experience);
+		try {
+			return experienceRepo.save(experience);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Experience " +e);
+		}
+
 	}
 
 	@Override
@@ -62,23 +73,29 @@ public class ExperienceServiceImpl implements ExperienceService {
 		}
 	}
 
-	@Autowired
-	LocationService locationService;
 
 	@Override
-	public void deleteExperience(int id) {
-		Experience exp = getExperienceById(id);
-		if (exp != null) {
-			Location loc =locationService.getLocationById(exp.getCompanyLocation().getId());
-			if (loc != null) {
-				System.out.println("LOOOOOOC");
-				loc.setExperience(null);// Disassociate the Location from the Experience
-				exp.setCompanyLocation(null);
-				locationService.updateLocation(loc);
-				locationService.deleteLocation(loc.getId()); // Delete the associated Location
-				experienceRepo.save(exp);
+	public boolean deleteExperience(int id) {
+		try {
+			Experience exp = getExperienceById(id);
+			if (exp != null) {
+				Location loc =locationService.getLocationById(exp.getCompanyLocation().getId());
+				if (loc != null) {
+					loc.setExperience(null);
+					exp.setCompanyLocation(null);
+					locationService.updateLocation(loc);
+					locationService.deleteLocation(loc.getId());
+					experienceRepo.save(exp);
+				}
+				experienceRepo.deleteById(id);
+				return true;
 			}
-			experienceRepo.deleteById(id); // Delete the Experience entity
+			System.err.println("No Experience Can Be Found For ID: " + id);
+			return false;
+			
+		} catch (Exception e) {
+			System.err.println("Cant Delete City For ID: " + id + "\n" + e);
+			return false;
 		}
 	}
 

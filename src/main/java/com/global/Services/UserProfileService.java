@@ -19,7 +19,7 @@ public interface UserProfileService {
 	
 	UserProfile updateUserProfile (UserProfile userProfile);
 	
-	void deleteUserProfile(int id);
+	boolean deleteUserProfile(int id);
 	
 	UserProfile getUserProfileById(int id);
 

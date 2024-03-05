@@ -24,7 +24,7 @@ public interface CompanyService {
 
 	List<Location> getAllCompanyLocations(int copmpanyId);
 
-	void deleteCompany(int id);
+	boolean deleteCompany(int id);
 
 	Company getCompanyById(int id);
 }

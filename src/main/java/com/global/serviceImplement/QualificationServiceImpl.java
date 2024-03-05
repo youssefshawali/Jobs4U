@@ -18,13 +18,21 @@ public class QualificationServiceImpl implements QualificationService {
 	@Override
 	public List<Qualification> getAllQualifications() {
 		// TODO Auto-generated method stub
-		return qualificationRepo.findAll();
+		try {
+			return qualificationRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Qualifications " + e);
+		}
 	}
 
 	@Override
 	public Qualification insertQualification(Qualification qualification) {
 		// TODO Auto-generated method stub
-		return qualificationRepo.save(qualification);
+		try {
+			return qualificationRepo.save(qualification);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Qualification " +e);
+		}
 	}
 
 	@Override
@@ -49,9 +57,15 @@ public class QualificationServiceImpl implements QualificationService {
 	}
 
 	@Override
-	public void deleteQualification(int id) {
+	public boolean deleteQualification(int id) {
 		// TODO Auto-generated method stub
-		qualificationRepo.deleteById(id);
+		try {
+			qualificationRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Qualification For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.global.serviceImplement;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.global.Entity.City;
@@ -11,27 +10,38 @@ import com.global.Entity.Government;
 import com.global.Repository.CityRepo;
 import com.global.Repository.GovernmentRepo;
 import com.global.Services.CityService;
-import com.global.Services.GovernmentService;
 
 @Service
 public class CityServiceImpl implements CityService {
 
 	@Autowired
 	private CityRepo cityRepo;
+	
+	@Autowired
+	GovernmentRepo governmentRepo;
 
 	@Override
 	public List<City> getAllCities() {
 		// TODO Auto-generated method stub
-		return cityRepo.findAll();
+		try {
+			return cityRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Cities " + e);
+		}
+
 	}
 
 	@Override
 	public City insertCity(City city) {
 		// TODO Auto-generated method stub
-		return cityRepo.save(city);
+		try {
+			return cityRepo.save(city);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding City " +e);
+		}
+
 	}
-   @Autowired
-  GovernmentRepo governmentRepo;
+
 	@Override
 	public City updateCity(City city) {
 		// TODO Auto-generated method stub
@@ -59,9 +69,15 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public void deleteCity(int id) {
+	public boolean deleteCity(int id) {
 		// TODO Auto-generated method stub
-		cityRepo.deleteById(id);
+		try {
+			cityRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete City For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override
@@ -77,6 +93,10 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public List<City> getCityByGovernmentId(int governmentId) {
-		return cityRepo.findByGovernment_Id(governmentId);
+		try {
+			return cityRepo.findByGovernment_Id(governmentId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Cities For This Governorate ID: " + governmentId + " \n" + e);
+		}
 	}
 }

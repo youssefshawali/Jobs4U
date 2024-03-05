@@ -21,13 +21,21 @@ public class CollegeServiceImpl implements CollegeService {
 
 	public List<College> getAllColleges() {
 		// TODO Auto-generated method stub
-		return collegeRepo.findAll();
+		try {
+			return collegeRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Colleges " + e);
+		}
 	}
 
 	@Override
 	public College insertCollege(College college) {
 		// TODO Auto-generated method stub
-		return collegeRepo.save(college);
+		try {
+			return collegeRepo.save(college);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding College " + e);
+		}
 	}
 
 	@Override
@@ -56,9 +64,15 @@ public class CollegeServiceImpl implements CollegeService {
 	}
 
 	@Override
-	public void deleteCollege(int id) {
+	public boolean deleteCollege(int id) {
 		// TODO Auto-generated method stub
-		collegeRepo.deleteById(id);
+		try {
+			collegeRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete College For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override
@@ -71,9 +85,13 @@ public class CollegeServiceImpl implements CollegeService {
 		throw new RuntimeException("College Not Fond");
 
 	}
-	@Override
-	public List<College> getUniverstyColleges(int uId){
-		return collegeRepo.findByUniversity_Id(uId);
-	}
 
+	@Override
+	public List<College> getUniverstyColleges(int uId) {
+		try {
+			return collegeRepo.findByUniversity_Id(uId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Colleges For This Company ID: " + uId + " \n" + e);
+		}
+	}
 }

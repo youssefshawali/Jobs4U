@@ -14,7 +14,7 @@ Education insertEducation(Education education);
 	
 Education updateEducation(Education education);
 	
-	void deleteEducation(int id);
+	boolean deleteEducation(int id);
 	
 	Education getEducationById(int id);
 

@@ -30,47 +30,64 @@ public class UserProfileServiceImpl implements UserProfileService {
 	@Override
 	public List<UserProfile> getAllUserProfiles() {
 		// TODO Auto-generated method stub
+		try {
+			return userProfileRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Profiles " + e);
+		}
 
-		return userProfileRepo.findAll();
 	}
 
 	@Override
-	public void deleteUserProfile(int id) {
+	public boolean deleteUserProfile(int id) {
 		// TODO Auto-generated method stub
-		UserProfile userProfile = getUserProfileById(id);
-//		System.out.println("User Id "+userProfile.getUser().getId());
-		if (!userProfile.getExperience().isEmpty()) {
-			for (Experience exp : new ArrayList<>(userProfile.getExperience())) {
-				exp.setUserProfile(null); // Disassociate education from user profile
-				userProfile.getExperience().remove(exp);
-				experienceService.updateExperience(exp);
-				experienceService.deleteExperience(exp.getId()); // Delete the education
-				System.out.println("EXPOO");
-			}
-		
-		}
-		if (userProfile.getEducation().size() != 0) {
-			for (Education edu : new ArrayList<>(userProfile.getEducation())) {
-				edu.setUserProfile(null); // Disassociate education from user profile
-				userProfile.getEducation().remove(edu);
-				educationService.updateEducation(edu);
-				educationService.deleteEducation(edu.getId()); // Delete the education
-			}
-		}
-		if (userProfile.getSkills().size() != 0) {
-			for (Skill skill : new ArrayList<>(userProfile.getSkills())) {
-				userProfile.getSkills().remove(skill);
+		try {
+			UserProfile userProfile = getUserProfileById(id);
+			if (userProfile != null) {
+				if (!userProfile.getExperience().isEmpty()) {
+					for (Experience exp : new ArrayList<>(userProfile.getExperience())) {
+						exp.setUserProfile(null); // Disassociate education from user profile
+						userProfile.getExperience().remove(exp);
+						experienceService.updateExperience(exp);
+						experienceService.deleteExperience(exp.getId()); // Delete the education
+					}
+
+				}
+				if (userProfile.getEducation().size() != 0) {
+					for (Education edu : new ArrayList<>(userProfile.getEducation())) {
+						edu.setUserProfile(null); // Disassociate education from user profile
+						userProfile.getEducation().remove(edu);
+						educationService.updateEducation(edu);
+						educationService.deleteEducation(edu.getId()); // Delete the education
+					}
+				}
+				if (userProfile.getSkills().size() != 0) {
+					for (Skill skill : new ArrayList<>(userProfile.getSkills())) {
+						userProfile.getSkills().remove(skill);
 //				educationService.deleteEducation(edu.getId());
+					}
+				}
+				updateUserProfile(userProfile);
+				userProfileRepo.deleteById(id);
+				return true;
 			}
+			System.err.println("No Profile Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Profile For ID: " + id + "\n" + e);
+			return false;
 		}
-		updateUserProfile(userProfile);
-		userProfileRepo.deleteById(id);
 	}
 
 	@Override
 	public UserProfile insertUserProfile(UserProfile userProfile) {
 		// TODO Auto-generated method stub
-		return userProfileRepo.save(userProfile);
+		try {
+			return userProfileRepo.save(userProfile);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Profile " + e);
+		}
+
 	}
 
 	@Override
@@ -98,10 +115,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 			return userProfileRepo.save(current);
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
-			throw new RuntimeException("UserProfile not found for ID: " + userProfile.getId());
+			throw new RuntimeException("Profile not found for ID: " + userProfile.getId());
 		} catch (Exception e) {
 			// Handle other exceptions that might occur during the update process
-			throw new RuntimeException("Failed to update userProfile", e);
+			throw new RuntimeException("Failed to update Profile", e);
 		}
 	}
 
@@ -112,54 +129,67 @@ public class UserProfileServiceImpl implements UserProfileService {
 		if (userProfile.isPresent()) {
 			return userProfile.get();
 		}
-		throw new RuntimeException("UserProfile Not Fond");
+		throw new RuntimeException("Profile Not Fond");
 
 	}
 
 	// Experience
 	@Override
 	public Experience createExperience(int profileId, Experience experience) {
-		UserProfile userProfile = getUserProfileById(profileId);
-		experience.setUserProfile(userProfile);
-		return experienceService.insertExperience(experience);
+		try {
+			UserProfile userProfile = getUserProfileById(profileId);
+			experience.setUserProfile(userProfile);
+			return experienceService.insertExperience(experience);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding New Experience For Profile ID: " + profileId + "\n" + e);
+		}
 	}
 
 	// Education
 	@Override
 	public Education createEducation(int profileId, Education education) {
-		UserProfile userProfile = getUserProfileById(profileId);
-		education.setUserProfile(userProfile);
-		return educationService.insertEducation(education);
+		try {
+			UserProfile userProfile = getUserProfileById(profileId);
+			education.setUserProfile(userProfile);
+			return educationService.insertEducation(education);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding New Education For Profile ID: " + profileId + "\n" + e);
+		}
 	}
 
 	// skills
 	@Override
 	public UserProfile createSkill(int profileId, List<Skill> skill) {
-		UserProfile userProfile = getUserProfileById(profileId);
-		List<Skill> skills;
-		if (userProfile.getSkills() == null) {
-			skills = new ArrayList<>();
-			for (Skill skillitem : skill) {
-				Skill s = skillService.getSkillById(skillitem.getId());
-				skills.add(s);
-			}
-
-		} else {
-			skills = userProfile.getSkills();
-			List<Integer> ids = new ArrayList<>();
-			for (Skill s : skills) {
-				ids.add(s.getId());
-			}
-			for (Skill skillitem : skill) {
-				if (!ids.contains(skillitem.getId())) {
+		try {
+			UserProfile userProfile = getUserProfileById(profileId);
+			List<Skill> skills;
+			if (userProfile.getSkills() == null) {
+				skills = new ArrayList<>();
+				for (Skill skillitem : skill) {
 					Skill s = skillService.getSkillById(skillitem.getId());
 					skills.add(s);
 				}
-			}
-		}
 
-		userProfile.setSkills(skills);
-		return updateUserProfile(userProfile);
+			} else {
+				skills = userProfile.getSkills();
+				List<Integer> ids = new ArrayList<>();
+				for (Skill s : skills) {
+					ids.add(s.getId());
+				}
+				for (Skill skillitem : skill) {
+					if (!ids.contains(skillitem.getId())) {
+						Skill s = skillService.getSkillById(skillitem.getId());
+						skills.add(s);
+					}
+				}
+			}
+
+			userProfile.setSkills(skills);
+			return updateUserProfile(userProfile);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding New Skills For Profile ID: " + profileId + "\n" + e);
+
+		}
 
 	}
 

@@ -19,7 +19,7 @@ public interface UserService {
 	
 	User updateUser (User user);
 	
-	void deleteUser(int id);
+	boolean deleteUser(int id);
 	
 	User getUserById(int id);
 

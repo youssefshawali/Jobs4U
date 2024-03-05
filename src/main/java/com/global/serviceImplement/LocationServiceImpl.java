@@ -16,22 +16,30 @@ public class LocationServiceImpl implements LocationService {
 
 	@Autowired
 	private LocationRepo locationRepo;
-
-	@Override
-	public List<Location> getAllLocations() {
-		// TODO Auto-generated method stub
-		return locationRepo.findAll();
-	}
-
 	@Autowired
 	CityService cityService;
 
 	@Override
+	public List<Location> getAllLocations() {
+		// TODO Auto-generated method stub
+		try {
+			return locationRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Locations " + e);
+		}
+	}
+
+	@Override
 	public Location insertLocation(Location location) {
 		// TODO Auto-generated method stub
-		City city = cityService.getCityById(location.getCity().getId());
-		location.setCity(city);
-		return locationRepo.save(location);
+		try {
+			City city = cityService.getCityById(location.getCity().getId());
+			location.setCity(city);
+			return locationRepo.save(location);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Location " + e);
+		}
+
 	}
 
 	@Override
@@ -66,23 +74,30 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public void deleteLocation(int id) {
-	    Location loc = getLocationById(id);
-	    if (loc != null) {
-	        City city = cityService.getCityById(loc.getCity().getId());
-	        if (city != null) {
-	            // Remove association between Location and City
-	            city.getLocations().remove(loc);
-	            loc.setCity(null);
-	            // Save the updated City entity
-	            cityService.updateCity(city);
-	            locationRepo.save(loc);
-	        }
-	        // Delete the Location entity
-	        locationRepo.deleteById(id);
-	    }
+	public boolean deleteLocation(int id) {
+		try {
+			Location loc = getLocationById(id);
+			if (loc != null) {
+				City city = cityService.getCityById(loc.getCity().getId());
+				if (city != null) {
+					// Remove association between Location and City
+					city.getLocations().remove(loc);
+					loc.setCity(null);
+					// Save the updated City entity
+					cityService.updateCity(city);
+					locationRepo.save(loc);
+				}
+				// Delete the Location entity
+				locationRepo.deleteById(id);
+				return true;
+			}
+			System.err.println("No Location Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Location For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
-
 
 	@Override
 	public Location getLocationById(int id) {
@@ -95,7 +110,11 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	public List<Location> getLocationByCompanyId(int companyId) {
-		return locationRepo.findByCompany_Id(companyId);
+		try {
+			return locationRepo.findByCompany_Id(companyId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Locations For This Company ID: " + companyId + " \n" + e);
+		}
 	}
 
 }

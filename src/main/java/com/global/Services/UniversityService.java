@@ -16,7 +16,7 @@ University insertUniversity(University university);
 	
 University updateUniversity (University university);
 	
-	void deleteUniversity(int id);
+	boolean deleteUniversity(int id);
 	
 	University getUniversityById(int id);
 

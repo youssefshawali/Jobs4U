@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.global.Entity.Company;
 import com.global.Entity.Industry;
-import com.global.Repository.CompanyRepo;
 import com.global.Repository.IndustryRepo;
-import com.global.Services.CompanyService;
 import com.global.Services.IndustryCompanyService;
 import com.global.Services.IndustryService;
 
@@ -23,16 +18,28 @@ public class IndustryServiceImpl implements IndustryService {
 	@Autowired
 	private IndustryRepo industryRepo;
 
+	@Autowired
+	IndustryCompanyService industryCompanyService;
+
 	@Override
 	public List<Industry> getAllIndustries() {
 		// TODO Auto-generated method stub
-		return industryRepo.findAll();
+		try {
+			return industryRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Industries " + e);
+		}
+
 	}
 
 	@Override
 	public Industry insertIndustry(Industry industry) {
 		// TODO Auto-generated method stub
-		return industryRepo.save(industry);
+		try {
+			return industryRepo.save(industry);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Industry " + e);
+		}
 	}
 
 	@Override
@@ -56,17 +63,21 @@ public class IndustryServiceImpl implements IndustryService {
 		}
 	}
 
-	@Autowired
-	IndustryCompanyService industryCompanyService;
 	@Override
-	public void deleteIndustry(int id) {
-		// TODO Auto-generated method stub
-		Industry industry = getIndustryById(id);
-		for(Company company : new ArrayList<>(industry.getCompanies())) {
-			   industry.getCompanies().remove(company);  
-			   industryCompanyService.deleteCompany(company.getId());
+	public boolean deleteIndustry(int id) {
+		try {
+			Industry industry = getIndustryById(id);
+			for (Company company : new ArrayList<>(industry.getCompanies())) {
+				industry.getCompanies().remove(company);
+				industryCompanyService.deleteCompany(company.getId());
+			}
+			industryRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Industry For ID: " + id + "\n" + e);
+			return false;
 		}
-		industryRepo.deleteById(id);
+
 	}
 
 	@Override
@@ -79,12 +90,4 @@ public class IndustryServiceImpl implements IndustryService {
 		throw new RuntimeException("Industry Not Fond");
 
 	}
-
-//	@Override
-//	public Company createCompany(int industryId, Company company) {
-//		// TODO Auto-generated method stub
-//		Industry industry = getIndustryById(industryId);
-//		company.setIndustry(industry);
-//		return companyservice.insertCompany(company);
-//	}
 }

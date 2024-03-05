@@ -46,29 +46,38 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 
 
 	@Override
-	public void deleteCompany(int id) {
+	public boolean deleteCompany(int id) {
 		// TODO Auto-generated method stub
-		Company company = getCompanyById(id);
-		if (company != null) {
-			if (company.getIndustry() != null) {
+
+		try {
+			Company company = getCompanyById(id);
+			if (company != null) {
+				if (company.getIndustry() != null) {
 //				Industry industry = industryService.getIndustryById(company.getIndustry().getId());
-				company.getIndustry().getCompanies().remove(company);
-				company.setIndustry(null);
-			}
-			for (Job job : new ArrayList<>(company.getJobs())) {
-				company.getJobs().remove(job); // Remove from company's job list
-				jobService.deleteJob(job.getId()); // Delete the job
-			}
-			for (Location loc : new ArrayList<>(company.getLocations())) {
-				loc.setCompany(null);
-				locationService.updateLocation(loc);
-				locationService.deleteLocation(loc.getId());
-				company.getLocations().remove(loc);
+					company.getIndustry().getCompanies().remove(company);
+					company.setIndustry(null);
+				}
+				for (Job job : new ArrayList<>(company.getJobs())) {
+					company.getJobs().remove(job); // Remove from company's job list
+					jobService.deleteJob(job.getId()); // Delete the job
+				}
+				for (Location loc : new ArrayList<>(company.getLocations())) {
+					loc.setCompany(null);
+					locationService.updateLocation(loc);
+					locationService.deleteLocation(loc.getId());
+					company.getLocations().remove(loc);
+
+				}
+				companyRepo.save(company);
+				companyRepo.deleteById(id);
+				return true;
 
 			}
-			companyRepo.save(company);
-			companyRepo.deleteById(id);
-
+			System.err.println("No Company Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Company For ID: " + id + "\n" + e);
+			return false;
 		}
 	}
 

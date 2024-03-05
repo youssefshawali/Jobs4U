@@ -48,17 +48,22 @@ public class CompanyServiceImpl implements CompanyService {
 	private IndustryService industryService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	CityService cityService;
 
 	@Override
 	public Company insertCompany(Company company) {
 		// TODO Auto-generated method stub
-		if (company.getIndustry() != null) {
-			Industry industry = industryService.getIndustryById(company.getIndustry().getId());
-			company.setIndustry(industry);
+		try {
+			if (company.getIndustry() != null) {
+				Industry industry = industryService.getIndustryById(company.getIndustry().getId());
+				company.setIndustry(industry);
+			}
+			setCompanyLocations(company);
+			return companyRepo.save(company);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Company " + e);
 		}
-
-		setCompanyLocations(company);
-		return companyRepo.save(company);
 
 	}
 
@@ -116,29 +121,38 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public void deleteCompany(int id) {
+	public boolean deleteCompany(int id) {
 		// TODO Auto-generated method stub
-		Company company = getCompanyById(id);
-		if (company != null) {
-			if (company.getIndustry() != null) {
+
+		try {
+			Company company = getCompanyById(id);
+			if (company != null) {
+				if (company.getIndustry() != null) {
 //				Industry industry = industryService.getIndustryById(company.getIndustry().getId());
-				company.getIndustry().getCompanies().remove(company);
-				company.setIndustry(null);
-			}
-			for (Job job : new ArrayList<>(company.getJobs())) {
-				company.getJobs().remove(job); // Remove from company's job list
-				jobService.deleteJob(job.getId()); // Delete the job
-			}
-			for (Location loc : new ArrayList<>(company.getLocations())) {
-				loc.setCompany(null);
-				locationService.updateLocation(loc);
-				locationService.deleteLocation(loc.getId());
-				company.getLocations().remove(loc);
+					company.getIndustry().getCompanies().remove(company);
+					company.setIndustry(null);
+				}
+				for (Job job : new ArrayList<>(company.getJobs())) {
+					company.getJobs().remove(job); // Remove from company's job list
+					jobService.deleteJob(job.getId()); // Delete the job
+				}
+				for (Location loc : new ArrayList<>(company.getLocations())) {
+					loc.setCompany(null);
+					locationService.updateLocation(loc);
+					locationService.deleteLocation(loc.getId());
+					company.getLocations().remove(loc);
+
+				}
+				companyRepo.save(company);
+				companyRepo.deleteById(id);
+				return true;
 
 			}
-			companyRepo.save(company);
-			companyRepo.deleteById(id);
-
+			System.err.println("No Company Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Company For ID: " + id + "\n" + e);
+			return false;
 		}
 	}
 
@@ -154,114 +168,147 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Job createJob(int companyId, Job job) {
-		Company company = getCompanyById(companyId);
-		company.getJobs().add(job);
-		updateCompany(company);
-		job.setCompany(company);
-		addJobCareerLevels(job);
-		addJobSkills(job);
-		addJobQualification(job);
-		addJobLocation(job);
-		addJobDepartment(job);
-		return jobService.insertJob(job);
+		try {
+			Company company = getCompanyById(companyId);
+			company.getJobs().add(job);
+			updateCompany(company);
+			job.setCompany(company);
+			addJobCareerLevels(job);
+			addJobSkills(job);
+			addJobQualification(job);
+			addJobLocation(job);
+			addJobDepartment(job);
+			return jobService.insertJob(job);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Job " + e);
+		}
+
 	}
 
 	@Override
 	public Company addCompanyLocation(int companyId, Location location) {
 		// TODO Auto-generated method stub
-		Company company = getCompanyById(companyId);
-		List<Location> locations = new ArrayList<>();
-		if (location != null) {
-			location.setCompany(company);
-			locationService.insertLocation(location);
-			locations = company.getLocations();
-			locations.add(location);
-			company.setLocations(locations);
+		try {
+			Company company = getCompanyById(companyId);
+			List<Location> locations = new ArrayList<>();
+			if (location != null) {
+				location.setCompany(company);
+				locationService.insertLocation(location);
+				locations = company.getLocations();
+				locations.add(location);
+				company.setLocations(locations);
+			}
+			return company;
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding New Company Location For ID: " + companyId + "\n" + e);
 		}
-		return company;
-
 	}
 
-	@Autowired
-	CityService cityService;
-
 	public void setCompanyLocations(Company company) {
-
-		if (company.getLocations().size() != 0) {
-			List<Location> locations = new ArrayList<>();
-			City city = new City();
-			for (Location location : company.getLocations()) {
-				location.setCompany(company);
-				city = cityService.getCityById(location.getCity().getId());
-				location.setCity(city);
-				locations.add(location);
+		try {
+			if (company.getLocations().size() != 0) {
+				List<Location> locations = new ArrayList<>();
+				City city = new City();
+				for (Location location : company.getLocations()) {
+					location.setCompany(company);
+					city = cityService.getCityById(location.getCity().getId());
+					location.setCity(city);
+					locations.add(location);
 //				locationService.insertLocation(location);
+				}
+				company.setLocations(locations);
 			}
-			company.setLocations(locations);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Setting Company Location " + e);
 		}
 	}
 
 	public void addJobCareerLevels(Job job) {
-		List<CareerLevel> savedCareerLevels = new ArrayList<>();
-		CareerLevel cl = new CareerLevel();
-		if (job.getCareerLevels() != null) {
-			for (CareerLevel careerLevel : job.getCareerLevels()) {
-				cl = careerLevelService.getCareerLevelById(careerLevel.getId());
-				savedCareerLevels.add(cl);
-			}
-			job.setCareerLevels(savedCareerLevels);
+		try {
+			List<CareerLevel> savedCareerLevels = new ArrayList<>();
+			CareerLevel cl = new CareerLevel();
+			if (job.getCareerLevels() != null) {
+				for (CareerLevel careerLevel : job.getCareerLevels()) {
+					cl = careerLevelService.getCareerLevelById(careerLevel.getId());
+					savedCareerLevels.add(cl);
+				}
+				job.setCareerLevels(savedCareerLevels);
 
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Job Career Levels " + e);
 		}
 	}
 
 	public void addJobSkills(Job job) {
-		List<Skill> savedSkillList = new ArrayList<>();
-		Skill skill = new Skill();
-		if (job.getSkills() != null) {
-			for (Skill s : job.getSkills()) {
-				skill = skillService.getSkillById(s.getId());
-				savedSkillList.add(skill);
+		try {
+			List<Skill> savedSkillList = new ArrayList<>();
+			Skill skill = new Skill();
+			if (job.getSkills() != null) {
+				for (Skill s : job.getSkills()) {
+					skill = skillService.getSkillById(s.getId());
+					savedSkillList.add(skill);
+				}
+				job.setSkills(savedSkillList);
 			}
-			job.setSkills(savedSkillList);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Job Skills " + e);
 		}
 	}
 
 	public void addJobQualification(Job job) {
-		List<Qualification> savedQualificationList = new ArrayList<>();
-		Qualification qualification = new Qualification();
-		if (job.getQualification() != null) {
-			for (Qualification s : job.getQualification()) {
-				qualification = qualificationService.getQualificationById(s.getId());
-				savedQualificationList.add(qualification);
+		try {
+			List<Qualification> savedQualificationList = new ArrayList<>();
+			Qualification qualification = new Qualification();
+			if (job.getQualification() != null) {
+				for (Qualification s : job.getQualification()) {
+					qualification = qualificationService.getQualificationById(s.getId());
+					savedQualificationList.add(qualification);
+				}
+				job.setQualification(savedQualificationList);
 			}
-			job.setQualification(savedQualificationList);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Job Qualifications " + e);
 		}
 	}
 
 	public void addJobLocation(Job job) {
-
-		if (job.getLocation() != null) {
-			Location location = locationService.getLocationById(job.getLocation().getId());
-			job.setLocation(location);
+		try {
+			if (job.getLocation() != null) {
+				Location location = locationService.getLocationById(job.getLocation().getId());
+				job.setLocation(location);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Job Location " + e);
 		}
 	}
 
 	public void addJobDepartment(Job job) {
-
-		if (job.getDepartment() != null) {
-			Department department = departmentService.getDepartmentById(job.getDepartment().getId());
-			job.setDepartment(department);
+		try {
+			if (job.getDepartment() != null) {
+				Department department = departmentService.getDepartmentById(job.getDepartment().getId());
+				job.setDepartment(department);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Job Department " + e);
 		}
 	}
 
 	@Override
 	public List<Company> getAllCompanies() {
-
-		return companyRepo.findAll();
+		try {
+			return companyRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Companies " + e);
+		}
 	}
 
 	@Override
-	public List<Location> getAllCompanyLocations(int copmpanyId) {
-		return locationService.getLocationByCompanyId(copmpanyId);
+	public List<Location> getAllCompanyLocations(int companyId) {
+		try {
+			return locationService.getLocationByCompanyId(companyId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Locations For This Company ID: " + companyId + " \n" + e);
+		}
 	}
 }

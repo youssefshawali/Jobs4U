@@ -17,7 +17,7 @@ public interface QualificationService {
 	
 	Qualification updateQualification (Qualification qualification);
 	
-	void deleteQualification(int id);
+	boolean deleteQualification(int id);
 	
 	Qualification getQualificationById(int id);
 }

@@ -24,16 +24,24 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public List<Education> getAllEducations() {
 		// TODO Auto-generated method stub
-		return educationRepo.findAll();
+		try {
+			return educationRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Educations " + e);
+		}
 	}
 
 	@Override
 	public Education insertEducation(Education education) {
 		// TODO Auto-generated method stub
-		College college = new College();
-		college = collegeService.getCollegeById(education.getCollege().getId());
-		education.setCollege(college);
-		return educationRepo.save(education);
+		try {
+			College college = new College();
+			college = collegeService.getCollegeById(education.getCollege().getId());
+			education.setCollege(college);
+			return educationRepo.save(education);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Education " + e);
+		}
 	}
 
 	@Override
@@ -64,27 +72,26 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public void deleteEducation(int id) {
-	    System.out.println("EDUCAAATIOOOOOONNNNN " + id);
-	    Education edu = getEducationById(id);
-	    
-	    if (edu != null) {
-	        System.out.println("EDUCAAATIOOOOOONNNNN " + edu.getStartYear());
-	        
-	        // Remove the association between Education and College
-	        College college = edu.getCollege();
-	        if (college != null) {
-	            college.getEducations().remove(edu);
-	            edu.setCollege(null);
-	            collegeService.updateCollege(college);  // Save the disassociated College entity
-	        }
-	        
-	        // Delete the Education entity
-	        educationRepo.deleteById(id);
-	    }
+	public boolean deleteEducation(int id) {
+		try {
+			Education edu = getEducationById(id);
+			if (edu != null) {
+				College college = edu.getCollege();
+				if (college != null) {
+					college.getEducations().remove(edu);
+					edu.setCollege(null);
+					collegeService.updateCollege(college);
+				}
+				educationRepo.deleteById(id);
+				return true;
+			}
+			System.err.println("No Education Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Education For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
-
-
 
 	@Override
 	public Education getEducationById(int id) {

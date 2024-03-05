@@ -17,13 +17,21 @@ public class SkillServiceImpl implements SkillService {
 	@Override
 	public List<Skill> getAllSkills() {
 		// TODO Auto-generated method stub
-		return skillRepo.findAll();
+		try {
+			return skillRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Skills " + e);
+		}
 	}
 
 	@Override
 	public Skill insertSkill(Skill skill) {
 		// TODO Auto-generated method stub
-		return skillRepo.save(skill);
+		try {
+			return skillRepo.save(skill);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding Skill " +e);
+		}
 	}
 
 	@Override
@@ -51,9 +59,15 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public void deleteSkill(int id) {
+	public boolean deleteSkill(int id) {
 		// TODO Auto-generated method stub
-		skillRepo.deleteById(id);
+		try {
+			skillRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete Skill For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override

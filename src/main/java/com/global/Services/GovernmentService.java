@@ -18,7 +18,7 @@ Government updateGovernment(Government government);
 
 City createCity(int governmentId, City city);
 	
-	void deleteGovernment(int id);
+	boolean deleteGovernment(int id);
 	
 	Government getGovernmentById(int id);
 

@@ -39,98 +39,95 @@ public class UserServiceImpl implements UserService {
 	SkillService skillService;
 	@Autowired
 	EducationService educationService;
-
-	@Autowired
-
-	@Override
-	public List<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return userRepo.findAll();
-	}
-
 	@Autowired
 	CollegeService collegeService;
 	@Autowired
 	ExperienceService experienceService;
 
-	public UserProfile createUserProfile(int userId, UserProfile userProfile) {
-		User user = getUserById(userId);
-		userProfile.setUser(user);
-		College college = new College();
-		List<Education> educations = userProfile.getEducation();
-
-		if (educations != null) {
-			for (Education education : educations) {
-				// Set the UserProfile for each Education
-				education.setUserProfile(userProfile);
-				college = collegeService.getCollegeById(education.getCollege().getId());
-				education.setCollege(college);
-				// Optionally, you can save each Education here
-				// educationRepo.save(education);
-			}
-
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		try {
+			return userRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Users " + e);
 		}
 
-		List<Experience> experiences = new ArrayList<>();
-
-		if (userProfile.getExperience().size()!=0) {
-			System.out.println("Add Expoo");
-			for (Experience experience : userProfile.getExperience()) {
-				experience.setUserProfile(userProfile);
-//				experienceService.insertExperience(experience);
-				experiences.add(experience);
-			}
-			userProfile.setExperience(experiences);
-		}
-
-		List<Skill> savedSkills = new ArrayList<>();
-		Skill skill = new Skill();
-		if (userProfile.getSkills() != null) {
-			for (Skill s : userProfile.getSkills()) {
-				skill = skillService.getSkillById(s.getId());
-				savedSkills.add(skill);
-			}
-			userProfile.setSkills(savedSkills);
-		}
-
-//		List<Education> educations = new ArrayList<>();
-//
-//		if (userProfile.getEducation() != null) {
-//			for (Education educ : userProfile.getEducation()) {
-//
-//				educationService.insertEducation(educ);
-//				educations.add(educ);
-//			}
-//			userProfile.setExperience(experiences);
-//		}
-
-		// Save the UserProfile with its associated Education entries
-		return userProfileService.insertUserProfile(userProfile);
 	}
 
-//UserProfileService userProfileService2;
-	@Override
-	public void deleteUser(int id) {
-		User user = getUserById(id);
+	public UserProfile createUserProfile(int userId, UserProfile userProfile) {
+		try {
+			User user = getUserById(userId);
+			userProfile.setUser(user);
+			College college = new College();
+			List<Education> educations = userProfile.getEducation();
 
-		if (user != null) {
-			// Delete associated UserProfile
-			UserProfile userProfile = user.getUserProfile();
-			if (userProfile != null) {
-				userProfile.setUser(null);
-				user.setUserProfile(null);
-				userProfileService.deleteUserProfile(userProfile.getId());
-			}
-
-			// Update and delete the User
-			if (user.getAppliedJobs().size() != 0) {
-				for (Job job : new ArrayList<>(user.getAppliedJobs())) {
-					job.setApplicantsCount(job.getApplicantsCount() - 1);
-					job.getApplicants().remove(user);
-					user.getAppliedJobs().remove(job);
+			if (educations != null) {
+				for (Education education : educations) {
+					// Set the UserProfile for each Education
+					education.setUserProfile(userProfile);
+					college = collegeService.getCollegeById(education.getCollege().getId());
+					education.setCollege(college);
 				}
+
 			}
-			userRepo.deleteById(id);
+
+			List<Experience> experiences = new ArrayList<>();
+
+			if (userProfile.getExperience().size() != 0) {
+				System.out.println("Add Expoo");
+				for (Experience experience : userProfile.getExperience()) {
+					experience.setUserProfile(userProfile);
+//				experienceService.insertExperience(experience);
+					experiences.add(experience);
+				}
+				userProfile.setExperience(experiences);
+			}
+
+			List<Skill> savedSkills = new ArrayList<>();
+			Skill skill = new Skill();
+			if (userProfile.getSkills() != null) {
+				for (Skill s : userProfile.getSkills()) {
+					skill = skillService.getSkillById(s.getId());
+					savedSkills.add(skill);
+				}
+				userProfile.setSkills(savedSkills);
+			}
+
+			return userProfileService.insertUserProfile(userProfile);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding User Profile For User ID: " + userId + "\n" + e);
+		}
+	}
+
+	@Override
+	public boolean deleteUser(int id) {
+		try {
+			User user = getUserById(id);
+
+			if (user != null) {
+				UserProfile userProfile = user.getUserProfile();
+				if (userProfile != null) {
+					userProfile.setUser(null);
+					user.setUserProfile(null);
+					userProfileService.deleteUserProfile(userProfile.getId());
+				}
+
+				if (user.getAppliedJobs().size() != 0) {
+					for (Job job : new ArrayList<>(user.getAppliedJobs())) {
+						job.setApplicantsCount(job.getApplicantsCount() - 1);
+						job.getApplicants().remove(user);
+						user.getAppliedJobs().remove(job);
+					}
+				}
+				userRepo.deleteById(id);
+				return true;
+			}
+			System.err.println("No User Can Be Found For ID: " + id);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Cant Delete User For ID: " + id + "\n" + e);
+			return false;
 		}
 	}
 
@@ -198,27 +195,33 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String applyForJob(int userId, int jobId) {
-		User user = getUserById(userId);
-		Job job = jobService.getJobById(jobId);
-		List<User> userList;
-		if (job.getApplicants().size() == 0) {
-			userList = new ArrayList<>();
-			userList.add(user);
-			job.setApplicants(userList);
+		try {
+			User user = getUserById(userId);
+			Job job = jobService.getJobById(jobId);
+			List<User> userList;
+			if (job.getApplicants().size() == 0) {
+				userList = new ArrayList<>();
+				userList.add(user);
+				job.setApplicants(userList);
 
-		} else {
+			} else {
 
-			userList = job.getApplicants();
-			userList.add(user);
-			job.setApplicants(userList);
+				userList = job.getApplicants();
+				userList.add(user);
+				job.setApplicants(userList);
+			}
+			int old = job.getApplicants().size();
+			job = jobService.updateJob(job);
+			int newObj = job.getApplicants().size();
+			if (old != newObj) {
+				job.setApplicantsCount(job.getApplicantsCount() + 1);
+			}
+			return "Application Successfully";
+		} catch (Exception e) {
+			System.err.println("Error Applying User ID: " + userId + " For Job ID: " + jobId + "\n" + e);
+			return null;
+
 		}
-		int old = job.getApplicants().size();
-		job = jobService.updateJob(job);
-		int newObj = job.getApplicants().size();
-		if (old != newObj) {
-			job.setApplicantsCount(job.getApplicantsCount() + 1);
-		}
-		return "Application Successfully";
 	}
 
 }

@@ -22,13 +22,23 @@ public class UniversityServiceImpl implements UniversityService {
 	@Override
 	public List<University> getAllUniversities() {
 		// TODO Auto-generated method stub
-		return universityRepo.findAll();
+		try {
+			return universityRepo.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Universities " + e);
+		}
+
 	}
 
 	@Override
 	public University insertUniversity(University university) {
 		// TODO Auto-generated method stub
-		return universityRepo.save(university);
+		try {
+			return universityRepo.save(university);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding University " +e);
+		}
+
 	}
 
 	@Override
@@ -50,9 +60,15 @@ public class UniversityServiceImpl implements UniversityService {
 	}
 
 	@Override
-	public void deleteUniversity(int id) {
+	public boolean deleteUniversity(int id) {
 		// TODO Auto-generated method stub
-		universityRepo.deleteById(id);
+		try {
+			universityRepo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Cant Delete University For ID: " + id + "\n" + e);
+			return false;
+		}
 	}
 
 	@Override
@@ -67,13 +83,21 @@ public class UniversityServiceImpl implements UniversityService {
 
 	@Override
 	public College createCollege(int universityId, College college) {
+		try {
 		University university = getUniversityById(universityId);
 		college.setUniversity(university);
 		return collegeService.insertCollege(college);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Adding College For This University ID: " + e);
+		}
 	}
 
 	@Override
 	public List<College> getUniverstyColleges(int uId) {
-		return collegeService.getUniverstyColleges(uId);
+		try {
+			return collegeService.getUniverstyColleges(uId);
+		} catch (Exception e) {
+			throw new RuntimeException("Error Getting All Colleges For This University ID: " + uId + " \n" + e);
+		}
 	}
 }
