@@ -66,12 +66,12 @@ public class DepartmentController {
 	}
 
 	@DeleteMapping("/{id}")
-	 public Response<Void> deleteDepartment(@PathVariable int id) {
-	 boolean deleted = departmentService.deleteDepartment(id);
-	    if (deleted) {
-	        return new Response<>(200, "Department  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete Department ", null);
-	    }
-	 }
+	public Response<Void> deleteDepartment(@PathVariable int id) {
+		boolean deleted = departmentService.deleteDepartment(id);
+		if (deleted) {
+			return new Response<>(200, "Department  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete department ", null);
+		}
+	}
 }

@@ -23,16 +23,14 @@ public class SearchController {
 
 	@Autowired
 	private SearchService searchService;
-	
-	
-	
+
 	@GetMapping("/")
-    public Response<List<?>> getAll(@RequestParam Map<String, String> queryParams) {
+	public Response<List<?>> getAll(@RequestParam Map<String, String> queryParams) {
 		List<?> listitems = searchService.getAll(queryParams);
 		if (listitems.size() != 0) {
 			return new Response<>(200, "Success", listitems);
 		} else {
 			return new Response<>(404, "No items found", null);
 		}
-    }
+	}
 }

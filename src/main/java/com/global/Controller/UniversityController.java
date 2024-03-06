@@ -26,72 +26,71 @@ public class UniversityController {
 
 	@Autowired
 	private UniversityService universityService;
-	
-	@GetMapping("/")
-	public Response<List<University>>getAllUniversitys(){
 
-	
+	@GetMapping("/")
+	public Response<List<University>> getAllUniversitys() {
+
 		List<University> universities = universityService.getAllUniversities();
 		if (universities.size() != 0) {
 			return new Response<>(200, "Success", universities);
 		} else {
 			return new Response<>(404, "No universities found", null);
 		}
-	
+
 	}
-	
+
 	@GetMapping("/{id}")
 	public Response<University> getUniversity(@PathVariable int id) {
-		University univ = universityService.getUniversityById(id);
-		if (univ != null) {
-			return new Response<>(200, "Success", univ);
+		University university = universityService.getUniversityById(id);
+		if (university != null) {
+			return new Response<>(200, "Success", university);
 		} else {
-			return new Response<>(404, "No University found", null);
+			return new Response<>(404, "No university found", null);
 		}
 	}
-	
+
 	@PostMapping("/")
-	public Response<University> saveUniversity (@RequestBody University university) {
-		University univ =  universityService.insertUniversity(university);
-		if (univ != null) {
-			return new Response<>(200, "University saved successfully", univ);
+	public Response<University> saveUniversity(@RequestBody University university) {
+		University saveuniversity = universityService.insertUniversity(university);
+		if (saveuniversity != null) {
+			return new Response<>(200, "University saved successfully", saveuniversity);
 		} else {
-			return new Response<>(404, "Failed to save University", null);
+			return new Response<>(404, "Failed to save university", null);
 		}
 	}
-	
+
 	@PutMapping("/")
-	public Response<University> updateUniversity (@RequestBody University university) {
-		University univ = universityService.updateUniversity(university);
-		if (univ != null) {
-		    return new Response<>(200, "University updated successfully", univ);
-	    } else {
-	        return new Response<>(404, "Failed to update University", null);
-	    }
-	}
-	
-	@DeleteMapping("/{id}")
-	public Response<Void> deleteUniversity(@PathVariable int id) {	
-	    boolean deleted = 	universityService.deleteUniversity(id);
-	    if (deleted) {
-	        return new Response<>(200, "University  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete University ", null);
-	    }
-	}
-	
-	@PostMapping("/{universityId}/college")
-	public Response<College> createCollege(@PathVariable int universityId, @RequestBody College college)
-	{
-		College collage = universityService.createCollege(universityId, college);
-		if (collage != null) {
-			return new Response<>(200, "College added successfully", collage);
+	public Response<University> updateUniversity(@RequestBody University university) {
+		University updateuniversity = universityService.updateUniversity(university);
+		if (updateuniversity != null) {
+			return new Response<>(200, "University updated successfully", updateuniversity);
 		} else {
-			return new Response<>(404, "Failed to create College", null);
+			return new Response<>(404, "Failed to update university", null);
 		}
 	}
+
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteUniversity(@PathVariable int id) {
+		boolean deleted = universityService.deleteUniversity(id);
+		if (deleted) {
+			return new Response<>(200, "University  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete university ", null);
+		}
+	}
+
+	@PostMapping("/{universityId}/college")
+	public Response<College> createCollege(@PathVariable int universityId, @RequestBody College college) {
+		College createcollege = universityService.createCollege(universityId, college);
+		if (createcollege != null) {
+			return new Response<>(200, "College added successfully", createcollege);
+		} else {
+			return new Response<>(404, "Failed to create college", null);
+		}
+	}
+
 	@GetMapping("/{uId}/colleges")
-	public Response<List<College>> getUniverstyColleges(@PathVariable int uId){
+	public Response<List<College>> getUniverstyColleges(@PathVariable int uId) {
 		List<College> colleges = universityService.getUniverstyColleges(uId);
 		if (colleges.size() != 0) {
 			return new Response<>(200, "Success", colleges);

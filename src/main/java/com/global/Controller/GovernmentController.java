@@ -62,7 +62,7 @@ public class GovernmentController {
 		if (createcity != null) {
 			return new Response<>(200, "City added successfully", createcity);
 		} else {
-			return new Response<>(404, "Failed to create City", null);
+			return new Response<>(404, "Failed to create city", null);
 		}
 
 	}
@@ -76,19 +76,17 @@ public class GovernmentController {
 			return new Response<>(404, "Failed to update government", null);
 		}
 	}
-	
 
 	@DeleteMapping("/{id}")
 	public Response<Void> deleteGovernment(@PathVariable int id) {
-		
-	    boolean deleted = governmentService.deleteGovernment(id);
-	    if (deleted) {
-	        return new Response<>(200, "Government  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete Government ", null);
-	    }
+
+		boolean deleted = governmentService.deleteGovernment(id);
+		if (deleted) {
+			return new Response<>(200, "Government  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete government ", null);
+		}
 	}
-	
 
 	@GetMapping("/{govId}/cities")
 	public Response<List<City>> getCityByGovernmentId(@PathVariable int govId) {
@@ -98,7 +96,6 @@ public class GovernmentController {
 		} else {
 			return new Response<>(404, "No cities found in this government", null);
 		}
-		
+
 	}
 }
-

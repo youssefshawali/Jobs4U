@@ -30,7 +30,6 @@ public class CompanyController {
 
 	@GetMapping("/")
 	public Response<List<Company>> getAllCompanies() {
-		// name="MMMMMMMMMM";
 
 		List<Company> companies = companyService.getAllCompanies();
 		if (companies.size() != 0) {
@@ -66,18 +65,18 @@ public class CompanyController {
 		if (updatecompany != null) {
 			return new Response<>(200, "Company updated successfully", updatecompany);
 		} else {
-			return new Response<>(404, "Failed to update Company", null);
+			return new Response<>(404, "Failed to update company", null);
 		}
 	}
 
 	@DeleteMapping("/{id}")
 	public Response<Void> deleteCompany(@PathVariable int id) {
-		    boolean deleted = companyService.deleteCompany(id);
-	    if (deleted) {
-	        return new Response<>(200, "Company  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete Company ", null);
-	    }
+		boolean deleted = companyService.deleteCompany(id);
+		if (deleted) {
+			return new Response<>(200, "Company  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete company ", null);
+		}
 	}
 
 	@PostMapping("/{companyId}/job")
@@ -86,7 +85,7 @@ public class CompanyController {
 		if (createjob != null) {
 			return new Response<>(200, "Job added successfully", createjob);
 		} else {
-			return new Response<>(404, "Failed to create Job", null);
+			return new Response<>(404, "Failed to create job", null);
 		}
 
 	}
@@ -97,7 +96,7 @@ public class CompanyController {
 		if (company != null) {
 			return new Response<>(200, "Location added successfully", company);
 		} else {
-			return new Response<>(404, "Failed to add Location", null);
+			return new Response<>(404, "Failed to add location", null);
 		}
 
 	}

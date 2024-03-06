@@ -52,7 +52,7 @@ public class JobController {
 		if (savejob != null) {
 			return new Response<>(200, "Job saved successfully", savejob);
 		} else {
-			return new Response<>(404, "Failed to save Job", null);
+			return new Response<>(404, "Failed to save job", null);
 		}
 	}
 
@@ -62,24 +62,24 @@ public class JobController {
 		if (updatejob != null) {
 			return new Response<>(200, "Job updated successfully", updatejob);
 		} else {
-			return new Response<>(404, "Failed to update Job", null);
+			return new Response<>(404, "Failed to update job", null);
 		}
 	}
 
 	@DeleteMapping("/{id}")
-	 public Response<Void> deleteJob(@PathVariable int id) {
+	public Response<Void> deleteJob(@PathVariable int id) {
 
-	 boolean deleted = jobService.deleteJob(id);
-	    if (deleted) {
-	        return new Response<>(200, "Job  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete job ", null);
-	    }
-	 }
+		boolean deleted = jobService.deleteJob(id);
+		if (deleted) {
+			return new Response<>(200, "Job  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete job ", null);
+		}
+	}
 
 	@GetMapping("/company/{companyId}")
 	public Response<List<Job>> getAllJobsByCompanyId(@PathVariable int companyId) {
-		// jobTitle="AAAAAAAAAA";
+
 		List<Job> jobs = jobService.findByCompanyId(companyId);
 		if (jobs.size() != 0) {
 			return new Response<>(200, "Success", jobs);

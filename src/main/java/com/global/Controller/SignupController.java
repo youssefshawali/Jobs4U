@@ -24,20 +24,20 @@ public class SignupController {
 	@PostMapping("/companySignup")
 	public Response<Company> companySignup(@RequestBody Company company) {
 		Company companysign = signupService.companySignup(company);
-		 if (companysign != null) {
-		        return new Response<>(200, "Company signed up successfully", companysign);
-		    } else {
-		        return new Response<>(404, "Failed to sign up company", null);
-		    }
+		if (companysign != null) {
+			return new Response<>(200, "Company signed up successfully", companysign);
+		} else {
+			return new Response<>(404, "Failed to sign up company", null);
+		}
 	}
 
 	@PostMapping("/userSignup")
 	public Response<User> userSignup(@RequestBody User user) {
 		User usersign = signupService.userSignup(user);
-		 if (usersign != null) {
-		        return new Response<>(200, "User signed up successfully", usersign);
-		    } else {
-		        return new Response<>(404, "Failed to sign up user", null);
-		    }
+		if (usersign != null) {
+			return new Response<>(200, "User signed up successfully", usersign);
+		} else {
+			return new Response<>(404, "Failed to sign up user", null);
+		}
 	}
 }

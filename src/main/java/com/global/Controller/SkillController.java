@@ -63,15 +63,14 @@ public class SkillController {
 			return new Response<>(404, "Failed to update skill", null);
 		}
 	}
-	
 
 	@DeleteMapping("/{id}")
 	public Response<Void> deleteSkill(@PathVariable int id) {
-	    boolean deleted = skillService.deleteSkill(id);
-	    if (deleted) {
-	        return new Response<>(200, "Skill  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete skill ", null);
-	    }
+		boolean deleted = skillService.deleteSkill(id);
+		if (deleted) {
+			return new Response<>(200, "Skill  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete skill ", null);
+		}
 	}
 }

@@ -44,17 +44,17 @@ public class IndustryController {
 		if (industry != null) {
 			return new Response<>(200, "Success", industry);
 		} else {
-			return new Response<>(404, "No industries found", null);
+			return new Response<>(404, "No industry found", null);
 		}
 	}
 
 	@PostMapping("/")
 	public Response<Industry> saveIndustry(@RequestBody Industry industry) {
-		Industry saveindustry =  industryService.insertIndustry(industry);
+		Industry saveindustry = industryService.insertIndustry(industry);
 		if (saveindustry != null) {
 			return new Response<>(200, "Industry saved successfully", saveindustry);
 		} else {
-			return new Response<>(404, "Failed to save Industry", null);
+			return new Response<>(404, "Failed to save industry", null);
 		}
 	}
 
@@ -64,19 +64,19 @@ public class IndustryController {
 		if (updateindustry != null) {
 			return new Response<>(200, "Industry updated successfully", updateindustry);
 		} else {
-			return new Response<>(404, "Failed to update Industry", null);
+			return new Response<>(404, "Failed to update industry", null);
 		}
 	}
 
 	@DeleteMapping("/{id}")
 	public Response<Void> deleteIndustry(@PathVariable int id) {
-		
-		 boolean deleted = industryService.deleteIndustry(id);
-	    if (deleted) {
-	        return new Response<>(200, "Industry  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete Industry ", null);
-	    }
+
+		boolean deleted = industryService.deleteIndustry(id);
+		if (deleted) {
+			return new Response<>(200, "Industry  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete industry ", null);
+		}
 	}
 
 }

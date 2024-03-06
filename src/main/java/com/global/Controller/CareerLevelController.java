@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.global.Entity.CareerLevel;
 import com.global.Services.CareerLevelService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/careerLevel")
 public class CareerLevelController {
@@ -23,27 +25,53 @@ public class CareerLevelController {
 	private CareerLevelService careerLevelService;
 	
 	@GetMapping("/")
-	public List<CareerLevel> getAllCareerLevels(){
-		return careerLevelService.getAllCareerLevels();
+	public Response<List<CareerLevel>> getAllCareerLevels(){
+		List<CareerLevel> careerLevels = careerLevelService.getAllCareerLevels();
+		if (careerLevels.size() != 0) {
+			return new Response<>(200, "Success", careerLevels);
+		} else {
+			return new Response<>(404, "No careerLevels found", null);
+		}
 	}
 	
 	@GetMapping("/{id}")
-	public CareerLevel getCareerLevel(@PathVariable int id) {
-		return careerLevelService.getCareerLevelById(id);
+	public Response<CareerLevel> getCareerLevel(@PathVariable int id) {
+		CareerLevel careerLevel=  careerLevelService.getCareerLevelById(id);
+		if (careerLevel != null) {
+			return new Response<>(200, "Success", careerLevel);
+		} else {
+			return new Response<>(404, "No careerLevels found", null);
+		}
 	}
 	
 	@PostMapping("/")
-	public CareerLevel saveCareerLevel (@RequestBody CareerLevel careerLevel) {
-		return careerLevelService.insertCareerLevel(careerLevel);
+	public Response<CareerLevel> saveCareerLevel (@RequestBody CareerLevel careerLevel) {
+		CareerLevel savecareerlevel = careerLevelService.insertCareerLevel(careerLevel);
+		if (savecareerlevel != null) {
+			return new Response<>(200, "CareerLevel saved successfully", savecareerlevel);
+		} else {
+			return new Response<>(404, "Failed to save careerLevel", null);
+		}
 	}
 	
 	@PutMapping("/")
-	public CareerLevel updateCareerLevel (@RequestBody CareerLevel careerLevel) {
-		return careerLevelService.updateCareerLevel(careerLevel);
+	public Response<CareerLevel> updateCareerLevel (@RequestBody CareerLevel careerLevel) {
+		CareerLevel updatecareerlevel = careerLevelService.updateCareerLevel(careerLevel);
+		 if (updatecareerlevel != null) {
+		        return new Response<>(200, "CareerLevel updated successfully", updatecareerlevel);
+		    } else {
+		        return new Response<>(404, "Failed to update careerLevel", null);
+		    }
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteCareerLevel(@PathVariable int id) {
-		careerLevelService.deleteCareerLevel(id);
+	public Response<Void> deleteCareerLevel(@PathVariable int id) {
+		
+		  boolean deleted = careerLevelService.deleteCareerLevel(id);
+		    if (deleted) {
+		        return new Response<>(200, "CareerLevel  deleted successfully", null);
+		    } else {
+		        return new Response<>(404, "Failed to delete careerLevel ", null);
+		    }
 	}
 }

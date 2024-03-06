@@ -20,7 +20,6 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 
-
 	@PostMapping("/")
 	public Response<Object> login(@RequestBody Login login) {
 		Object result = loginService.login(login.getEmail(), login.getPassword());

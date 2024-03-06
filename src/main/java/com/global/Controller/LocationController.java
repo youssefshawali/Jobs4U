@@ -50,7 +50,7 @@ public class LocationController {
 		if (savelocation != null) {
 			return new Response<>(200, "Location saved successfully", savelocation);
 		} else {
-			return new Response<>(404, "Failed to save skillLocation", null);
+			return new Response<>(404, "Failed to save location", null);
 		}
 	}
 
@@ -60,18 +60,18 @@ public class LocationController {
 		if (updatelocation != null) {
 			return new Response<>(200, "Location updated successfully", updatelocation);
 		} else {
-			return new Response<>(404, "Failed to update Location", null);
+			return new Response<>(404, "Failed to update location", null);
 		}
 	}
 
-	 @DeleteMapping("/{id}")
+	@DeleteMapping("/{id}")
 	public Response<Void> deleteLocation(@PathVariable int id) {
 
-	 boolean deleted =locationService.deleteLocation(id);
-		    if (deleted) {
-		        return new Response<>(200, "Location  deleted successfully", null);
-		    } else {
-		        return new Response<>(404, "Failed to delete Location ", null);
-		    }
-	 }
+		boolean deleted = locationService.deleteLocation(id);
+		if (deleted) {
+			return new Response<>(200, "Location  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete location ", null);
+		}
+	}
 }

@@ -16,37 +16,64 @@ import com.global.Entity.College;
 import com.global.Entity.Education;
 import com.global.Services.CollegeService;
 
+import ApiResponse.Response;
+
 @RestController
 @RequestMapping("/college")
 public class CollegeController {
 
 	@Autowired
 	private CollegeService collegeService;
-	
+
 	@GetMapping("/")
-	public List<College> getAllColleges(){
-		return collegeService.getAllColleges();
+	public Response<List<College>> getAllColleges() {
+		List<College> colleges = collegeService.getAllColleges();
+		if (colleges.size() != 0) {
+			return new Response<>(200, "Success", colleges);
+		} else {
+			return new Response<>(404, "No colleges found", null);
+		}
 	}
-	
+
 	@GetMapping("/{id}")
-	public College getCollege(@PathVariable int id) {
-		return collegeService.getCollegeById(id);
+	public Response<College> getCollege(@PathVariable int id) {
+		College college = collegeService.getCollegeById(id);
+		if (college != null) {
+			return new Response<>(200, "Success", college);
+		} else {
+			return new Response<>(404, "No college found", null);
+		}
 	}
-	
+
 	@PostMapping("/")
-	public College saveCollege (@RequestBody College college) {
-		return collegeService.insertCollege(college);
+	public Response<College> saveCollege(@RequestBody College college) {
+		College savecollege = collegeService.insertCollege(college);
+		if (savecollege != null) {
+			return new Response<>(200, "College saved successfully", savecollege);
+		} else {
+			return new Response<>(404, "Failed to save college", null);
+		}
 	}
-	
+
 	@PutMapping("/")
-	public College updateCollege (@RequestBody College college) {
-		return collegeService.updateCollege(college);
+	public Response<College> updateCollege(@RequestBody College college) {
+		College updatecollege = collegeService.updateCollege(college);
+		if (updatecollege != null) {
+			return new Response<>(200, "College updated successfully", updatecollege);
+		} else {
+			return new Response<>(404, "Failed to update college", null);
+		}
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteCollege(@PathVariable int id) {
-		collegeService.deleteCollege(id);
+	public Response<Void> deleteCollege(@PathVariable int id) {
+
+		boolean deleted = collegeService.deleteCollege(id);
+		if (deleted) {
+			return new Response<>(200, "College  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete college ", null);
+		}
 	}
-	
 
 }

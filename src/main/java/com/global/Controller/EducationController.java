@@ -64,15 +64,15 @@ public class EducationController {
 		}
 	}
 
-	 @DeleteMapping("/{id}")
-	 public Response<Void> deleteEducation(@PathVariable int id) {
+	@DeleteMapping("/{id}")
+	public Response<Void> deleteEducation(@PathVariable int id) {
 
-	 boolean deleted =educationService.deleteEducation(id);
-	    if (deleted) {
-	        return new Response<>(200, "Education  deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete Education ", null);
-	    }
+		boolean deleted = educationService.deleteEducation(id);
+		if (deleted) {
+			return new Response<>(200, "Education  deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete education ", null);
+		}
 	}
 
 }

@@ -50,11 +50,11 @@ public class UserController {
 
 	@PostMapping("/")
 	public  Response<User> saveUser(@RequestBody User user) {
-		User saveusers= userService.insertUser(user);
-		if (saveusers != null) {
-			return new Response<>(200, "User profile saved successfully", saveusers);
+		User saveuser= userService.insertUser(user);
+		if (saveuser != null) {
+			return new Response<>(200, "User  saved successfully", saveuser);
 		} else {
-			return new Response<>(404, "Failed to save user profile", null);
+			return new Response<>(404, "Failed to save user ", null);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class UserController {
 	public Response<String> applyForJob(@RequestParam int userId, @RequestParam int jobId) {
 		String applyjob = userService.applyForJob(userId, jobId);
 		 if (applyjob != null) {
-		        return new Response<>(200, "job applied successfully", applyjob);
+		        return new Response<>(200, "Job applied successfully", applyjob);
 		    } else {
 		        return new Response<>(404, "Failed to apply job", null);
 		    }

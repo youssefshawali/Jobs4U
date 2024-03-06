@@ -63,7 +63,7 @@ public class UserProfileController {
 
 	@PutMapping("/")
 	public Response<UserProfile> updateUserProfile(@RequestBody UserProfile userProfile) {
-		// System.out.println("ID qqqqqqqqqqqqqqqqq "+userProfile.getId());
+
 		UserProfile profile = userProfileService.updateUserProfile(userProfile);
 		if (profile != null) {
 			return new Response<>(200, "User profile updated successfully", profile);
@@ -74,20 +74,21 @@ public class UserProfileController {
 
 	@DeleteMapping("/{id}")
 	public Response<Void> deleteUserProfile(@PathVariable int id) {
-	    boolean deleted = userProfileService.deleteUserProfile(id);
-	    if (deleted) {
-	        return new Response<>(200, "User profile deleted successfully", null);
-	    } else {
-	        return new Response<>(404, "Failed to delete user profile", null);
-	    }
+		boolean deleted = userProfileService.deleteUserProfile(id);
+		if (deleted) {
+			return new Response<>(200, "User profile deleted successfully", null);
+		} else {
+			return new Response<>(404, "Failed to delete user profile", null);
+		}
 	}
+
 	@PostMapping("/{profileId}/experience")
 	public Response<Experience> createExperience(@PathVariable int profileId, @RequestBody Experience experience) {
-		Experience exper = userProfileService.createExperience(profileId, experience);
-		if (exper != null) {
-			return new Response<>(200, "Experience added successfully", exper);
+		Experience createexperience = userProfileService.createExperience(profileId, experience);
+		if (createexperience != null) {
+			return new Response<>(200, "Experience added successfully", createexperience);
 		} else {
-			return new Response<>(404, "Failed to create Experience", null);
+			return new Response<>(404, "Failed to create experience", null);
 		}
 
 	}
@@ -95,11 +96,11 @@ public class UserProfileController {
 	@PostMapping("/{profileId}/education")
 	public Response<Education> createEducation(@PathVariable int profileId, @RequestBody Education education) {
 
-		Education educ = userProfileService.createEducation(profileId, education);
-		if (educ != null) {
-			return new Response<>(200, "Education added successfully", educ);
+		Education createeducation = userProfileService.createEducation(profileId, education);
+		if (createeducation != null) {
+			return new Response<>(200, "Education added successfully", createeducation);
 		} else {
-			return new Response<>(404, "Failed to create Education", null);
+			return new Response<>(404, "Failed to create education", null);
 		}
 	}
 
@@ -107,7 +108,7 @@ public class UserProfileController {
 	public Response<UserProfile> createSkill(@PathVariable int profileId, @RequestBody List<Skill> skill) {
 		UserProfile profile = userProfileService.createSkill(profileId, skill);
 		if (profile != null) {
-			return new Response<>(200, "skill added successfully", profile);
+			return new Response<>(200, "Skill added successfully", profile);
 		} else {
 			return new Response<>(404, "Failed to create skill", null);
 		}
