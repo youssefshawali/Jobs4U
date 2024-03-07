@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.global.Entity.College;
 import com.global.Entity.Education;
+import com.global.Entity.UserProfile;
 import com.global.Repository.EducationRepo;
 import com.global.Services.CollegeService;
 import com.global.Services.EducationService;
@@ -82,6 +83,13 @@ public class EducationServiceImpl implements EducationService {
 					edu.setCollege(null);
 					collegeService.updateCollege(college);
 				}
+				UserProfile userProfile = edu.getUserProfile();
+				if(userProfile!=null){
+					userProfile.getEducation().remove(edu);
+					edu.setUserProfile(null);
+					
+				}
+				educationRepo.save(edu);
 				educationRepo.deleteById(id);
 				return true;
 			}

@@ -110,6 +110,18 @@ public class UserProfileServiceImpl implements UserProfileService {
 			if (userProfile.getEducation() != null) {
 				current.setEducation(userProfile.getEducation());
 			}
+			if (userProfile.getLanguages() != null) {
+				current.setLanguages(userProfile.getLanguages());
+			}
+			if (userProfile.getSkills() != null) {
+				current.setSkills(userProfile.getSkills());
+			}
+			if (userProfile.getCvFile() != null) {
+				current.setCvFile(userProfile.getCvFile());
+			}
+			
+			
+			
 //		current.setUser(userProfile.getUser());
 
 			return userProfileRepo.save(current);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.global.Entity.Experience;
 import com.global.Entity.Location;
+import com.global.Entity.UserProfile;
 import com.global.Repository.ExperienceRepo;
 import com.global.Services.ExperienceService;
 import com.global.Services.LocationService;
@@ -79,14 +80,19 @@ public class ExperienceServiceImpl implements ExperienceService {
 		try {
 			Experience exp = getExperienceById(id);
 			if (exp != null) {
-				Location loc =locationService.getLocationById(exp.getCompanyLocation().getId());
+				Location loc =exp.getCompanyLocation();
 				if (loc != null) {
 					loc.setExperience(null);
-					exp.setCompanyLocation(null);
 					locationService.updateLocation(loc);
 					locationService.deleteLocation(loc.getId());
-					experienceRepo.save(exp);
 				}
+				UserProfile userProfile = exp.getUserProfile();
+				if(userProfile!=null){
+					userProfile.getExperience().remove(exp);
+					exp.setUserProfile(null);
+					
+				}
+				experienceRepo.save(exp);
 				experienceRepo.deleteById(id);
 				return true;
 			}
@@ -94,7 +100,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 			return false;
 			
 		} catch (Exception e) {
-			System.err.println("Cant Delete City For ID: " + id + "\n" + e);
+			System.err.println("Cant Delete Experience For ID: " + id + "\n" + e);
 			return false;
 		}
 	}
