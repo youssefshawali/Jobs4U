@@ -24,7 +24,8 @@ public class CareerLevelServiceImpl implements CareerLevelService {
 		try {
 			return careerLevelRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Career Levels " + e);
+			System.err.println("Error Getting All Career Levels " + e);
+			return null;
 		}
 	}
 
@@ -34,7 +35,8 @@ public class CareerLevelServiceImpl implements CareerLevelService {
 		try {
 			return careerLevelRepo.save(careerLevel);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Career Level " + e);
+			System.err.println("Error Adding Career Level " + e);
+			return null;
 		}
 
 	}
@@ -81,7 +83,8 @@ public class CareerLevelServiceImpl implements CareerLevelService {
 		if (careerLevel.isPresent()) {
 			return careerLevel.get();
 		}
-		throw new RuntimeException("CareerLevel Not Fond");
+		System.err.println("CareerLevel Not Fond");
+		return null;
 
 	}
 

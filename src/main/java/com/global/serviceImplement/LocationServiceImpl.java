@@ -25,7 +25,8 @@ public class LocationServiceImpl implements LocationService {
 		try {
 			return locationRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Locations " + e);
+			System.err.println("Error Getting All Locations " + e);
+			return null;
 		}
 	}
 
@@ -37,7 +38,8 @@ public class LocationServiceImpl implements LocationService {
 			location.setCity(city);
 			return locationRepo.save(location);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Location " + e);
+			System.err.println("Error Adding Location " + e);
+			return null;
 		}
 
 	}
@@ -106,15 +108,16 @@ public class LocationServiceImpl implements LocationService {
 		if (location.isPresent()) {
 			return location.get();
 		}
-		throw new RuntimeException("Location Not Fond");
+		System.err.println("Location Not Fond");
+		return null;
 	}
 
 	public List<Location> getLocationByCompanyId(int companyId) {
 		try {
 			return locationRepo.findByCompany_Id(companyId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Locations For This Company ID: " + companyId + " \n" + e);
-		}
+			System.err.println("Error Getting All Locations For This Company ID: " + companyId + " \n" + e);
+			return null;		}
 	}
 
 }

@@ -33,7 +33,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 		try {
 			return userProfileRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Profiles " + e);
+			System.err.println("Error Getting All Profiles " + e);
+			return null;
 		}
 
 	}
@@ -85,7 +86,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 		try {
 			return userProfileRepo.save(userProfile);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Profile " + e);
+			System.err.println("Error Adding Profile " + e);
+			return null;
 		}
 
 	}
@@ -141,7 +143,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 		if (userProfile.isPresent()) {
 			return userProfile.get();
 		}
-		throw new RuntimeException("Profile Not Fond");
+		System.err.println("Profile Not Fond");
+		return null;
 
 	}
 
@@ -153,7 +156,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 			experience.setUserProfile(userProfile);
 			return experienceService.insertExperience(experience);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding New Experience For Profile ID: " + profileId + "\n" + e);
+			System.err.println("Error Adding New Experience For Profile ID: " + profileId + "\n" + e);
+			return null;
 		}
 	}
 
@@ -165,7 +169,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 			education.setUserProfile(userProfile);
 			return educationService.insertEducation(education);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding New Education For Profile ID: " + profileId + "\n" + e);
+			System.err.println("Error Adding New Education For Profile ID: " + profileId + "\n" + e);
+			return null;
 		}
 	}
 
@@ -199,7 +204,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 			userProfile.setSkills(skills);
 			return updateUserProfile(userProfile);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding New Skills For Profile ID: " + profileId + "\n" + e);
+			System.err.println("Error Adding New Skills For Profile ID: " + profileId + "\n" + e);
+			return null;
 
 		}
 

@@ -21,7 +21,8 @@ public class QualificationServiceImpl implements QualificationService {
 		try {
 			return qualificationRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Qualifications " + e);
+			System.err.println("Error Getting All Qualifications " + e);
+			return null;
 		}
 	}
 
@@ -31,7 +32,8 @@ public class QualificationServiceImpl implements QualificationService {
 		try {
 			return qualificationRepo.save(qualification);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Qualification " +e);
+			System.err.println("Error Adding Qualification " + e);
+			return null;
 		}
 	}
 
@@ -75,7 +77,8 @@ public class QualificationServiceImpl implements QualificationService {
 		if (qualification.isPresent()) {
 			return qualification.get();
 		}
-		throw new RuntimeException("Qualification Not Fond");
+		System.err.println("Qualification Not Fond");
+		return null;
 	}
 
 }

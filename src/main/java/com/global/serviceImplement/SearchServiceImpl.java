@@ -48,7 +48,8 @@ public class SearchServiceImpl implements SearchService {
 					qualification, careerLevels));
 			return list;
 		} catch (Exception e) {
-			throw new RuntimeException("Error Searching For The " + e);
+			System.err.println("Error Searching For The " + e);
+			return null;
 		}
 	}
 

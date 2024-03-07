@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 public class Industry {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	@JsonIgnore

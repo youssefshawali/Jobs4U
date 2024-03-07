@@ -27,7 +27,8 @@ public class IndustryServiceImpl implements IndustryService {
 		try {
 			return industryRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Industries " + e);
+			System.err.println("Error Getting All Industries " + e);
+			return null;
 		}
 
 	}
@@ -38,7 +39,8 @@ public class IndustryServiceImpl implements IndustryService {
 		try {
 			return industryRepo.save(industry);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Industry " + e);
+			System.err.println("Error Adding Industry " + e);
+			return null;
 		}
 	}
 
@@ -87,7 +89,8 @@ public class IndustryServiceImpl implements IndustryService {
 		if (industry.isPresent()) {
 			return industry.get();
 		}
-		throw new RuntimeException("Industry Not Fond");
+		System.err.println("Industry Not Fond");
+		return null;
 
 	}
 }

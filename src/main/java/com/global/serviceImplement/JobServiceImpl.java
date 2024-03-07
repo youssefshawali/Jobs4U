@@ -143,7 +143,8 @@ public class JobServiceImpl implements JobService {
 		if (job.isPresent()) {
 			return job.get();
 		}
-		throw new RuntimeException("Job Not Fond");
+		System.err.println("Job Not Fond");
+		return null;
 	}
 
 	@Override
@@ -151,7 +152,8 @@ public class JobServiceImpl implements JobService {
 		try {
 			return jobRepo.findByCompany_Id(companyId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Jobs For This Company ID: " + companyId + " \n" + e);
+			System.err.println("Error Getting All Jobs For This Company ID: " + companyId + " \n" + e);
+			return null;
 		}
 	}
 
@@ -161,9 +163,9 @@ public class JobServiceImpl implements JobService {
 		try {
 			return jobRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Jobs " + e);
+			System.err.println("Error Getting All Jobs " + e);
+			return null;
 		}
-
 	}
 
 	@Override
@@ -174,7 +176,8 @@ public class JobServiceImpl implements JobService {
 			return jobRepo.findBySearchFilters(title, workingHour, workPlace, experience, skills, target, qualification,
 					careerLevel);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Searching For Job Title " + title + "\n" + e);
+			System.err.println("Error Searching For Job Title " + title + "\n" + e);
+			return null;
 		}
 	}
 
@@ -183,7 +186,8 @@ public class JobServiceImpl implements JobService {
 		try {
 			return jobRepo.findByApplicantsId(userId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Applied Jobs For This User ID: " + userId + " \n" + e);
+			System.err.println("Error Getting All Applied Jobs For This User ID: " + userId + " \n" + e);
+			return null;
 		}
 
 	}

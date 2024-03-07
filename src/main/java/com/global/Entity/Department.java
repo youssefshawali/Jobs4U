@@ -19,7 +19,7 @@ import jakarta.persistence.GenerationType;
 public class Department {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String field;
 	@JsonIgnore

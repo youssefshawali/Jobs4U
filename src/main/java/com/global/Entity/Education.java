@@ -20,7 +20,7 @@ import jakarta.persistence.GenerationType;
 public class Education {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; 
 	private int startYear;
 	private int endYear;

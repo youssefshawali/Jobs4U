@@ -50,7 +50,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			return userRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Users " + e);
+			System.err.println("Error Getting All Users " + e);
+			return null;
 		}
 
 	}
@@ -96,7 +97,8 @@ public class UserServiceImpl implements UserService {
 
 			return userProfileService.insertUserProfile(userProfile);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding User Profile For User ID: " + userId + "\n" + e);
+			System.err.println("Error Adding User Profile For User ID: " + userId + "\n" + e);
+			return null;
 		}
 	}
 
@@ -186,7 +188,8 @@ public class UserServiceImpl implements UserService {
 		if (user.isPresent()) {
 			return user.get();
 		}
-		throw new RuntimeException("User Not Fond");
+		System.err.println("User Not Fond");
+		return null;
 
 	}
 

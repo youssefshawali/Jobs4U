@@ -25,7 +25,8 @@ public class UniversityServiceImpl implements UniversityService {
 		try {
 			return universityRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Universities " + e);
+			System.err.println("Error Getting All Universities " + e);
+			return  null;
 		}
 
 	}
@@ -36,7 +37,8 @@ public class UniversityServiceImpl implements UniversityService {
 		try {
 			return universityRepo.save(university);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding University " +e);
+			System.err.println("Error Adding University " +e);
+			return null;
 		}
 
 	}
@@ -78,7 +80,8 @@ public class UniversityServiceImpl implements UniversityService {
 		if (university.isPresent()) {
 			return university.get();
 		}
-		throw new RuntimeException("University Not Fond");
+		System.err.println("University Not Fond");
+		return null;
 	}
 
 	@Override
@@ -88,7 +91,8 @@ public class UniversityServiceImpl implements UniversityService {
 		college.setUniversity(university);
 		return collegeService.insertCollege(college);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding College For This University ID: " + e);
+			System.err.println("Error Adding College For This University ID: " + e);
+			return null;
 		}
 	}
 
@@ -97,7 +101,8 @@ public class UniversityServiceImpl implements UniversityService {
 		try {
 			return collegeService.getUniverstyColleges(uId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Colleges For This University ID: " + uId + " \n" + e);
+			System.err.println("Error Getting All Colleges For This University ID: " + uId + " \n" + e);
+			return null;
 		}
 	}
 }

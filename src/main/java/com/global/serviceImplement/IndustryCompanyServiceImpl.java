@@ -40,11 +40,6 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 	@Autowired
 	private LocationService locationService;
 
-	
-
-		
-
-
 	@Override
 	public boolean deleteCompany(int id) {
 		// TODO Auto-generated method stub
@@ -88,7 +83,8 @@ public class IndustryCompanyServiceImpl implements IndustryCompanyService {
 		if (company.isPresent()) {
 			return company.get();
 		}
-		throw new RuntimeException("Company Not Fond");
+		System.err.println("Company Not Fond");
+		return null;
 	}
 
 	

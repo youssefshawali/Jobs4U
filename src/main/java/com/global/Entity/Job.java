@@ -23,7 +23,7 @@ import jakarta.persistence.GenerationType;
 public class Job {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String jobTitle;
 	private String description;

@@ -29,10 +29,10 @@ public class LoginServiceImpl implements LoginService {
 		Company company = companyRepo.findByEmail(email);
 
 		if (company != null) {
-			if (verifyPassword(password,company.getPassword())){
+			if (verifyPassword(password, company.getPassword())) {
 				return company;
 			} else {
-				throw new Error("Company password isnt correct");
+				System.err.println("Company password isnt correct");
 			}
 		}
 		return null;
@@ -44,13 +44,14 @@ public class LoginServiceImpl implements LoginService {
 
 		if (user != null) {
 //			System.out.println("Saved Password " + user.getPassword() + " Login Password " + password);
-			if (verifyPassword(password,user.getPassword())) {
+			if (verifyPassword(password, user.getPassword())) {
 				return user;
 			} else {
-				throw new Error("User password isnt correct");
+				System.err.println("User password isnt correct");
+
 			}
 		}
-		return user;
+		return null;
 	}
 
 	public Object login(String email, String password) {
@@ -63,10 +64,10 @@ public class LoginServiceImpl implements LoginService {
 		else
 			return null;
 	}
-	
+
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	public boolean verifyPassword(String savedPassword, String loginPassword) {
-	    return encoder.matches(savedPassword, loginPassword);
+		return encoder.matches(savedPassword, loginPassword);
 	}
 }

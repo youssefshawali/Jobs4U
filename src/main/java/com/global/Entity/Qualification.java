@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Qualification {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String degree;// phd etc.
 	@JsonIgnore

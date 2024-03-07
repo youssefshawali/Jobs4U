@@ -20,7 +20,8 @@ public class SkillServiceImpl implements SkillService {
 		try {
 			return skillRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Skills " + e);
+			System.err.println("Error Getting All Skills " + e);
+			return null;
 		}
 	}
 
@@ -30,7 +31,8 @@ public class SkillServiceImpl implements SkillService {
 		try {
 			return skillRepo.save(skill);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Skill " +e);
+			System.err.println("Error Adding Skill " + e);
+			return null;
 		}
 	}
 
@@ -77,7 +79,8 @@ public class SkillServiceImpl implements SkillService {
 		if (skill.isPresent()) {
 			return skill.get();
 		}
-		throw new RuntimeException("Skill Not Fond");
+		System.err.println("Skill Not Fond");
+		return null;
 	}
 
 }

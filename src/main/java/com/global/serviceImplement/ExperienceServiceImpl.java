@@ -26,7 +26,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 		try {
 			return experienceRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Experiences " + e);
+			System.err.println("Error Getting All Experiences " + e);
+			return null;
 		}
 	}
 
@@ -36,7 +37,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 		try {
 			return experienceRepo.save(experience);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Experience " +e);
+			System.err.println("Error Adding Experience " +e);
+			return null;
 		}
 
 	}
@@ -112,7 +114,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 		if (experience.isPresent()) {
 			return experience.get();
 		}
-		throw new RuntimeException("Experience Not Fond");
+		System.err.println("Experience Not Fond");
+		return null;
 
 	}
 

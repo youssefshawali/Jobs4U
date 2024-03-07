@@ -16,7 +16,7 @@ public class CityServiceImpl implements CityService {
 
 	@Autowired
 	private CityRepo cityRepo;
-	
+
 	@Autowired
 	GovernmentRepo governmentRepo;
 
@@ -26,7 +26,8 @@ public class CityServiceImpl implements CityService {
 		try {
 			return cityRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Cities " + e);
+			System.err.println("Error Getting All Cities " + e);
+			return null;
 		}
 
 	}
@@ -37,7 +38,8 @@ public class CityServiceImpl implements CityService {
 		try {
 			return cityRepo.save(city);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding City " +e);
+			System.err.println("Error Adding City " + e);
+			return null;
 		}
 
 	}
@@ -87,7 +89,8 @@ public class CityServiceImpl implements CityService {
 		if (city.isPresent()) {
 			return city.get();
 		}
-		throw new RuntimeException("City Not Fond");
+		System.err.println("City Not Fond");
+		return null;
 
 	}
 
@@ -96,7 +99,8 @@ public class CityServiceImpl implements CityService {
 		try {
 			return cityRepo.findByGovernment_Id(governmentId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Cities For This Governorate ID: " + governmentId + " \n" + e);
+			System.err.println("Error Getting All Cities For This Governorate ID: " + governmentId + " \n" + e);
+			return null;
 		}
 	}
 }

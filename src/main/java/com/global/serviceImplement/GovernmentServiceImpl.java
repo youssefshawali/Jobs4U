@@ -27,7 +27,8 @@ public class GovernmentServiceImpl implements GovernmentService {
 		try {
 			return governmentRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Governorates " + e);
+			System.err.println("Error Getting All Governorates " + e);
+			return null;
 		}
 	}
 
@@ -37,7 +38,8 @@ public class GovernmentServiceImpl implements GovernmentService {
 		try {
 			return governmentRepo.save(government);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Governorate " + e);
+			System.err.println("Error Adding Governorate " + e);
+			return null;
 		}
 	}
 
@@ -78,7 +80,8 @@ public class GovernmentServiceImpl implements GovernmentService {
 		if (government.isPresent()) {
 			return government.get();
 		}
-		throw new RuntimeException("Governorate Not Fond");
+		System.err.println("Governorate Not Fond");
+		return null;
 	}
 
 	public City createCity(int governmentId, City city) {
@@ -87,16 +90,18 @@ public class GovernmentServiceImpl implements GovernmentService {
 			city.setGovernment(government);
 			return cityService.insertCity(city);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding City For Governorate ID: " + e);
+			System.err.println("Error Adding City For Governorate ID: " + e);
+			return null;
 		}
 	}
 
 	@Override
 	public List<City> getAllGovCities(int govId) {
 		try {
-		return cityService.getCityByGovernmentId(govId);
+			return cityService.getCityByGovernmentId(govId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Cities For This Governorate ID: " + govId + " \n" + e);
+			System.err.println("Error Getting All Cities For This Governorate ID: " + govId + " \n" + e);
+			return null;
 		}
 	}
 }

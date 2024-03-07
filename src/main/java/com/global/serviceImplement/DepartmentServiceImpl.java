@@ -21,7 +21,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 		try {
 			return departmentRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Departments " + e);
+			System.err.println("Error Getting All Departments " + e);
+			return null;
 		}
 	}
 
@@ -31,7 +32,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 		try {
 			return departmentRepo.save(department);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Department " + e);
+			System.err.println("Error Adding Department " + e);
+			return null;
 		}
 	}
 
@@ -76,6 +78,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		if (department.isPresent()) {
 			return department.get();
 		}
-		throw new RuntimeException("Department Not Fond");
+		System.err.println("Department Not Fond");
+		return null;
 	}
 }

@@ -17,7 +17,7 @@ import jakarta.persistence.GenerationType;
 public class CareerLevel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String level;// senior,junior
 	@JsonIgnore

@@ -62,7 +62,8 @@ public class CompanyServiceImpl implements CompanyService {
 			setCompanyLocations(company);
 			return companyRepo.save(company);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Company " + e);
+			System.err.println("Error Adding Company " + e);
+			return null;
 		}
 
 	}
@@ -163,7 +164,8 @@ public class CompanyServiceImpl implements CompanyService {
 		if (company.isPresent()) {
 			return company.get();
 		}
-		throw new RuntimeException("Company Not Fond");
+		System.err.println("Company Not Fond");
+		return null;
 	}
 
 	@Override
@@ -180,7 +182,8 @@ public class CompanyServiceImpl implements CompanyService {
 			addJobDepartment(job);
 			return jobService.insertJob(job);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Job " + e);
+			System.err.println("Error Adding Job " + e);
+			return null;
 		}
 
 	}
@@ -200,7 +203,8 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 			return company;
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding New Company Location For ID: " + companyId + "\n" + e);
+			System.err.println("Error Adding New Company Location For ID: " + companyId + "\n" + e);
+			return null;
 		}
 	}
 
@@ -219,7 +223,7 @@ public class CompanyServiceImpl implements CompanyService {
 				company.setLocations(locations);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error Setting Company Location " + e);
+			System.err.println("Error Setting Company Location " + e);
 		}
 	}
 
@@ -236,7 +240,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Job Career Levels " + e);
+			System.err.println("Error Adding Job Career Levels " + e);
 		}
 	}
 
@@ -252,7 +256,7 @@ public class CompanyServiceImpl implements CompanyService {
 				job.setSkills(savedSkillList);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Job Skills " + e);
+			System.err.println("Error Adding Job Skills " + e);
 		}
 	}
 
@@ -268,7 +272,7 @@ public class CompanyServiceImpl implements CompanyService {
 				job.setQualification(savedQualificationList);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Job Qualifications " + e);
+			System.err.println("Error Adding Job Qualifications " + e);
 		}
 	}
 
@@ -279,7 +283,7 @@ public class CompanyServiceImpl implements CompanyService {
 				job.setLocation(location);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Job Location " + e);
+			System.err.println("Error Adding Job Location " + e);
 		}
 	}
 
@@ -290,7 +294,7 @@ public class CompanyServiceImpl implements CompanyService {
 				job.setDepartment(department);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error Adding Job Department " + e);
+			System.err.println("Error Adding Job Department " + e);
 		}
 	}
 
@@ -299,7 +303,8 @@ public class CompanyServiceImpl implements CompanyService {
 		try {
 			return companyRepo.findAll();
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Companies " + e);
+			System.err.println("Error Getting All Companies " + e);
+		return null;
 		}
 	}
 
@@ -308,7 +313,8 @@ public class CompanyServiceImpl implements CompanyService {
 		try {
 			return locationService.getLocationByCompanyId(companyId);
 		} catch (Exception e) {
-			throw new RuntimeException("Error Getting All Locations For This Company ID: " + companyId + " \n" + e);
+			System.err.println("Error Getting All Locations For This Company ID: " + companyId + " \n" + e);
+			return null;
 		}
 	}
 }

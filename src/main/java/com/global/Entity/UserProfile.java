@@ -27,7 +27,7 @@ import jakarta.persistence.Transient;
 @Table(name = "User_Profile")
 public class UserProfile {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String currentJobTitle;
 	private String bio;
