@@ -52,25 +52,63 @@ public class JobServiceImpl implements JobService {
 		// TODO Auto-generated method stub
 		Job current = jobRepo.findById(job.getId()).orElseThrow();
 		try {
-			current.setJobTitle(job.getJobTitle());
-			current.setDescription(job.getDescription());
-			current.setRequirments(job.getRequirments());
-			current.setExperience(job.getExperience());
-			current.setWorkHours(job.getWorkHours());
-			current.setWorkPlaceType(job.getWorkPlaceType());
-			current.setCategory(job.getCategory());
-			current.setStatus(job.getStatus());
-			current.setApplicantsCount(job.getApplicantsCount());
-			current.setDateTime();
-			current.setLocation(job.getLocation());
-			current.setCompany(job.getCompany());
-			current.setQualification(job.getQualification());
-			current.setDepartment(job.getDepartment());
-			current.setCareerLevels(job.getCareerLevels());
-			current.setSkills(job.getSkills());
-			current.setApplicants(job.getApplicants());
-			current.setTarget(job.getTarget());
-			return jobRepo.save(current);
+
+			    if (job.getJobTitle() != null) {
+			        current.setJobTitle(job.getJobTitle());
+			    }
+			    if (job.getDescription() != null) {
+			        current.setDescription(job.getDescription());
+			    }
+			    if (job.getRequirments() != null) {
+			        current.setRequirments(job.getRequirments());
+			    }
+			    if (job.getExperience() != 0) {
+			        current.setExperience(job.getExperience());
+			    }
+			    if (job.getWorkHours() != null) {
+			        current.setWorkHours(job.getWorkHours());
+			    }
+			    if (job.getWorkPlaceType() != null) {
+			        current.setWorkPlaceType(job.getWorkPlaceType());
+			    }
+			    if (job.getCategory() != null) {
+			        current.setCategory(job.getCategory());
+			    }
+			    if (job.getStatus() != null) {
+			        current.setStatus(job.getStatus());
+			    }
+			    if (job.getApplicantsCount() != 0) {
+			        current.setApplicantsCount(job.getApplicantsCount());
+			    }
+			    if (job.getDateTime() != null) {
+			        current.setDateTime();
+			    }
+			    if (job.getLocation() != null) {
+			        current.setLocation(job.getLocation());
+			    }
+			    if (job.getCompany() != null) {
+			        current.setCompany(job.getCompany());
+			    }
+			    if (job.getQualification() != null) {
+			        current.setQualification(job.getQualification());
+			    }
+			    if (job.getDepartment() != null) {
+			        current.setDepartment(job.getDepartment());
+			    }
+			    if (job.getCareerLevels() != null) {
+			        current.setCareerLevels(job.getCareerLevels());
+			    }
+			    if (job.getSkills() != null) {
+			        current.setSkills(job.getSkills());
+			    }
+			    if (job.getApplicants() != null) {
+			        current.setApplicants(job.getApplicants());
+			    }
+			    if (job.getTarget() != null) {
+			        current.setTarget(job.getTarget());
+			    }
+
+			    return jobRepo.save(current);
 
 		} catch (NoSuchElementException e) {
 			// Handle the case where the experience with the given ID is not found
